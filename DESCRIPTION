@@ -1,0 +1,21 @@
+Package: projthis
+Title: Lightweight Dependency-Manager for Projects
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Ian J",
+           family = "Lyttle",
+           role = c("aut", "cre"),
+           email = "ian.lyttle@schneider-electric.com",
+           comment = c(ORCID = "0000-0001-9962-4849"))
+Description: One of the barriers to making projects portable is dependency
+  management. The goal of this package to provide a lightweight solution, 
+  using the DESCRIPTION file. This is the same mechanism used to manage
+  dependencies for packages; it is subject to the same limitation: the project 
+  will run using the latest version of all its dependencies. The functionality
+  of this package lies somewhere between {usethis} and {renv}, hence the 
+  thought to create yet another package.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
