@@ -23,6 +23,8 @@ URL: https://github.com/ijlyttle/projthis
 BugReports: https://github.com/ijlyttle/projthis/issues
 Imports: 
     usethis,
+    remotes,
     renv
 Suggests: 
-    testthat
+    testthat,
+    pkgdown
