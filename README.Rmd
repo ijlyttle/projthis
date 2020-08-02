@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # projthis
 
 <!-- badges: start -->
+[![R build status](https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg)](https://github.com/ijlyttle/projthis/actions)
 <!-- badges: end -->
 
 One of the barriers to making projects portable is dependency management. The goal of this package to provide a lightweight solution, using the DESCRIPTION file. This is the same mechanism used to manage dependencies for packages; it is subject to the same limitation: the project will run using the latest version of all its dependencies. The functionality of this package lies somewhere between [usethis](https://usethis.r-lib.org/) and [renv](https://rstudio.github.io/renv), hence the thought to create yet another package.
