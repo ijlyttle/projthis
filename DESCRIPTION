@@ -24,3 +24,5 @@ BugReports: https://github.com/ijlyttle/projthis/issues
 Imports: 
     usethis,
     renv
+Suggests: 
+    testthat

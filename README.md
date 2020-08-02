@@ -5,6 +5,10 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/projthis)](https://CRAN.R-project.org/package=projthis)
+[![R build
+status](https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg)](https://github.com/ijlyttle/projthis/actions)
 <!-- badges: end -->
 
 One of the barriers to making projects portable is dependency
