@@ -24,7 +24,11 @@ BugReports: https://github.com/ijlyttle/projthis/issues
 Imports: 
     usethis,
     remotes,
-    renv
+    renv,
+    desc,
+    fs,
+    withr
 Suggests: 
     testthat,
     pkgdown
+Config/testthat/edition: 3 
