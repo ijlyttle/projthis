@@ -1,7 +1,7 @@
 testthat_dir <- getwd()
 
 # create dummy project
-tempdir <- fs::path(tempdir(), "foobar")
+tempdir <- fs::path(tempdir(), "projthis-deps")
 
 # create project
 suppressMessages(
@@ -13,7 +13,7 @@ withr::local_dir(tempdir)
 withr::local_options(list(usethis.quiet = TRUE))
 
 # create a description file
-usethis::use_description()
+usethis::use_description(check_name = FALSE)
 
 # add a dependency
 usethis::use_package("desc")

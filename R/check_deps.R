@@ -17,7 +17,7 @@
 #' @return Invisible `NULL`, called for side effects.
 #'
 #' @examples
-#' # not run because it evokes side-effects
+#' # not run because it evokes side effects
 #' if (FALSE) {
 #'
 #'   # check DESCRIPTION for missing and extra dependencies
