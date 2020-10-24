@@ -45,6 +45,12 @@ test_that("proj_check_deps works", {
 
 })
 
+test_that("update_check_deps works", {
+
+  # expect_snapshot_output(proj_update_deps())
+
+})
+
 # delete project directory
 unlink(tempdir)
 
