@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Dependency-Manager for Projects
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Ian J",
            family = "Lyttle",
@@ -24,7 +24,18 @@ BugReports: https://github.com/ijlyttle/projthis/issues
 Imports: 
     usethis,
     remotes,
-    renv
+    renv,
+    desc,
+    fs,
+    withr,
+    purrr,
+    cli,
+    crayon,
+    glue
 Suggests: 
     testthat,
-    pkgdown
+    pkgdown,
+    rmarkdown,
+    knitr
+Remotes: r-lib/testthat
+Config/testthat/edition: 3 
