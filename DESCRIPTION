@@ -37,4 +37,5 @@ Suggests:
     pkgdown,
     rmarkdown,
     knitr
+Remotes: r-lib/testthat
 Config/testthat/edition: 3 
