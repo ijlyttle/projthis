@@ -73,5 +73,5 @@ test_that("extra_deps works", {
 })
 
 # delete project directory
-fs::dir_delete(tempdir)
+unlink(tempdir)
 
