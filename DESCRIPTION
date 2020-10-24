@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Dependency-Manager for Projects
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person(given = "Ian J",
            family = "Lyttle",
