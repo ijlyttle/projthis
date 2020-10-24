@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check or update dependencies — proj_check_deps • projthis</title>
+<title>Changelog • projthis</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,7 @@
 
 
 
-<meta property="og:title" content="Check or update dependencies — proj_check_deps" />
-<meta property="og:description" content="This uses renv::dependencies(), which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the DESCRIPTION to determine
-missing and extra packages.
-
-proj_check_deps()Prints missing and extra dependencies.
-proj_update_deps()Updates DESCRIPTION with missing and
-extra dependencies.
-
-
-" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -69,7 +58,7 @@ extra dependencies.
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -121,60 +110,27 @@ extra dependencies.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check or update dependencies</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/check_deps.R'><code>R/check_deps.R</code></a></small>
-    <div class="hidden name"><code>proj_check_deps.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/ijlyttle/projthis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>This uses <code><a href='https://rstudio.github.io/renv//reference/dependencies.html'>renv::dependencies()</a></code>, which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the <code>DESCRIPTION</code> to determine
-missing and extra packages.</p>
-<dl>
-<dt>proj_check_deps()</dt><dd><p>Prints missing and extra dependencies.</p></dd>
-<dt>proj_update_deps()</dt><dd><p>Updates DESCRIPTION with missing and
-extra dependencies.</p></dd>
-
-</dl>
-
-    </div>
-
-    <pre class="usage"><span class='fu'>proj_check_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>proj_update_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>path</th>
-      <td><p><code>character</code>, path to the project-root directory.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Invisible <code>NULL</code>, called for side effects.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># not run because it evokes side effects</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-
-  <span class='co'># check DESCRIPTION for missing and extra dependencies</span>
-  <span class='fu'>proj_check_deps</span><span class='op'>(</span><span class='op'>)</span>
-
-  <span class='co'># update DESCRIPTION with missing and extra dependencies</span>
-  <span class='fu'>proj_update_deps</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-
-</div></pre>
+    <div id="projthis-000-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0">
+<a href="#projthis-000-development-version" class="anchor"></a>projthis 0.0.0 (development version)</h1>
+<ul>
+<li><p>Added <code><a href="../reference/proj_use_description.html">proj_use_description()</a></code> to add a DESCRIPION file to a project. (<a href='https://github.com/ijlyttle/projthis/issues/4'>#4</a>)</p></li>
+<li><p>Added <code><a href="../reference/proj_check_deps.html">proj_check_deps()</a></code> and <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code> to manage dependencies. (<a href='https://github.com/ijlyttle/projthis/issues/2'>#2</a>)</p></li>
+<li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
