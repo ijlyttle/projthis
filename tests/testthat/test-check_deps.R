@@ -47,7 +47,18 @@ test_that("proj_check_deps works", {
 
 test_that("update_check_deps works", {
 
-  # expect_snapshot_output(proj_update_deps())
+  # update dependencies
+  expect_snapshot_output(proj_update_deps())
+
+  # ensure nothing missing or extra
+  expect_identical(
+    check_deps(),
+    list(missing = character(0), extra = character(0))
+  )
+
+  # make sure output works (nothing messing or extra)
+  expect_snapshot_output(proj_check_deps())
+  expect_snapshot_output(proj_update_deps())
 
 })
 

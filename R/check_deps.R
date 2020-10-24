@@ -21,6 +21,38 @@ proj_check_deps <- function(path = usethis::proj_get()) {
   diff <- check_deps(path)
 
   str_missing <-
+    glue::glue_collapse(crayon::blue(diff[["missing"]]), sep = ", ")
+  str_extra <-
+    glue::glue_collapse(crayon::blue(diff[["extra"]]), sep = ", ")
+
+  has_missing <- as.logical(length(diff[["missing"]]))
+  has_extra <- as.logical(length(diff[["extra"]]))
+
+  if (has_missing) {
+    pui_oops(c("Missing dependencies in DESCRIPTION:", "   {str_missing}"))
+  } else {
+    pui_done("No dependencies missing in DESCRIPTION.")
+  }
+
+  if (has_extra) {
+    pui_info(c("Extra dependencies in DESCRIPTION:", "   {str_extra}"))
+  } else {
+    pui_done("No extra dependencies in DESCRIPTION.")
+  }
+
+  if (has_missing || has_extra) {
+    code <- usethis::ui_code("proj_update_deps()")
+    pui_todo("To update dependencies in DESCRIPTION automatically, run {code}.")
+  }
+
+  invisible(NULL)
+}
+
+proj_update_deps <- function(path = usethis::proj_get()) {
+
+  diff <- check_deps(path)
+
+  str_missing <-
     glue::glue_collapse(crayon::green(diff[["missing"]]), sep = ", ")
   str_extra <-
     glue::glue_collapse(crayon::green(diff[["extra"]]), sep = ", ")
@@ -29,38 +61,22 @@ proj_check_deps <- function(path = usethis::proj_get()) {
   has_extra <- as.logical(length(diff[["extra"]]))
 
   if (has_missing) {
-    cat(
-      crayon::red(cli::symbol$cross),
-      "Missing dependencies in DESCRIPTION:\n  ",
-      str_missing,
-      "\n"
+    purrr::walk(diff[["missing"]], desc::desc_set_dep, type = "Imports")
+    pui_done(
+      c("Added missing dependencies to DESCRIPTION:", "    {str_missing}")
     )
   } else {
-    usethis::ui_done("No dependencies missing from DESCRIPTION.")
+    pui_done("No dependencies missing from DESCRIPTION.")
   }
 
   if (has_extra) {
-    cat(
-      crayon::yellow(cli::symbol$info),
-      "Extra dependencies in DESCRIPTION:\n  ",
-      str_extra,
-      "\n"
+    purrr::walk(diff[["extra"]], desc::desc_del_dep)
+    pui_done(
+      c("Removed extra dependencies from DESCRIPTION:", "    {str_extra}")
     )
   } else {
-    usethis::ui_done("No extra dependencies in DESCRIPTION.")
+    pui_done("No extra dependencies in DESCRIPTION.")
   }
-
-  if (has_missing || has_extra) {
-    code <- usethis::ui_code("proj_update_deps()")
-    usethis::ui_todo(
-      "To update dependencies in DESCRIPTION automatically, run {code}"
-    )
-  }
-
-  invisible(NULL)
-}
-
-proj_update_deps <- function() {
 
 }
 
