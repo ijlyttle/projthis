@@ -27,8 +27,14 @@ Imports:
     renv,
     desc,
     fs,
-    withr
+    withr,
+    purrr,
+    cli,
+    crayon,
+    glue
 Suggests: 
     testthat,
-    pkgdown
+    pkgdown,
+    rmarkdown,
+    knitr
 Config/testthat/edition: 3 

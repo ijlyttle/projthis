@@ -1,28 +1,56 @@
+check_deps <- function(path = usethis::proj_get()) {
 
+  file_desc <- fs::path(path/"DESCRIPTION")
 
-#' Get dependencies detected, but not declared
-#'
-#' @param df_detected `data.frame` returned by [renv::dependencies()]
-#' @param df_declared `data.frame` returned by [desc::desc_get_deps()]
-#'
-#' @return `character` vector of package dependencies
-#' @noRd
-#'
-missing_deps <- function(df_detected, df_declared) {
+  # use a diaper to absorb dependencies() output
+  x <- utils::capture.output(deps <- renv::dependencies(path = path))
 
-  detected <- unique(df_detected[["Package"]])
-  declared <- unique(df_declared[["package"]])
+  # split according to DESCRIPTION
+  detected <- deps[deps[["Source"]] != file_desc, "Package", drop = TRUE]
+  detected <- unique(detected)
 
-  detected[!(detected %in% declared)]
+  declared <- deps[deps[["Source"]] == file_desc, "Package", drop = TRUE]
+  declared <- unique(declared)
+
+  missing <- detected[!(detected %in% declared)]
+  extra <- declared[!(declared %in% detected)]
+
+  # empty elements will be character(0)
+  list(missing = missing, extra = extra)
 }
 
-#' Get dependencies declared, but not detected
-#' @noRd
-#'
-extra_deps <- function(df_detected, df_declared) {
+proj_check_deps <- function(path = usethis::proj_get()) {
 
-  detected <- unique(df_detected[["Package"]])
-  declared <- unique(df_declared[["package"]])
+  diff <- check_deps(path)
 
-  declared[!(declared %in% detected)]
+  missing <- glue::glue_collapse(crayon::green(diff$missing), sep = ", ")
+  extra <- glue::glue_collapse(crayon::green(diff$extra), sep = ", ")
+
+  if (nzchar(missing)) {
+    cat(
+      crayon::red(cli::symbol$cross),
+      "Missing dependencies in DESCRIPTION:\n  ",
+      missing,
+      "\n"
+    )
+  } else {
+    usethis::ui_done("No dependencies missing from DESCRIPTION.")
+  }
+
+  if (nzchar(extra)) {
+    cat(
+      crayon::yellow(cli::symbol$info),
+      "Extra dependencies in DESCRIPTION:\n  ",
+      extra,
+      "\n"
+    )
+  } else {
+    usethis::ui_done("No extra dependencies in DESCRIPTION.")
+  }
+
+  invisible(NULL)
+}
+
+proj_update_deps <- function() {
+
 }

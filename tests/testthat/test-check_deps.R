@@ -4,10 +4,13 @@ testthat_dir <- getwd()
 tempdir <- fs::path(tempdir(), "foobar")
 
 # create project
-usethis::create_project(tempdir, rstudio = FALSE, open = FALSE)
+suppressMessages(
+  usethis::create_project(tempdir, rstudio = FALSE, open = FALSE)
+)
 
 # change directory only while the script is running
 withr::local_dir(tempdir)
+withr::local_options(list(usethis.quiet = TRUE))
 
 # create a description file
 usethis::use_description()
@@ -17,58 +20,28 @@ usethis::use_package("desc")
 
 fs::file_copy(fs::path(testthat_dir, "..", "sample_code", "sample.Rmd"), ".")
 
-
-test_that("renv and deps return what we expect", {
+test_that("renv returns what we expect", {
   expect_output(
     expect_true(
       "Package" %in% names(renv::dependencies(dev = TRUE))
     )
   )
 
-  expect_true(
-    "package" %in% names(desc::desc_get_deps())
-  )
 })
 
-test_that("missing_deps works", {
-
-  df_detected <-
-    data.frame(
-      Package = c("ggplot2", "dplyr"),
-      stringsAsFactors = FALSE
-    )
-
-  df_declared <-
-    data.frame(
-      package = "dplyr",
-      stringsAsFactors = FALSE
-    )
+test_that("check_deps works", {
 
   expect_identical(
-    missing_deps(df_detected, df_declared),
-    "ggplot2"
+    check_deps(),
+    list(missing = c("rmarkdown", "renv"), extra = "desc")
   )
 
 })
 
-test_that("extra_deps works", {
 
-  df_detected <-
-    data.frame(
-      Package = c("dplyr"),
-      stringsAsFactors = FALSE
-    )
+test_that("proj_check_deps works", {
 
-  df_declared <-
-    data.frame(
-      package = c("ggplot2", "dplyr"),
-      stringsAsFactors = FALSE
-    )
-
-  expect_identical(
-    extra_deps(df_detected, df_declared),
-    "ggplot2"
-  )
+  expect_snapshot_output(proj_check_deps())
 
 })
 
