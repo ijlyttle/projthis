@@ -2,27 +2,40 @@
 % Please edit documentation in R/check_deps.R
 \name{proj_check_deps}
 \alias{proj_check_deps}
-\title{Check dependencies}
+\alias{proj_update_deps}
+\title{Check or update dependencies}
 \usage{
 proj_check_deps(path = usethis::proj_get())
+
+proj_update_deps(path = usethis::proj_get())
 }
 \arguments{
 \item{path}{\code{character}, path to the project-root directory.}
 }
 \value{
-\code{list} with elements \code{missing} and \code{extra},
-containing names of missing and extra package dependencies
+Invisible \code{NULL}, called for side effects.
 }
 \description{
 This uses \code{\link[renv:dependencies]{renv::dependencies()}}, which scans your project directory for
 package dependencies. It compares those detected in the code with those
-declared in the \code{DESCRIPTION} file to compile and return a list of
+declared in the \code{DESCRIPTION} to determine
 missing and extra packages.
+
+\describe{
+\item{proj_check_deps()}{Prints missing and extra dependencies.}
+\item{proj_update_deps()}{Updates DESCRIPTION with missing and
+extra dependencies.}
+}
 }
 \examples{
+# not run because it evokes side-effects
 if (FALSE) {
-  # not run because it depends on side-effects
+
+  # check DESCRIPTION for missing and extra dependencies
   proj_check_deps()
+
+  # update DESCRIPTION with missing and extra dependencies
+  proj_update_deps()
 }
 
 }

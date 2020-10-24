@@ -1,19 +1,30 @@
-#' Check dependencies
+#' Check or update dependencies
 #'
+#' @description
 #' This uses [renv::dependencies()], which scans your project directory for
 #' package dependencies. It compares those detected in the code with those
-#' declared in the `DESCRIPTION` file to compile and return a list of
+#' declared in the `DESCRIPTION` to determine
 #' missing and extra packages.
+#'
+#' \describe{
+#'   \item{proj_check_deps()}{Prints missing and extra dependencies.}
+#'   \item{proj_update_deps()}{Updates DESCRIPTION with missing and
+#'     extra dependencies.}
+#' }
 #'
 #' @param path `character`, path to the project-root directory.
 #'
-#' @return `list` with elements `missing` and `extra`,
-#'   containing names of missing and extra package dependencies
+#' @return Invisible `NULL`, called for side effects.
 #'
 #' @examples
+#' # not run because it evokes side-effects
 #' if (FALSE) {
-#'   # not run because it depends on side-effects
+#'
+#'   # check DESCRIPTION for missing and extra dependencies
 #'   proj_check_deps()
+#'
+#'   # update DESCRIPTION with missing and extra dependencies
+#'   proj_update_deps()
 #' }
 #'
 proj_check_deps <- function(path = usethis::proj_get()) {
@@ -48,6 +59,10 @@ proj_check_deps <- function(path = usethis::proj_get()) {
   invisible(NULL)
 }
 
+
+#' @rdname proj_check_deps
+#' @export
+#'
 proj_update_deps <- function(path = usethis::proj_get()) {
 
   diff <- check_deps(path)
