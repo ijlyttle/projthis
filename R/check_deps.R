@@ -17,6 +17,7 @@ missing_deps <- function(df_detected, df_declared) {
 }
 
 #' Get dependencies declared, but not detected
+#' @noRd
 #'
 extra_deps <- function(df_detected, df_declared) {
 
