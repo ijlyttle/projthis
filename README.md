@@ -33,13 +33,15 @@ another package, at least for now.
 You can see this package in action at this
 [projthis-demo](https://github.com/ijlyttle/projthis-demo#projthis-demonstration)
 repository, which aims to be a minimum reproducible example of this
-package’s functionality. It consists of:
+package’s functionality. It includes:
 
   - a `README.Rmd` file, in which is calculated the top-downloaded
     packages, over the last day, that contain a randomly-chosen letter.
   - a `DESCRIPTION` file which contains a declaration of all the package
     dependencies.
-  - a GitHub Actions file which instructs GitHub to render `README.Rmd`:
+  - a [GitHub Actions
+    file](https://github.com/ijlyttle/projthis-demo/blob/master/.github/workflows/project-run.yaml)
+    which instructs Actions to render `README.Rmd`:
       - upon change, and
       - every day at midnight UTC
 
@@ -84,7 +86,10 @@ another computer:
     examples](https://github.com/r-lib/actions/tree/master/examples) to
     install R, then to install and cache the dependencies
   - **you will need to modify** your project’s copy of this template to
-    tell Actions how to build and deploy your project
+    tell Actions:
+      - what triggers a run
+      - how to build your project
+      - how to deploy your project
 
 ## Installation
 
