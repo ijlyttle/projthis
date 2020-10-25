@@ -1,5 +1,7 @@
 # projthis 0.0.0 (development version)
 
+* Added GitHub Actions template.
+
 * Added `proj_install_deps()` to install a project's package-dependencies. (#8)
 
 * Added `proj_create()` to create a project. (#6)
