@@ -32,6 +32,11 @@ on:
   #     - main
   #     - master
 
+  # # runs when we push README.Rmd
+  # push:
+  #   paths:
+  #     - README.Rmd
+
   # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
   schedule:
     - cron:  '15 16 * * *' # 16:15 UTC every day
@@ -83,7 +88,7 @@ jobs:
       # rename and adapt this step to build your project
       - name: Build something
         # if you are running only R commands, this can be a convenient syntax
-        run |
+        run: |
           getwd()
         shell: Rscript {0}
 
