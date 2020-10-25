@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Dependency-Manager for Projects
-Version: 0.0.0.9006
+Version: 0.0.0.9007
 Authors@R: 
     person(given = "Ian J",
            family = "Lyttle",
@@ -14,7 +14,7 @@ Description: One of the barriers to making projects portable is dependency
   will run using the latest version of all its dependencies. The functionality
   of this package lies somewhere between {usethis} and {renv}, hence the 
   thought to create yet another package.
-License: GPL-3 + file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

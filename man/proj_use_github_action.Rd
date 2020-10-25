@@ -41,7 +41,7 @@ You will need to adapt the sections in your Actions file to:
 }
 
 To help you draw the
-"\href{https://knowyourmeme.com/memes/how-to-draw-an-owl}{rest of the owl}", the
+\href{https://knowyourmeme.com/memes/how-to-draw-an-owl}{"rest of the owl"}, the
 \href{https://github.com/r-lib/actions}{r-lib actions repository} is a great place
 to start.
 }

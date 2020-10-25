@@ -14,7 +14,7 @@
 #'   - deploy your project
 #'
 #' To help you draw the
-#' "[rest of the owl](https://knowyourmeme.com/memes/how-to-draw-an-owl)", the
+#' ["rest of the owl"](https://knowyourmeme.com/memes/how-to-draw-an-owl), the
 #'  [r-lib actions repository](https://github.com/r-lib/actions) is a great place
 #'  to start.
 #'

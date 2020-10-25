@@ -1,4 +1,4 @@
-#' Check or update dependencies
+#' Check or update dependency declaration
 #'
 #' @description
 #' This uses [renv::dependencies()], which scans your project directory for
@@ -8,7 +8,7 @@
 #'
 #' \describe{
 #'   \item{proj_check_deps()}{Prints missing and extra dependencies.}
-#'   \item{proj_update_deps()}{Updates DESCRIPTION with missing and
+#'   \item{proj_update_deps()}{Updates `DESCRIPTION` file with missing and
 #'     extra dependencies.}
 #' }
 #'
