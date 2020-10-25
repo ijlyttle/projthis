@@ -28,6 +28,23 @@ somewhere between [usethis](https://usethis.r-lib.org/) and
 [renv](https://rstudio.github.io/renv), hence the thought to create yet
 another package, at least for now.
 
+## Demo
+
+You can see this package in action at this
+[projthis-demo](https://github.com/ijlyttle/projthis-demo#projthis-demonstration)
+repository, which aims to be a minimum reproducible example of this
+package’s functionality. It consists of:
+
+  - a `README.Rmd` file, in which is calculated the top-downloaded
+    packages, over the last day, that contain a randomly-chosen letter.
+  - a `DESCRIPTION` file which contains a declaration of all the package
+    dependencies.
+  - a GitHub Actions file which instructs GitHub to render `README.Rmd`:
+      - upon change, and
+      - every day at midnight UTC
+
+The README also details the steps taken to build the project.
+
 ## Usage
 
 There are not a lot of functions in this package.
