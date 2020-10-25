@@ -38,7 +38,7 @@ This is a thin wrapper to \code{\link[remotes:install_deps]{remotes::install_dep
 all "Depends", "Imports", "Suggests", and "LinkingTo".
 }
 \examples{
-# not run because it evokes side effects
+# not run because it produces side effects
 if (FALSE) {
   proj_install_deps()
 }

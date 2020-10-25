@@ -41,7 +41,7 @@ To create a new project, this function calls \code{\link[usethis:create_package]
 then \code{\link[=proj_use_description]{proj_use_description()}} to create \code{DESCRIPTION} file.
 }
 \examples{
-# not run because it evokes side effects
+# not run because it produces side effects
 if (FALSE) {
   proj_create("../new-project-name")
 }

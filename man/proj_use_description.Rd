@@ -23,7 +23,7 @@ To create a DESCRIPTION file for your existing project, this function calls
 update the declared dependencies.
 }
 \examples{
-# not run because it evokes side effects
+# not run because it produces side effects
 if (FALSE) {
   proj_use_description()
 }

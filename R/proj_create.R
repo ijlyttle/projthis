@@ -8,7 +8,7 @@
 #'
 #' @return Invisible `NULL`, called for side effects
 #' @examples
-#' # not run because it evokes side effects
+#' # not run because it produces side effects
 #' if (FALSE) {
 #'   proj_create("../new-project-name")
 #' }
