@@ -89,6 +89,10 @@ jobs:
       # rename and adapt this step to deploy your project
       - name: Deploy something
         # if you need to combine R commands with shell commands, try this syntax
+        #
+        # caution to stay away from syntax like `git add -A` as you might be committing
+        #  files that you would prefer not to commit:
+        #  https://twitter.com/JennyBryan/status/1319320033063923712
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
