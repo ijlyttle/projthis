@@ -24,8 +24,8 @@ The goal of this package to provide a solution using the DESCRIPTION
 file. This is the same mechanism used to manage dependencies for
 packages; it is subject to the same limitation: the project will run
 using the **latest version of all its dependencies**. This assumption
-makes this a lightweight solution, the cost is that you have to make
-sure you remain current with the dependencies.
+makes this a lightweight solution; the cost is making sure the project
+remain current with its dependencies.
 
 This effort sprang from a discussion of a [usethis
 issue](https://github.com/r-lib/usethis/issues/1194). This package lies
@@ -48,8 +48,8 @@ use `proj_use_description()`:
   - default behavior is to detect existing package-dependencies in your
     project, then add them to `Imports`
 
-If your project has a `DESCRIPTION` file, you can use
-`proj_update_deps()` to update dependencies:
+If your project has a `DESCRIPTION` file, to update dependencies you can
+use `proj_update_deps()`:
 
   - uses `renv::dependencies()` to compile the declared and detected
     package-dependencies
@@ -65,10 +65,10 @@ use `proj_install_deps()`:
 To run your project using GitHub Actions, you can install an Actions
 template in your project using `proj_use_github_action()`:
 
+  - wraps `usethis::use_github_action()`
   - draws upon [r-lib/actions
     examples](https://github.com/r-lib/actions/tree/master/examples) to
-    automate the installation on R and to install and cache the
-    dependencies
+    install R, and to install and cache the dependencies
   - **you will need to modify** your project’s copy of this file to tell
     Actions how to build and deploy your project
 
