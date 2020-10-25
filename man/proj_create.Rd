@@ -34,11 +34,11 @@ overriding default values. See \code{\link[usethis:use_description]{use_descript
 personalized defaults using package options}
 }
 \value{
-Invisible \code{NULL}, called for side effects
+Invisible \code{NULL}, called for side effects.
 }
 \description{
 To create a new project, this function calls \code{\link[usethis:create_package]{usethis::create_project()}},
-then \code{\link[=proj_use_description]{proj_use_description()}} to create \code{DESCRIPTION} file.
+then \code{\link[=proj_use_description]{proj_use_description()}} to create a \code{DESCRIPTION} file.
 }
 \examples{
 # not run because it produces side effects

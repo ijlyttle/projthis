@@ -3,7 +3,7 @@
 \name{proj_check_deps}
 \alias{proj_check_deps}
 \alias{proj_update_deps}
-\title{Check or update dependencies}
+\title{Check or update dependency declaration}
 \usage{
 proj_check_deps(path = usethis::proj_get())
 
@@ -23,7 +23,7 @@ missing and extra packages.
 
 \describe{
 \item{proj_check_deps()}{Prints missing and extra dependencies.}
-\item{proj_update_deps()}{Updates DESCRIPTION with missing and
+\item{proj_update_deps()}{Updates \code{DESCRIPTION} file with missing and
 extra dependencies.}
 }
 }

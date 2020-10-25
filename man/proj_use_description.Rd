@@ -11,16 +11,16 @@ proj_use_description(fields = list(), update_deps = TRUE)
 overriding default values. See \code{\link[usethis:use_description]{use_description()}} for how you can set
 personalized defaults using package options}
 
-\item{update_deps}{\code{logical} indicates to update dependencies in
-DESCRIPTION file}
+\item{update_deps}{\code{logical} indicates to update package-dependency
+declaration in \code{DESCRIPTION} file.}
 }
 \value{
 Invisible \code{NULL}, called for side effects.
 }
 \description{
-To create a DESCRIPTION file for your existing project, this function calls
+To create a \code{DESCRIPTION} file for your existing project, this function calls
 \code{\link[usethis:use_description]{usethis::use_description()}} and, optionally, \code{\link[=proj_update_deps]{proj_update_deps()}} to
-update the declared dependencies.
+update the package-dependency declaration.
 }
 \examples{
 # not run because it produces side effects

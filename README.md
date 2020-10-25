@@ -13,19 +13,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg)](https://github.com/ijlyttle/projthis/actions)
 <!-- badges: end -->
 
-Let’s say you have project consisting of RMarkdown files that collect
-and compile data, and you want to generate reports **on a schedule**.
-This package may be for you.
+The goal of projthis to provide a lightweight package-dependency
+management framework for R projects, by using the `DESCRIPTION` file.
 
-One of the barriers to making projects portable is dependency
-management.
-
-The goal of this package to provide a solution using the DESCRIPTION
-file. This is the same mechanism used to manage dependencies for
-packages; it is subject to the same limitation: the project will run
-using the **latest version of all its dependencies**. This assumption
-makes this a lightweight solution; the cost is making sure the project
-remain current with its dependencies.
+This is the same mechanism used to manage dependencies for packages; it
+is subject to the same limitation: the project will run using the
+**latest version of all its dependencies**. This assumption permits a
+lightweight solution; the cost is to ensure the project remains current
+with its dependencies.
 
 This effort sprang from a discussion of a [usethis
 issue](https://github.com/r-lib/usethis/issues/1194). This package lies
@@ -35,41 +30,42 @@ another package, at least for now.
 
 ## Usage
 
-If you are creating a project from scratch, you can use `proj_create()`:
+There are not a lot of functions in this package.
+
+`proj_create()`, to create a project from scratch:
 
   - wraps `usethis::create_project()`
   - also installs a `DESCRIPTION` file to store your dependency
     declarations
 
-If you have an existing project, and want to add a `DESCRIPTION` file,
-use `proj_use_description()`:
+`proj_use_description()`, to add a `DESCRIPTION` file to an existing
+project:
 
   - wraps `usethis::use_description()`
   - default behavior is to detect existing package-dependencies in your
     project, then add them to `Imports`
 
-If your project has a `DESCRIPTION` file, to update dependencies you can
-use `proj_update_deps()`:
+`proj_update_deps()`, to update the package-dependency declaration in
+the `DESCRIPTION` file:
 
   - uses `renv::dependencies()` to compile the declared and detected
     package-dependencies
   - to check, but not update the `DESCRIPTION` file, use
     `proj_check_deps()`
 
-To reproduce the behavior of your project on another computer, you can
-use `proj_install_deps()`:
+`proj_install_deps()`, to reproduce the behavior of your project on
+another computer:
 
-  - wraps `remotes::install_deps()` to install all the project
+  - wraps `remotes::install_deps()` to install the project’s package
     dependencies
 
-To run your project using GitHub Actions, you can use
-`proj_use_github_action()`:
+`proj_use_github_action()`, to run your project using GitHub Actions:
 
   - wraps `usethis::use_github_action()` to install an Actions template
     in your project
   - template draws upon [r-lib/actions
     examples](https://github.com/r-lib/actions/tree/master/examples) to
-    install R, and to install and cache the dependencies
+    install R, then to install and cache the dependencies
   - **you will need to modify** your project’s copy of this template to
     tell Actions how to build and deploy your project
 
@@ -85,7 +81,7 @@ remotes::install_github("ijlyttle/projthis")
 ## Acknowledgments
 
 There is precious little original to this package, which is a good
-thing. This package rests squarely on the foundation laid by the
+thing. This package rests heavily on the foundation laid by the
 [**usethis**](https://usethis.r-lib.org/) package, and also relies on
 [**renv**](https://rstudio.github.io/renv/),
 [**desc**](https://github.com/r-lib/desc),

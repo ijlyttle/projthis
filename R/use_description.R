@@ -1,12 +1,12 @@
 #' Create DESCRIPTION file
 #'
-#' To create a DESCRIPTION file for your existing project, this function calls
+#' To create a `DESCRIPTION` file for your existing project, this function calls
 #' [usethis::use_description()] and, optionally, [proj_update_deps()] to
-#' update the declared dependencies.
+#' update the package-dependency declaration.
 #'
 #' @inheritParams usethis::use_description
-#' @param update_deps `logical` indicates to update dependencies in
-#'   DESCRIPTION file
+#' @param update_deps `logical` indicates to update package-dependency
+#'   declaration in `DESCRIPTION` file.
 #'
 #' @return Invisible `NULL`, called for side effects.
 #' @examples

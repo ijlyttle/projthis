@@ -1,12 +1,12 @@
 #' Create project
 #'
 #' To create a new project, this function calls [usethis::create_project()],
-#' then [proj_use_description()] to create `DESCRIPTION` file.
+#' then [proj_use_description()] to create a `DESCRIPTION` file.
 #'
 #' @inheritParams usethis::create_project
 #' @inheritParams proj_use_description
 #'
-#' @return Invisible `NULL`, called for side effects
+#' @return Invisible `NULL`, called for side effects.
 #' @examples
 #' # not run because it produces side effects
 #' if (FALSE) {
