@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -80,20 +80,56 @@
 <a href="#projthis" class="anchor"></a>projthis</h1></div>
 <!-- badges: start -->
 
-<p>One of the barriers to making projects portable is dependency management. The goal of this package to provide a lightweight solution, using the DESCRIPTION file. This is the same mechanism used to manage dependencies for packages; it is subject to the same limitation: the project will run using the latest version of all its dependencies. The functionality of this package lies somewhere between <a href="https://usethis.r-lib.org/">usethis</a> and <a href="https://rstudio.github.io/renv">renv</a>, hence the thought to create yet another package.</p>
-<p>This effort sprang from a discussion of a <a href="https://github.com/r-lib/usethis/issues/1194">usethis issue</a>.</p>
-<p>At present, all that exists is a discussion of the API.</p>
-<div id="use-cases" class="section level2">
+<p>The goal of projthis to provide a lightweight package-dependency management framework for R projects, by using the <code>DESCRIPTION</code> file.</p>
+<p>This is the same mechanism used to manage dependencies for packages; it is subject to the same limitation: the project will run using the <strong>latest version of all its dependencies</strong>. This assumption permits a lightweight solution; the cost is to ensure the project remains current with its dependencies.</p>
+<p>This effort sprang from a discussion of a <a href="https://github.com/r-lib/usethis/issues/1194">usethis issue</a>. This package lies somewhere between <a href="https://usethis.r-lib.org/">usethis</a> and <a href="https://rstudio.github.io/renv">renv</a>, hence the thought to create yet another package, at least for now.</p>
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#use-cases" class="anchor"></a>Use cases</h2>
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>There are not a lot of functions in this package.</p>
+<p><code><a href="reference/proj_create.html">proj_create()</a></code>, to create a project from scratch:</p>
 <ul>
-<li>Your project consists of some RMarkdown files that collect and compile data, then generate reports <strong>on a schedule</strong>. You can use GitHub Actions to run all of this automatically.</li>
+<li>wraps <code><a href="https://usethis.r-lib.org/reference/create_package.html">usethis::create_project()</a></code>
+</li>
+<li>also installs a <code>DESCRIPTION</code> file to store your dependency declarations</li>
+</ul>
+<p><code><a href="reference/proj_use_description.html">proj_use_description()</a></code>, to add a <code>DESCRIPTION</code> file to an existing project:</p>
+<ul>
+<li>wraps <code><a href="https://usethis.r-lib.org/reference/use_description.html">usethis::use_description()</a></code>
+</li>
+<li>default behavior is to detect existing package-dependencies in your project, then add them to <code>Imports</code>
+</li>
+</ul>
+<p><code><a href="reference/proj_check_deps.html">proj_update_deps()</a></code>, to update the package-dependency declaration in the <code>DESCRIPTION</code> file:</p>
+<ul>
+<li>uses <code><a href="https://rstudio.github.io/renv//reference/dependencies.html">renv::dependencies()</a></code> to compile the declared and detected package-dependencies</li>
+<li>to check, but not update the <code>DESCRIPTION</code> file, use <code><a href="reference/proj_check_deps.html">proj_check_deps()</a></code>
+</li>
+</ul>
+<p><code><a href="reference/proj_install_deps.html">proj_install_deps()</a></code>, to reproduce the behavior of your project on another computer:</p>
+<ul>
+<li>wraps <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code> to install the project’s package dependencies</li>
+</ul>
+<p><code><a href="reference/proj_use_github_action.html">proj_use_github_action()</a></code>, to run your project using GitHub Actions:</p>
+<ul>
+<li>wraps <code><a href="https://usethis.r-lib.org/reference/use_github_action.html">usethis::use_github_action()</a></code> to install an Actions template in your project</li>
+<li>template draws upon <a href="https://github.com/r-lib/actions/tree/master/examples">r-lib/actions examples</a> to install R, then to install and cache the dependencies</li>
+<li>
+<strong>you will need to modify</strong> your project’s copy of this template to tell Actions how to build and deploy your project</li>
 </ul>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Nothing really to install, yet - just a shell. For the moment, working out the API.</p>
+<p>You can install the GitHub version of projthis with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># install.packages("remotes")</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ijlyttle/projthis"</span><span class="op">)</span></pre></div>
+</div>
+<div id="acknowledgments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
+<p>There is precious little original to this package, which is a good thing. This package rests heavily on the foundation laid by the <a href="https://usethis.r-lib.org/"><strong>usethis</strong></a> package, and also relies on <a href="https://rstudio.github.io/renv/"><strong>renv</strong></a>, <a href="https://github.com/r-lib/desc"><strong>desc</strong></a>, <a href="https://remotes.r-lib.org/"><strong>remotes</strong></a>, and <a href="https://github.com/r-lib/actions"><strong>actions</strong></a>.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
@@ -117,7 +153,7 @@
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 <div class="community">
@@ -137,6 +173,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=projthis"><img src="https://www.r-pkg.org/badges/version/projthis" alt="CRAN status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/ijlyttle/projthis/actions"><img src="https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>

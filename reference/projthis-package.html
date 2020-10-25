@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create DESCRIPTION file — proj_use_description • projthis</title>
+<title>Lightweight R project management — projthis-package • projthis</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Create DESCRIPTION file — proj_use_description" />
-<meta property="og:description" content="To create a DESCRIPTION file for your existing project, this function calls
-usethis::use_description() and, optionally, proj_update_deps() to
-update the package-dependency declaration." />
+<meta property="og:title" content="Lightweight R project management — projthis-package" />
+<meta property="og:description" content="The goal of this package is to provide some lightweight package-dependency
+management tools for R projects, relying on the DESCRIPTION file." />
 
 
 
@@ -113,45 +112,38 @@ update the package-dependency declaration." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create DESCRIPTION file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/use_description.R'><code>R/use_description.R</code></a></small>
-    <div class="hidden name"><code>proj_use_description.Rd</code></div>
+    <h1>Lightweight <code>R</code> project management</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/projthis-package.R'><code>R/projthis-package.R</code></a></small>
+    <div class="hidden name"><code>projthis-package.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>To create a <code>DESCRIPTION</code> file for your existing project, this function calls
-<code><a href='https://usethis.r-lib.org/reference/use_description.html'>usethis::use_description()</a></code> and, optionally, <code><a href='proj_check_deps.html'>proj_update_deps()</a></code> to
-update the package-dependency declaration.</p>
+    <p>The goal of this package is to provide some lightweight package-dependency
+management tools for <code>R</code> projects, relying on the <code>DESCRIPTION</code> file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proj_use_description</span><span class='op'>(</span>fields <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, update_deps <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>fields</th>
-      <td><p>A named list of fields to add to <code>DESCRIPTION</code>, potentially
-overriding default values. See <code><a href='https://usethis.r-lib.org/reference/use_description.html'>use_description()</a></code> for how you can set
-personalized defaults using package options</p></td>
-    </tr>
-    <tr>
-      <th>update_deps</th>
-      <td><p><code>logical</code> indicates to update package-dependency
-declaration in <code>DESCRIPTION</code> file.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Invisible <code>NULL</code>, called for side effects.</p>
+    <p>The <code>DESCRIPTION</code> file is used, perhaps more famously, to manage
+dependencies for packages. Here, it is subject to the same limitation:
+the project will run using the  <strong>latest version of all its dependencies</strong>.
+This assumption makes this a lightweight solution; the cost is making sure
+the project remain current with its dependencies.</p>
+<p>This package's functions are mostly wrappers to
+<a href='https://usethis.r-lib.org/reference/usethis-package.html'>usethis</a> and <a href='https://rstudio.github.io/renv//reference/renv-package.html'>renv</a> functions.
+The main functions are:</p>
+<dl>
+<dt><code><a href='proj_create.html'>proj_create()</a></code></dt><dd><p>Create a new project.</p></dd>
+<dt><code><a href='proj_use_description.html'>proj_use_description()</a></code></dt><dd><p>Add a <code>DESCRIPTION</code> file.</p></dd>
+<dt><code><a href='proj_check_deps.html'>proj_update_deps()</a></code></dt><dd><p>Update the package-dependency declaration in <code>DESCRIPTION</code>.</p></dd>
+<dt><code><a href='proj_install_deps.html'>proj_install_deps()</a></code></dt><dd><p>Install the packaage dependencies.</p></dd>
+<dt><code><a href='proj_use_github_action.html'>proj_use_github_action()</a></code></dt><dd><p>Use a GitHub Actions template.</p></dd>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># not run because it produces side effects</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>proj_use_description</span><span class='op'>(</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+</dl>
+
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
