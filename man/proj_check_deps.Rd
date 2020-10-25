@@ -28,7 +28,7 @@ extra dependencies.}
 }
 }
 \examples{
-# not run because it evokes side effects
+# not run because it produces side effects
 if (FALSE) {
 
   # check DESCRIPTION for missing and extra dependencies
