@@ -1,5 +1,9 @@
-# These are assembled from snippets of actions built by Jim Hester at:
-# https://github.com/r-lib/actions/tree/master/examples
+# These are assembled from snippets of actions built by Jim Hester.
+# You will need to customize this template; the r-lib actions repository
+# is a great place to start to figure things out: https://github.com/r-lib/actions
+
+# This action is based on the 'pkgdown' action:
+# https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml
 
 # For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
 # https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
@@ -10,9 +14,6 @@
 # to your circumstances. I trust the comments will be helpful; I also trust
 # that anyone who sees a mistatement/error will feel welcome to file an issue
 # at: https://github.com/ijlyttle/projthis/issues
-
-# This action is based on the 'pkgdown' action:
-# https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml
 
 # This section is used to define the triggers for launching an action.
 # Comment, or uncomment what you think might be useful in your situation,
@@ -80,7 +81,7 @@ jobs:
         shell: Rscript {0}
 
       # rename and adapt this step to build your project
-      - name: Do something
+      - name: Build something
         # if you are running only R commands, this can be a convenient syntax
         run |
           getwd()

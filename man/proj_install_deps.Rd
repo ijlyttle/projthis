@@ -7,7 +7,7 @@
 proj_install_deps(path = usethis::proj_get(), dependencies = TRUE, ...)
 }
 \arguments{
-\item{path}{\code{character} path to project root}
+\item{path}{\code{character} path to project root.}
 
 \item{dependencies}{Which dependencies do you want to check?
 Can be a character vector (selecting from "Depends", "Imports",
@@ -27,10 +27,10 @@ common ones include:
 \item Config/Needs/coverage for dependencies used in calculating test coverage.
 }}
 
-\item{...}{other arguments passed to \code{\link[remotes:install_deps]{remotes::install_deps()}}}
+\item{...}{other arguments passed to \code{\link[remotes:install_deps]{remotes::install_deps()}}.}
 }
 \value{
-Invisible \code{NULL}, called for side effects
+Invisible \code{NULL}, called for side effects.
 }
 \description{
 Use to install the project's package dependencies.
