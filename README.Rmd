@@ -52,11 +52,11 @@ To reproduce the behavior of your project on another computer, you can use `proj
 
   - wraps `remotes::install_deps()` to install all the project dependencies
 
-To run your project using GitHub Actions, you can install an Actions template in your project using `proj_use_github_action()`:
+To run your project using GitHub Actions, you can use `proj_use_github_action()`:
 
-  - wraps `usethis::use_github_action()`
-  - draws upon [r-lib/actions examples](https://github.com/r-lib/actions/tree/master/examples) to install R, and to install and cache the dependencies
-  - **you will need to modify** your project's copy of this file to tell Actions how to build and deploy your project
+  - wraps `usethis::use_github_action()` to install an Actions template in your project
+  - template draws upon [r-lib/actions examples](https://github.com/r-lib/actions/tree/master/examples) to install R, and to install and cache the dependencies
+  - **you will need to modify** your project's copy of this template to tell Actions how to build and deploy your project
  
 ## Installation
 
