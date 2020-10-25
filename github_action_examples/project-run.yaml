@@ -1,0 +1,96 @@
+# These are assembled from snippets of actions built by Jim Hester at:
+# https://github.com/r-lib/actions/tree/master/examples
+
+# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
+# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
+
+# More information at https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
+
+# I'm adding a lot of comments because you will likely need to adapt this
+# to your circumstances. I trust the comments will be helpful; I also trust
+# that anyone who sees a mistatement/error will feel welcome to file an issue
+# at: https://github.com/ijlyttle/projthis/issues
+
+# This action is based on the 'pkgdown' action:
+# https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml
+
+# This section is used to define the triggers for launching an action.
+# Comment, or uncomment what you think might be useful in your situation,
+# or write your own.
+on:
+
+  # # runs whenever you push a specific branch
+  # push:
+  #   branches:
+  #     - main
+  #     - master
+
+  # # runs on pull requests to a specific branch
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - master
+
+  # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
+  schedule:
+    - cron:  '15 16 * * *' # 16:15 UTC every day
+
+# name of the workflow to appear in actions portal,
+# e.g. https://github.com/ijlyttle/projthis/actions?query=workflow%3AR-CMD-check
+name: project-compile
+
+jobs:
+  # name of the job
+  project-compile:
+    # there are other OS options available,
+    # but the package-caching is set up for `macOS-latest`
+    runs-on: macOS-latest
+    # set variables in your environment:
+    # as this is GitHub, your token is available
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+
+      # these steps are provided by Jim Hester - as he makes improvements,
+      # you may wish to update these steps. Keep an eye on:
+      #   https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@v1
+
+      - uses: r-lib/actions/setup-pandoc@v1
+
+      - name: Query dependencies
+        run: |
+          install.packages('remotes')
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+
+      # rename and adapt this step to build your project
+      - name: Do something
+        # if you are running only R commands, this can be a convenient syntax
+        run |
+          getwd()
+        shell: Rscript {0}
+
+      # rename and adapt this step to deploy your project
+      - name: Deploy something
+        # if you need to combine R commands with shell commands, try this syntax
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'getwd()'
+
