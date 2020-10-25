@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check or update dependencies — proj_check_deps • projthis</title>
+<title>Install dependencies — proj_install_deps • projthis</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,10 @@
 
 
 
-<meta property="og:title" content="Check or update dependencies — proj_check_deps" />
-<meta property="og:description" content="This uses renv::dependencies(), which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the DESCRIPTION to determine
-missing and extra packages.
-
-proj_check_deps()Prints missing and extra dependencies.
-proj_update_deps()Updates DESCRIPTION with missing and
-extra dependencies.
-
-
-" />
+<meta property="og:title" content="Install dependencies — proj_install_deps" />
+<meta property="og:description" content="Use to install the project's package dependencies.
+This is a thin wrapper to remotes::install_deps(); by default, it installs
+all &quot;Depends&quot;, &quot;Imports&quot;, &quot;Suggests&quot;, and &quot;LinkingTo&quot;." />
 
 
 
@@ -121,53 +113,57 @@ extra dependencies.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check or update dependencies</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/check_deps.R'><code>R/check_deps.R</code></a></small>
-    <div class="hidden name"><code>proj_check_deps.Rd</code></div>
+    <h1>Install dependencies</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/install_deps.R'><code>R/install_deps.R</code></a></small>
+    <div class="hidden name"><code>proj_install_deps.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This uses <code><a href='https://rstudio.github.io/renv//reference/dependencies.html'>renv::dependencies()</a></code>, which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the <code>DESCRIPTION</code> to determine
-missing and extra packages.</p>
-<dl>
-<dt>proj_check_deps()</dt><dd><p>Prints missing and extra dependencies.</p></dd>
-<dt>proj_update_deps()</dt><dd><p>Updates DESCRIPTION with missing and
-extra dependencies.</p></dd>
-
-</dl>
-
+    <p>Use to install the project's package dependencies.
+This is a thin wrapper to <code><a href='https://remotes.r-lib.org/reference/install_deps.html'>remotes::install_deps()</a></code>; by default, it installs
+all "Depends", "Imports", "Suggests", and "LinkingTo".</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proj_check_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>proj_update_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>proj_install_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span>, dependencies <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p><code>character</code>, path to the project-root directory.</p></td>
+      <td><p><code>character</code> path to project root</p></td>
+    </tr>
+    <tr>
+      <th>dependencies</th>
+      <td><p>Which dependencies do you want to check?
+Can be a character vector (selecting from "Depends", "Imports",
+"LinkingTo", "Suggests", or "Enhances"), or a logical vector.</p>
+<p><code>TRUE</code> is shorthand for "Depends", "Imports", "LinkingTo" and
+"Suggests". <code>NA</code> is shorthand for "Depends", "Imports" and "LinkingTo"
+and is the default. <code>FALSE</code> is shorthand for no dependencies (i.e.
+just check this package, not its dependencies).</p>
+<p>The value "soft" means the same as <code>TRUE</code>, "hard" means the same as <code>NA</code>.</p>
+<p>You can also specify dependencies from one or more additional fields,
+common ones include:</p><ul>
+<li><p>Config/Needs/website - for dependencies used in building the pkgdown site.</p></li>
+<li><p>Config/Needs/coverage for dependencies used in calculating test coverage.</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>other arguments passed to <code><a href='https://remotes.r-lib.org/reference/install_deps.html'>remotes::install_deps()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisible <code>NULL</code>, called for side effects.</p>
+    <p>Invisible <code>NULL</code>, called for side effects</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># not run because it evokes side effects</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-
-  <span class='co'># check DESCRIPTION for missing and extra dependencies</span>
-  <span class='fu'>proj_check_deps</span><span class='op'>(</span><span class='op'>)</span>
-
-  <span class='co'># update DESCRIPTION with missing and extra dependencies</span>
-  <span class='fu'>proj_update_deps</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'>proj_install_deps</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
