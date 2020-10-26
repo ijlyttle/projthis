@@ -39,7 +39,7 @@ on:
 
   # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
   schedule:
-    - cron:  '15 16 * * *' # 16:15 UTC every day
+    - cron:  '30 02 * * *' # 02:30 UTC, every day
 
 # name of the workflow to appear in actions portal,
 # e.g. https://github.com/ijlyttle/projthis/actions?query=workflow%3AR-CMD-check
