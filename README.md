@@ -16,11 +16,11 @@ status](https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg)](h
 The goal of projthis to provide a lightweight package-dependency
 management framework for R projects, by using the `DESCRIPTION` file.
 
-This is the same mechanism used to manage dependencies for packages; it
-is subject to the same limitation: the project will run using the
-**latest version of all its dependencies**. This assumption permits a
-lightweight solution; the cost is to ensure the project remains current
-with its dependencies.
+This mechanism is also used to manage dependencies among packages; it is
+subject to the same limitation: it is assumed the project will run
+correctly using the **latest version of all its dependencies**. This
+assumption permits a lightweight solution; the cost is to ensure the
+project remains current with its dependencies.
 
 This effort sprang from a discussion of a [usethis
 issue](https://github.com/r-lib/usethis/issues/1194). This package lies
@@ -37,13 +37,13 @@ package’s functionality. It includes:
 
   - a `README.Rmd` file, in which is calculated the top-downloaded
     packages, over the last day, that contain a randomly-chosen letter.
-  - a `DESCRIPTION` file which contains a declaration of all the package
-    dependencies.
+  - a `DESCRIPTION` file, which contains a declaration of all the
+    package dependencies.
   - a [GitHub Actions
-    file](https://github.com/ijlyttle/projthis-demo/blob/master/.github/workflows/project-run.yaml)
+    file](https://github.com/ijlyttle/projthis-demo/blob/master/.github/workflows/project-run.yaml),
     which instructs Actions to render `README.Rmd`:
       - upon change, and
-      - every day at midnight UTC
+      - every day at 02:30 UTC
 
 The README also details the steps taken to build the project.
 
