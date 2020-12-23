@@ -19,11 +19,13 @@ relative to project root.}
 relative to the input directory. Called principally for side effects.
 }
 \description{
-Render workflow
+This is a thin wrapper to \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}; it renders each of the
+files in the workflow in alphabetical order. This order is important because
+it preserves the direction of the data dependencies.
 }
 \examples{
 \dontrun{
-  # not run because it depends on and produces side effects
+  # not run because it creates side effects
   proj_workflow_render()
 }
 }

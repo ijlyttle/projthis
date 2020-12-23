@@ -1,14 +1,16 @@
 #' Create directories for workflow
 #'
-#' @description
-#' This function sets up a workflow-directory structure:
+#' Use this function to set up a workflow-directory structure.
 #'
-#' - it creates a directory.
-#' - if creates a `data` directory within, adding it to `.gitignore` if indicated.
-#' - it creates files `index.Rmd` and `_site.yml` from a template.
+#' This function will create:
 #'
-#' In this context, a "workflow" is a sequence of RMarkdown files, that are
-#' named, for example `00-import.Rmd`, `01-do-something.Rmd`, etc., such that
+#' - a directory according to the `path` you provide; it will be added to
+#'   `.Rbuildignore`.
+#' - a `data` directory within, adding it to `.gitignore` if indicated.
+#' - files `index.Rmd` and `_site.yml` from a template.
+#'
+#' In this context, a *workflow* is a sequence of RMarkdown files that are
+#' named, for example: `00-import.Rmd`, `01-do-something.Rmd`, etc., such that
 #' each RMarkdown file:
 #'
 #' - writes only to its own dedicated sub-directory of `data`.
@@ -16,22 +18,28 @@
 #'
 #' You can have more than one workflow directory in a repository, but it will be
 #' easiest to manage if each workflow is its own "data universe", where data can
-#' be imported only using `00-import.Rmd`, and can be published only using
-#' `99-publish.Rmd`.
+#' be imported or exported only using specific files at the start and end of the
+#' workflow, for example: `00-import.Rmd` and `99-publish.Rmd`.
 #'
 #' You may wish to customize the `_site.yml` and `index.Rmd` files - they are
 #' designed to let you create a minimally (in a good way) functional
-#' markdown-based website that you can share via GitHub pages. The site
-#' can be rendered using [proj_workflow_render()] (which is a thin wrapper
-#' to [rmarkdown::render_site()]).
+#' markdown-based website that you can share via GitHub pages. You can
+#' make the site more functional, for example, using `html_document`, adding
+#' a navbar and CSS.
+#'
+#' The site can be rendered using [proj_workflow_render()] (which is a thin
+#' wrapper to [rmarkdown::render_site()]).
 #'
 #' The easiest way to create additional RMarkdown files in your workflow is
 #' to call [proj_workflow_use_rmd()] while you have an existing RMarkdown file
 #' from that workflow open and active in the RStudio IDE.
 #'
+#' Finally, you way wish to run the your workflow on a schedule, using GitHub
+#' Actions; you can use [proj_workflow_use_action()].
+#'
 #' @param path `character` path to workflow directory,
 #'   relative to project root.
-#' @param git_ignore_data `logical` indicates to add  `dataflow` directory
+#' @param git_ignore_data `logical` indicates to add `data` directory
 #'   to `.gitignore`.
 #' @param open `logical` indicates to open the file for interactive editing.
 #'
@@ -48,7 +56,7 @@ proj_use_workflow <- function(path = ".", git_ignore_data = TRUE,
 
   # create workflow-root directory
   path <- usethis::proj_path(path)
-  usethis::use_directory(path)
+  usethis::use_directory(path, ignore = TRUE)
 
   # create data directory, add to .gitignore if indicated
   usethis::use_directory(fs::path(path, "data"))
@@ -79,9 +87,42 @@ proj_use_workflow <- function(path = ".", git_ignore_data = TRUE,
 
 #' Use opinionated Rmd template
 #'
-#' @description
-#' This uses [usethis::use_template()] to create a new, templated RMarkdown file
-#' in a flow directory.
+#' Use this function to create a new, templated RMarkdown file in a workflow
+#' directory. It is mandatory to provide a `name`. However, the `path` can be
+#' omitted if you have an RMarkdown file from your project open and active
+#' in the RStudio IDE; it will use the directory of that file.
+#'
+#' This is an opinionated system; it introduces restrictions to help keep you
+#' "inside the boat":
+#'
+#' - All the RMarkdown files in a workflow are in the same directory; there
+#'   are no sub-directories with RMarkdown files.
+#'
+#' - Using [here::i_am()], it establishes the root of the workflow as the
+#'   directory that contains the RMarkdown file. In other words, when the
+#'   RMarkdown file is rendered, this directory becomes the [here::here()] root.
+#'   Also, using [here::i_am()], it provides a unique identifier for *this* file,
+#'   which will make a stronger guarantee that any rendering of this file happens
+#'   from inside this workflow directory.
+#'
+#' - It creates a dedicated data-directory for this file to write to, making sure
+#'   that this data-directory is empty at the start of the rendering. It also
+#'   provides an accessor function `path_target()` that you can use later in the
+#'   file to compose paths to this data-directory. For example:
+#'
+#'   ```
+#'   readr::write_csv(mtcars, path_target("mtcars.csv"))
+#'   ```
+#'
+#'   It also provides an accessor function to the data directory itself, which can
+#'   be useful for reading data from "previous" files.
+#'
+#'   ```
+#'   fun_data <- readr::read_csv(path_data("00-import", "fun_data.csv"))
+#'   ```
+#'
+#' These opinionated features can help you access your data more easily, while
+#' helping to keep you "safely inside the boat".
 #'
 #' @inheritParams proj_use_workflow
 #' @param name `character` name of the file, extension not necessary.
@@ -90,6 +131,7 @@ proj_use_workflow <- function(path = ".", git_ignore_data = TRUE,
 #' @return Invisible `NULL`, called for side effects.
 #'
 #' @examples
+#' # not run because it creates side effects
 #' \dontrun{
 #'   # creates file `01-clean.Rmd`
 #'   proj_workflow_use_rmd("01-clean")
@@ -99,6 +141,12 @@ proj_use_workflow <- function(path = ".", git_ignore_data = TRUE,
 proj_workflow_use_rmd <- function(name, path = NULL,
                                   open = rlang::is_interactive(),
                                   ignore = FALSE) {
+
+  # ensure that we are not using a subdirectory
+  assertthat::assert_that(
+    identical(name, basename(name)),
+    msg = "you cannot specify a sub-directory to `path`"
+  )
 
   # determine path_workflow
   # - if NULL use the path of an open Rmd file
@@ -134,6 +182,10 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 
 #' Render workflow
 #'
+#' This is a thin wrapper to [rmarkdown::render_site()]; it renders each of the
+#' files in the workflow in alphabetical order. This order is important because
+#' it preserves the direction of the data dependencies.
+#'
 #' @inheritParams proj_use_workflow
 #' @param envir `environment` in which code chunks are to be evaluated.
 #' @param ... other arguments passed on to [rmarkdown::render_site()].
@@ -142,7 +194,7 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 #'   relative to the input directory. Called principally for side effects.
 #' @examples
 #' \dontrun{
-#'   # not run because it depends on and produces side effects
+#'   # not run because it creates side effects
 #'   proj_workflow_render()
 #' }
 #' @export
@@ -171,8 +223,8 @@ proj_workflow_render <- function(path = ".", envir = new.env(), ...) {
 #'
 #' To help you draw the
 #' ["rest of the owl"](https://knowyourmeme.com/memes/how-to-draw-an-owl), the
-#'  [r-lib actions repository](https://github.com/r-lib/actions) is a great place
-#'  to start.
+#' [r-lib actions repository](https://github.com/r-lib/actions) is a great place
+#' to start.
 #'
 #' @inheritParams usethis::use_github_action
 #'

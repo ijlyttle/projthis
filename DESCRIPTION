@@ -41,7 +41,8 @@ Imports:
     uuid,
     tools,
     rmarkdown,
-    rstudioapi
+    rstudioapi,
+    assertthat
 Suggests: 
     testthat,
     pkgdown,

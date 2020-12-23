@@ -14,7 +14,7 @@ proj_use_workflow(
 \item{path}{\code{character} path to workflow directory,
 relative to project root.}
 
-\item{git_ignore_data}{\code{logical} indicates to add  \code{dataflow} directory
+\item{git_ignore_data}{\code{logical} indicates to add \code{data} directory
 to \code{.gitignore}.}
 
 \item{open}{\code{logical} indicates to open the file for interactive editing.}
@@ -23,15 +23,19 @@ to \code{.gitignore}.}
 Invisible \code{NULL}, called for side effects.
 }
 \description{
-This function sets up a workflow-directory structure:
+Use this function to set up a workflow-directory structure.
+}
+\details{
+This function will create:
 \itemize{
-\item it creates a directory.
-\item if creates a \code{data} directory within, adding it to \code{.gitignore} if indicated.
-\item it creates files \code{index.Rmd} and \verb{_site.yml} from a template.
+\item a directory according to the \code{path} you provide; it will be added to
+\code{.Rbuildignore}.
+\item a \code{data} directory within, adding it to \code{.gitignore} if indicated.
+\item files \code{index.Rmd} and \verb{_site.yml} from a template.
 }
 
-In this context, a "workflow" is a sequence of RMarkdown files, that are
-named, for example \code{00-import.Rmd}, \code{01-do-something.Rmd}, etc., such that
+In this context, a \emph{workflow} is a sequence of RMarkdown files that are
+named, for example: \code{00-import.Rmd}, \code{01-do-something.Rmd}, etc., such that
 each RMarkdown file:
 \itemize{
 \item writes only to its own dedicated sub-directory of \code{data}.
@@ -40,18 +44,24 @@ each RMarkdown file:
 
 You can have more than one workflow directory in a repository, but it will be
 easiest to manage if each workflow is its own "data universe", where data can
-be imported only using \code{00-import.Rmd}, and can be published only using
-\code{99-publish.Rmd}.
+be imported or exported only using specific files at the start and end of the
+workflow, for example: \code{00-import.Rmd} and \code{99-publish.Rmd}.
 
 You may wish to customize the \verb{_site.yml} and \code{index.Rmd} files - they are
 designed to let you create a minimally (in a good way) functional
-markdown-based website that you can share via GitHub pages. The site
-can be rendered using \code{\link[=proj_workflow_render]{proj_workflow_render()}} (which is a thin wrapper
-to \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}).
+markdown-based website that you can share via GitHub pages. You can
+make the site more functional, for example, using \code{html_document}, adding
+a navbar and CSS.
+
+The site can be rendered using \code{\link[=proj_workflow_render]{proj_workflow_render()}} (which is a thin
+wrapper to \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}).
 
 The easiest way to create additional RMarkdown files in your workflow is
 to call \code{\link[=proj_workflow_use_rmd]{proj_workflow_use_rmd()}} while you have an existing RMarkdown file
 from that workflow open and active in the RStudio IDE.
+
+Finally, you way wish to run the your workflow on a schedule, using GitHub
+Actions; you can use \code{\link[=proj_workflow_use_action]{proj_workflow_use_action()}}.
 }
 \examples{
 # not run because it creates side effects

@@ -1,9 +1,12 @@
 ---
-output: github_document
+title: "{{{name}}}"
+params:
+  name: "{{{name}}}" # change if you rename file
 ---
 
 ```{r setup}
-here::i_am("{{{name}}}.Rmd", uuid = "{{{uuid}}}")
+here::i_am(paste0(params$name, ".Rmd"), uuid = "{{{uuid}}}")
+
 library("conflicted")
 library("here")
 library("fs")
@@ -11,23 +14,33 @@ library("fs")
 
 The purpose of this document is ...
 
-```{r path_target}
-dir_target <- here("data", "{{{name}}}")
-
-# create a target directory:
-#   - only *this* Rmd file can write to it
-#   - can access using path_target() function
+```{r accessor-functions}
+dir_target <- here("data", params$name)
 
 # if target directory exists, delete it 
 if (dir_exists(dir_target)) {
   dir_delete(dir_target)
 }
 
-# create target directory
 dir_create(dir_target)
 
-# create accessor-function
+# accessor-function for *this* file's data-directory
 path_target <- function(...) {
-  fs::path(c(dir_target, ...))
+  here::here(c("data", params$name, ...))
+}
+
+# accessor-function for data-directory, use to read previous data
+path_data <- function(...) {
+  
+  path <- list(...)
+  
+  # warn if we are using "future" data
+  if (path[[1]] >= params$name) {
+    warning(
+      paste(path[[1]], "is not previous to", params$name)
+    )
+  }
+    
+  here::here(c("data", path))
 }
 ```

@@ -1,3 +1,5 @@
 title: "{{{name}}}"
 output_dir: .
-output: github_document
+output:
+  github_document:
+    new_session: true

@@ -25,10 +25,39 @@ relative to project root.}
 Invisible \code{NULL}, called for side effects.
 }
 \description{
-This uses \code{\link[usethis:use_template]{usethis::use_template()}} to create a new, templated RMarkdown file
-in a flow directory.
+Use this function to create a new, templated RMarkdown file in a workflow
+directory. It is mandatory to provide a \code{name}. However, the \code{path} can be
+omitted if you have an RMarkdown file from your project open and active
+in the RStudio IDE; it will use the directory of that file.
+}
+\details{
+This is an opinionated system; it introduces restrictions to help keep you
+"inside the boat":
+\itemize{
+\item All the RMarkdown files in a workflow are in the same directory; there
+are no sub-directories with RMarkdown files.
+\item Using \code{\link[here:i_am]{here::i_am()}}, it establishes the root of the workflow as the
+directory that contains the RMarkdown file. In other words, when the
+RMarkdown file is rendered, this directory becomes the \code{\link[here:here]{here::here()}} root.
+Also, using \code{\link[here:i_am]{here::i_am()}}, it provides a unique identifier for \emph{this} file,
+which will make a stronger guarantee that any rendering of this file happens
+from inside this workflow directory.
+\item It creates a dedicated data-directory for this file to write to, making sure
+that this data-directory is empty at the start of the rendering. It also
+provides an accessor function \code{path_target()} that you can use later in the
+file to compose paths to this data-directory. For example:\preformatted{readr::write_csv(mtcars, path_target("mtcars.csv"))
+}
+
+It also provides an accessor function to the data directory itself, which can
+be useful for reading data from "previous" files.\preformatted{fun_data <- readr::read_csv(path_data("00-import", "fun_data.csv"))
+}
+}
+
+These opinionated features can help you access your data more easily, while
+helping to keep you "safely inside the boat".
 }
 \examples{
+# not run because it creates side effects
 \dontrun{
   # creates file `01-clean.Rmd`
   proj_workflow_use_rmd("01-clean")
