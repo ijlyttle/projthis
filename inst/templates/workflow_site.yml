@@ -1,0 +1,3 @@
+title: "{{{name}}}"
+output_dir: .
+output: github_document

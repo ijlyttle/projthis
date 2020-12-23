@@ -1,4 +1,4 @@
-# proj_use_github_action() works
+# proj_workflow_use_action() works
 
     v Updating dependencies in DESCRIPTION.
     v No dependencies missing from DESCRIPTION.

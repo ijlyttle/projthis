@@ -83,24 +83,26 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
+          remotes::install_github("ijlyttle/projthis")
         shell: Rscript {0}
 
       # rename and adapt this step to build your project
       - name: Build something
         # if you are running only R commands, this can be a convenient syntax
         run: |
-          getwd()
+          # projthis::proj_build_flow()
         shell: Rscript {0}
 
       # rename and adapt this step to deploy your project
       - name: Deploy something
-        # if you need to combine R commands with shell commands, try this syntax
-        #
         # caution to stay away from syntax like `git add -A` as you might be committing
-        #  files that you would prefer not to commit:
-        #  https://twitter.com/JennyBryan/status/1319320033063923712
+        # files that you would prefer not to commit:
+        #   https://twitter.com/JennyBryan/status/1319320033063923712
+        #
+        # `git add -u` commits only files that are already committed
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'getwd()'
-
+          git add -u
+          git commit -m "updated by Actions"
+          git push

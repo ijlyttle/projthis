@@ -1,12 +1,16 @@
 Package: projthis
-Title: Lightweight Dependency-Manager for Projects
-Version: 0.0.0.9008
+Title: Lightweight Project-Management
+Version: 0.0.0.9009
 Authors@R: 
+  c(
     person(given = "Ian J",
            family = "Lyttle",
            role = c("aut", "cre"),
            email = "ian.lyttle@schneider-electric.com",
-           comment = c(ORCID = "0000-0001-9962-4849"))
+           comment = c(ORCID = "0000-0001-9962-4849")),
+    person("Jennifer", "Bryan", role = "ctb", comment = "usethis"),
+    person("Hadley", "Wickham", role = "ctb", comment = "usethis")
+  )
 Description: One of the barriers to making projects portable is dependency
   management. The goal of this package to provide a lightweight solution, 
   using the DESCRIPTION file. This is the same mechanism used to manage
@@ -14,6 +18,7 @@ Description: One of the barriers to making projects portable is dependency
   will run using the latest version of all its dependencies. The functionality
   of this package lies somewhere between {usethis} and {renv}, hence the 
   thought to create yet another package.
+  TODO: talk about the workflow part.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -31,11 +36,16 @@ Imports:
     purrr,
     cli,
     crayon,
-    glue
+    glue,
+    rlang,
+    uuid,
+    tools,
+    rmarkdown,
+    rstudioapi
 Suggests: 
     testthat,
     pkgdown,
-    rmarkdown,
     knitr
 Remotes: r-lib/testthat
 Config/testthat/edition: 3 
+VignetteBuilder: knitr

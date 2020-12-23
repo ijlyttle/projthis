@@ -1,0 +1,33 @@
+---
+output: github_document
+---
+
+```{r setup}
+here::i_am("{{{name}}}.Rmd", uuid = "{{{uuid}}}")
+library("conflicted")
+library("here")
+library("fs")
+```
+
+The purpose of this document is ...
+
+```{r path_target}
+dir_target <- here("data", "{{{name}}}")
+
+# create a target directory:
+#   - only *this* Rmd file can write to it
+#   - can access using path_target() function
+
+# if target directory exists, delete it 
+if (dir_exists(dir_target)) {
+  dir_delete(dir_target)
+}
+
+# create target directory
+dir_create(dir_target)
+
+# create accessor-function
+path_target <- function(...) {
+  fs::path(c(dir_target, ...))
+}
+```

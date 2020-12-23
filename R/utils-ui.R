@@ -1,3 +1,6 @@
+#' @importFrom rlang `%||%`
+NULL
+
 # a collection of usethis-style internal functions
 
 pui_bullet <- function(x, bullet) {
