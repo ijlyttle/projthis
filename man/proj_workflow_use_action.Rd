@@ -5,7 +5,7 @@
 \title{Use GitHub Action}
 \usage{
 proj_workflow_use_action(
-  name = "project-run",
+  name = "project-workflow",
   save_as = NULL,
   ignore = TRUE,
   open = TRUE

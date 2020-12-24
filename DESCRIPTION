@@ -42,7 +42,8 @@ Imports:
     tools,
     rmarkdown,
     rstudioapi,
-    assertthat
+    assertthat,
+    here
 Suggests: 
     testthat,
     pkgdown,

@@ -1,5 +1,6 @@
 ---
 title: "{{{name}}}"
+output: github_document
 ---
 
 This would be a great place to make a summary of what is in this workflow project.

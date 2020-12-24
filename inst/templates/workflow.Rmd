@@ -1,5 +1,6 @@
 ---
 title: "{{{name}}}"
+output: github_document
 params:
   name: "{{{name}}}" # change if you rename file
 ---
@@ -8,39 +9,20 @@ params:
 here::i_am(paste0(params$name, ".Rmd"), uuid = "{{{uuid}}}")
 
 library("conflicted")
+library("projthis")
 library("here")
-library("fs")
 ```
 
 The purpose of this document is ...
 
-```{r accessor-functions}
-dir_target <- here("data", params$name)
+```{r directories}
+# create target directory to write *this* file's data: 
+#  - all data written by this file should be written here
+proj_create_dir_target(params$name)
 
-# if target directory exists, delete it 
-if (dir_exists(dir_target)) {
-  dir_delete(dir_target)
-}
-
-dir_create(dir_target)
-
-# accessor-function for *this* file's data-directory
-path_target <- function(...) {
-  here::here(c("data", params$name, ...))
-}
-
-# accessor-function for data-directory, use to read previous data
-path_data <- function(...) {
-  
-  path <- list(...)
-  
-  # warn if we are using "future" data
-  if (path[[1]] >= params$name) {
-    warning(
-      paste(path[[1]], "is not previous to", params$name)
-    )
-  }
-    
-  here::here(c("data", path))
-}
+# create accessor functions for data directories:
+#  - get path to target directory: path_target("sample.csv")
+#  - get path to previous data: path_data("00-import", "sample.csv")
+path_target <- proj_path_target(params$name)
+path_data <- proj_path_data(params$name)
 ```

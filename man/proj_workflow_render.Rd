@@ -4,7 +4,12 @@
 \alias{proj_workflow_render}
 \title{Render workflow}
 \usage{
-proj_workflow_render(path = ".", envir = new.env(), ...)
+proj_workflow_render(
+  path = "workflow",
+  envir = new.env(),
+  output_options = list(html_preview = FALSE),
+  ...
+)
 }
 \arguments{
 \item{path}{\code{character} path to workflow directory,
@@ -12,16 +17,18 @@ relative to project root.}
 
 \item{envir}{\code{environment} in which code chunks are to be evaluated.}
 
-\item{...}{other arguments passed on to \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}.}
+\item{output_options}{\code{list} of output options that can override the
+RMarkdown file metadata.}
+
+\item{...}{other arguments passed on to \code{\link[rmarkdown:render]{rmarkdown::render()}}.}
 }
 \value{
-\code{character} name of the site output file,
-relative to the input directory. Called principally for side effects.
+Invisible \code{NULL}, called for side effects.
 }
 \description{
-This is a thin wrapper to \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}; it renders each of the
-files in the workflow in alphabetical order. This order is important because
-it preserves the direction of the data dependencies.
+This renders each of the RMarkdown files in the workflow in alphabetical
+order. This order is important because it preserves the direction of the
+data dependencies.
 }
 \examples{
 \dontrun{

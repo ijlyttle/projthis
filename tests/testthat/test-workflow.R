@@ -25,7 +25,7 @@ test_that("proj_workflow_use_action() works", {
   # test that file has been copied
   expect_true(
     fs::file_exists(
-      fs::path(localdir, ".github", "workflows", "project-run.yaml")
+      fs::path(localdir, ".github", "workflows", "project-workflow.yaml")
     )
   )
 

@@ -20,26 +20,14 @@
 # or write your own.
 on:
 
-  # # runs whenever you push a specific branch
-  # push:
-  #   branches:
-  #     - main
-  #     - master
-
-  # # runs on pull requests to a specific branch
-  # pull_request:
-  #   branches:
-  #     - main
-  #     - master
-
-  # # runs when we push README.Rmd
-  # push:
-  #   paths:
-  #     - README.Rmd
+  # runs whenever you push any Rmarkdown file
+  push:
+    paths:
+      - "**.Rmd"
 
   # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
-  schedule:
-    - cron:  '30 02 * * *' # 02:30 UTC, every day
+  # schedule:
+  #  - cron:  '30 02 * * *' # 02:30 UTC, every day
 
 # name of the workflow to appear in actions portal,
 # e.g. https://github.com/ijlyttle/projthis/actions?query=workflow%3AR-CMD-check
@@ -97,14 +85,12 @@ jobs:
 
       # rename and adapt this step to deploy your project
       - name: Deploy something
-        # caution to stay away from syntax like `git add -A` as you might be committing
+        # need to be careful with `git add -A` as you might be committing
         # files that you would prefer not to commit:
         #   https://twitter.com/JennyBryan/status/1319320033063923712
-        #
-        # `git add -u` commits only files that are already committed
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add -u
+          git add -A
           git commit -m "updated by Actions"
           git push
