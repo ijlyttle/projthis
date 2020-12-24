@@ -5,7 +5,7 @@
 \title{Create directories for workflow}
 \usage{
 proj_use_workflow(
-  path = ".",
+  path = "workflow",
   git_ignore_data = TRUE,
   open = rlang::is_interactive()
 )
@@ -29,9 +29,11 @@ Use this function to set up a workflow-directory structure.
 This function will create:
 \itemize{
 \item a directory according to the \code{path} you provide; it will be added to
-\code{.Rbuildignore}.
-\item a \code{data} directory within, adding it to \code{.gitignore} if indicated.
-\item files \code{index.Rmd} and \verb{_site.yml} from a template.
+\code{.Rbuildignore}. Within it:
+\itemize{
+\item a \code{data} directory, adding it to \code{.gitignore} if indicated.
+\item a \code{README.Rmd} file.
+}
 }
 
 In this context, a \emph{workflow} is a sequence of RMarkdown files that are
@@ -47,18 +49,18 @@ easiest to manage if each workflow is its own "data universe", where data can
 be imported or exported only using specific files at the start and end of the
 workflow, for example: \code{00-import.Rmd} and \code{99-publish.Rmd}.
 
-You may wish to customize the \verb{_site.yml} and \code{index.Rmd} files - they are
-designed to let you create a minimally (in a good way) functional
-markdown-based website that you can share via GitHub pages. You can
-make the site more functional, for example, using \code{html_document}, adding
-a navbar and CSS.
-
-The site can be rendered using \code{\link[=proj_workflow_render]{proj_workflow_render()}} (which is a thin
-wrapper to \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}).
-
 The easiest way to create additional RMarkdown files in your workflow is
 to call \code{\link[=proj_workflow_use_rmd]{proj_workflow_use_rmd()}} while you have an existing RMarkdown file
 from that workflow open and active in the RStudio IDE.
+
+You'll wish to customize \code{README.Rmd}, perhaps to make a roadmap of the other
+files you'll create, as well as a summary.
+
+This workflow is designed to providea  minimally (in a good way) functional
+markdown-based website that you can share via GitHub pages. You can
+make the site more functional, for example, using \code{html_document}.
+
+The site can be rendered using \code{\link[=proj_workflow_render]{proj_workflow_render()}}.
 
 Finally, you way wish to run the your workflow on a schedule, using GitHub
 Actions; you can use \code{\link[=proj_workflow_use_action]{proj_workflow_use_action()}}.

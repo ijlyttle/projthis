@@ -1,5 +1,6 @@
 ---
 title: "{{{name}}}"
+output: github_document
 params:
   name: "{{{name}}}" # change if you rename file
 ---

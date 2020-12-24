@@ -36,7 +36,7 @@ This is an opinionated system; it introduces restrictions to help keep you
 \itemize{
 \item All the RMarkdown files in a workflow are in the same directory; there
 are no sub-directories with RMarkdown files.
-\item Using \code{\link[here:i_am]{here::i_am()}}, it establishes the root of the workflow as the
+\item Using \code{\link[here:i_am]{here::i_am()}} establishes the root of the workflow as the
 directory that contains the RMarkdown file. In other words, when the
 RMarkdown file is rendered, this directory becomes the \code{\link[here:here]{here::here()}} root.
 Also, using \code{\link[here:i_am]{here::i_am()}}, it provides a unique identifier for \emph{this} file,
