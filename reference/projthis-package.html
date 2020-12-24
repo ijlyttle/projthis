@@ -40,8 +40,7 @@
 
 
 <meta property="og:title" content="Lightweight R project management — projthis-package" />
-<meta property="og:description" content="The goal of this package is to provide some lightweight package-dependency
-management tools for R projects, relying on the DESCRIPTION file." />
+<meta property="og:description" content="The goals of this package are to provide:" />
 
 
 
@@ -73,7 +72,7 @@ management tools for R projects, relying on the DESCRIPTION file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9008</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -81,9 +80,12 @@ management tools for R projects, relying on the DESCRIPTION file." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/projthis.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -95,7 +97,7 @@ management tools for R projects, relying on the DESCRIPTION file." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ijlyttle/projthis/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -118,28 +120,44 @@ management tools for R projects, relying on the DESCRIPTION file." />
     </div>
 
     <div class="ref-description">
-    <p>The goal of this package is to provide some lightweight package-dependency
-management tools for <code>R</code> projects, relying on the <code>DESCRIPTION</code> file.</p>
+    <p>The goals of this package are to provide:</p>
     </div>
 
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>DESCRIPTION</code> file is used, perhaps more famously, to manage
+    
+<ul>
+<li><p>some lightweight package-dependency management tools for <code>R</code> projects,
+relying on the <code>DESCRIPTION</code> file.</p></li>
+<li><p>some tools to support RMarkdown-based workflows.</p></li>
+</ul>
+
+<p>The <code>DESCRIPTION</code> file is used, perhaps more famously, to manage
 dependencies for packages. Here, it is subject to the same limitation:
 the project will run using the  <strong>latest version of all its dependencies</strong>.
 This assumption makes this a lightweight solution; the cost is making sure
 the project remain current with its dependencies.</p>
 <p>This package's functions are mostly wrappers to
-<a href='https://usethis.r-lib.org/reference/usethis-package.html'>usethis</a> and <a href='https://rstudio.github.io/renv//reference/renv-package.html'>renv</a> functions.
-The main functions are:</p>
+<a href='https://usethis.r-lib.org/reference/usethis-package.html'>usethis</a> and <a href='https://rstudio.github.io/renv//reference/renv-package.html'>renv</a> functions.</p>
+<p>There is function to create a project: <code><a href='proj_create.html'>proj_create()</a></code>.</p>
+<p>Functions to manage dependencies:</p>
 <dl>
-<dt><code><a href='proj_create.html'>proj_create()</a></code></dt><dd><p>Create a new project.</p></dd>
 <dt><code><a href='proj_use_description.html'>proj_use_description()</a></code></dt><dd><p>Add a <code>DESCRIPTION</code> file.</p></dd>
-<dt><code><a href='proj_check_deps.html'>proj_update_deps()</a></code></dt><dd><p>Update the package-dependency declaration in <code>DESCRIPTION</code>.</p></dd>
+<dt><code><a href='proj_check_deps.html'>proj_update_deps()</a></code></dt><dd><p>Update the package-dependency declaration
+in <code>DESCRIPTION</code>.</p></dd>
+<dt><code><a href='proj_check_deps.html'>proj_check_deps()</a></code></dt><dd><p>Check the package-dependency declaration
+in <code>DESCRIPTION</code>.</p></dd>
 <dt><code><a href='proj_install_deps.html'>proj_install_deps()</a></code></dt><dd><p>Install the packaage dependencies.</p></dd>
-<dt><code><a href='proj_use_github_action.html'>proj_use_github_action()</a></code></dt><dd><p>Use a GitHub Actions template.</p></dd>
+
+</dl>
+
+<p>Functions to manage workflows:</p>
+<dl>
+<dt><code><a href='proj_use_workflow.html'>proj_use_workflow()</a></code></dt><dd><p>Establish a workflow directory.</p></dd>
+<dt><code><a href='proj_workflow_use_rmd.html'>proj_workflow_use_rmd()</a></code></dt><dd><p>Create a workflow Rmd file from a template.</p></dd>
+<dt><code><a href='proj_workflow_use_action.html'>proj_workflow_use_action()</a></code></dt><dd><p>Use a GitHub Action for a workflow.</p></dd>
 
 </dl>
 

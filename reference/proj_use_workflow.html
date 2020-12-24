@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • projthis</title>
+<title>Create directories for workflow — proj_use_workflow • projthis</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Create directories for workflow — proj_use_workflow" />
+<meta property="og:description" content="Use this function to set up a workflow-directory structure." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -113,30 +114,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/ijlyttle/projthis/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Create directories for workflow</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/workflow.R'><code>R/workflow.R</code></a></small>
+    <div class="hidden name"><code>proj_use_workflow.Rd</code></div>
     </div>
 
-    <div id="projthis-000-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.0">
-<a href="#projthis-000-development-version" class="anchor"></a>projthis 0.0.0 (development version)</h1>
-<ul>
-<li><p>Added <code>proj_use_github_action()</code> to install a GitHub Actions template. (<a href='https://github.com/ijlyttle/projthis/issues/10'>#10</a>)</p></li>
-<li><p>Added <code><a href="../reference/proj_install_deps.html">proj_install_deps()</a></code> to install a project’s package-dependencies. (<a href='https://github.com/ijlyttle/projthis/issues/8'>#8</a>)</p></li>
-<li><p>Added <code><a href="../reference/proj_create.html">proj_create()</a></code> to create a project. (<a href='https://github.com/ijlyttle/projthis/issues/6'>#6</a>)</p></li>
-<li><p>Added <code><a href="../reference/proj_use_description.html">proj_use_description()</a></code> to add a DESCRIPION file to a project. (<a href='https://github.com/ijlyttle/projthis/issues/4'>#4</a>)</p></li>
-<li><p>Added <code><a href="../reference/proj_check_deps.html">proj_check_deps()</a></code> and <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code> to manage dependencies. (<a href='https://github.com/ijlyttle/projthis/issues/2'>#2</a>)</p></li>
-<li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Use this function to set up a workflow-directory structure.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>proj_use_workflow</span><span class='op'>(</span>
+  path <span class='op'>=</span> <span class='st'>"workflow"</span>,
+  git_ignore_data <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p><code>character</code> path to workflow directory,
+relative to project root.</p></td>
+    </tr>
+    <tr>
+      <th>git_ignore_data</th>
+      <td><p><code>logical</code> indicates to add <code>data</code> directory
+to <code>.gitignore</code>.</p></td>
+    </tr>
+    <tr>
+      <th>open</th>
+      <td><p><code>logical</code> indicates to open the file for interactive editing.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Invisible <code>NULL</code>, called for side effects.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function will create:</p><ul>
+<li><p>a directory according to the <code>path</code> you provide; it will be added to
+<code>.Rbuildignore</code>. Within it:</p><ul>
+<li><p>a <code>data</code> directory, adding it to <code>.gitignore</code> if indicated.</p></li>
+<li><p>a <code>README.Rmd</code> file.</p></li>
+</ul></li>
+</ul>
+
+<p>In this context, a <em>workflow</em> is a sequence of RMarkdown files that are
+named, for example: <code>00-import.Rmd</code>, <code>01-do-something.Rmd</code>, etc., such that
+each RMarkdown file:</p><ul>
+<li><p>writes only to its own dedicated sub-directory of <code>data</code>.</p></li>
+<li><p>reads only from data directories of "earlier" RMarkdown files.</p></li>
+</ul>
+
+<p>You can have more than one workflow directory in a repository, but it will be
+easiest to manage if each workflow is its own "data universe", where data can
+be imported or exported only using specific files at the start and end of the
+workflow, for example: <code>00-import.Rmd</code> and <code>99-publish.Rmd</code>.</p>
+<p>The easiest way to create additional RMarkdown files in your workflow is
+to call <code><a href='proj_workflow_use_rmd.html'>proj_workflow_use_rmd()</a></code> while you have an existing RMarkdown file
+from that workflow open and active in the RStudio IDE.</p>
+<p>You'll wish to customize <code>README.Rmd</code>, perhaps to make a roadmap of the other
+files you'll create, as well as a summary.</p>
+<p>This workflow is designed to providea  minimally (in a good way) functional
+markdown-based website that you can share via GitHub pages. You can
+make the site more functional, for example, using <code>html_document</code>.</p>
+<p>The site can be rendered using <code><a href='proj_workflow_render.html'>proj_workflow_render()</a></code>.</p>
+<p>Finally, you way wish to run the your workflow on a schedule, using GitHub
+Actions; you can use <code><a href='proj_workflow_use_action.html'>proj_workflow_use_action()</a></code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># not run because it creates side effects</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>proj_use_workflow</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

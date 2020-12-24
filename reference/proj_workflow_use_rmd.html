@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check or update dependency declaration — proj_check_deps • projthis</title>
+<title>Use opinionated Rmd template — proj_workflow_use_rmd • projthis</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,11 @@
 
 
 
-<meta property="og:title" content="Check or update dependency declaration — proj_check_deps" />
-<meta property="og:description" content="This uses renv::dependencies(), which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the DESCRIPTION to determine
-missing and extra packages.
-
-proj_check_deps()Prints missing and extra dependencies.
-proj_update_deps()Updates DESCRIPTION file with missing and
-extra dependencies.
-
-
-" />
+<meta property="og:title" content="Use opinionated Rmd template — proj_workflow_use_rmd" />
+<meta property="og:description" content="Use this function to create a new, templated RMarkdown file in a workflow
+directory. It is mandatory to provide a name. However, the path can be
+omitted if you have an RMarkdown file from your project open and active
+in the RStudio IDE; it will use the directory of that file." />
 
 
 
@@ -124,53 +117,82 @@ extra dependencies.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check or update dependency declaration</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/dependencies.R'><code>R/dependencies.R</code></a></small>
-    <div class="hidden name"><code>proj_check_deps.Rd</code></div>
+    <h1>Use opinionated Rmd template</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/workflow.R'><code>R/workflow.R</code></a></small>
+    <div class="hidden name"><code>proj_workflow_use_rmd.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This uses <code><a href='https://rstudio.github.io/renv//reference/dependencies.html'>renv::dependencies()</a></code>, which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the <code>DESCRIPTION</code> to determine
-missing and extra packages.</p>
-<dl>
-<dt>proj_check_deps()</dt><dd><p>Prints missing and extra dependencies.</p></dd>
-<dt>proj_update_deps()</dt><dd><p>Updates <code>DESCRIPTION</code> file with missing and
-extra dependencies.</p></dd>
-
-</dl>
-
+    <p>Use this function to create a new, templated RMarkdown file in a workflow
+directory. It is mandatory to provide a <code>name</code>. However, the <code>path</code> can be
+omitted if you have an RMarkdown file from your project open and active
+in the RStudio IDE; it will use the directory of that file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proj_check_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>proj_update_deps</span><span class='op'>(</span>path <span class='op'>=</span> <span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/proj_utils.html'>proj_get</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>proj_workflow_use_rmd</span><span class='op'>(</span>
+  <span class='va'>name</span>,
+  path <span class='op'>=</span> <span class='cn'>NULL</span>,
+  open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
+  ignore <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>name</th>
+      <td><p><code>character</code> name of the workflow component.</p></td>
+    </tr>
+    <tr>
       <th>path</th>
-      <td><p><code>character</code>, path to the project-root directory.</p></td>
+      <td><p><code>character</code> path to workflow directory,
+relative to project root.</p></td>
+    </tr>
+    <tr>
+      <th>open</th>
+      <td><p><code>logical</code> indicates to open the file for interactive editing.</p></td>
+    </tr>
+    <tr>
+      <th>ignore</th>
+      <td><p><code>logical</code> indicates to add this file to <code>.Rbuildignore</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Invisible <code>NULL</code>, called for side effects.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This is an opinionated system; it introduces restrictions to help keep you
+"inside the boat":</p><ul>
+<li><p>All the RMarkdown files in a workflow are in the same directory; there
+are no sub-directories with RMarkdown files.</p></li>
+<li><p>Using <code><a href='https://here.r-lib.org//reference/i_am.html'>here::i_am()</a></code> establishes the root of the workflow as the
+directory that contains the RMarkdown file. In other words, when the
+RMarkdown file is rendered, this directory becomes the <code><a href='https://here.r-lib.org//reference/here.html'>here::here()</a></code> root.
+Also, using <code><a href='https://here.r-lib.org//reference/i_am.html'>here::i_am()</a></code>, it provides a unique identifier for <em>this</em> file,
+which will make a stronger guarantee that any rendering of this file happens
+from inside this workflow directory.</p></li>
+<li><p>It creates a dedicated data-directory for this file to write to, making sure
+that this data-directory is empty at the start of the rendering. It also
+provides an accessor function <code>path_target()</code> that you can use later in the
+file to compose paths to this data-directory. For example:</p><pre><span class='fu'>readr</span><span class='fu'>::</span><span class='fu'>write_csv</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='fu'>path_target</span><span class='op'>(</span><span class='st'>"mtcars.csv"</span><span class='op'>)</span><span class='op'>)</span>
+</pre>
+
+<p>It also provides an accessor function to the data directory itself, which can
+be useful for reading data from "previous" files.</p><pre><span class='va'>fun_data</span> <span class='op'>&lt;-</span> <span class='fu'>readr</span><span class='fu'>::</span><span class='fu'>read_csv</span><span class='op'>(</span><span class='fu'>path_data</span><span class='op'>(</span><span class='st'>"00-import"</span>, <span class='st'>"fun_data.csv"</span><span class='op'>)</span><span class='op'>)</span>
+</pre></li>
+</ul>
+
+<p>These opinionated features can help you access your data more easily, while
+helping to keep you "safely inside the boat".</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># not run because it produces side effects</span>
+    <pre class="examples"><div class='input'><span class='co'># not run because it creates side effects</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-
-  <span class='co'># check DESCRIPTION for missing and extra dependencies</span>
-  <span class='fu'>proj_check_deps</span><span class='op'>(</span><span class='op'>)</span>
-
-  <span class='co'># update DESCRIPTION with missing and extra dependencies</span>
-  <span class='fu'>proj_update_deps</span><span class='op'>(</span><span class='op'>)</span>
+  <span class='co'># creates file `01-clean.Rmd`</span>
+  <span class='fu'>proj_workflow_use_rmd</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
 <span class='op'>}</span>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
