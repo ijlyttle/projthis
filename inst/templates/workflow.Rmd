@@ -1,0 +1,28 @@
+---
+title: "{{{name}}}"
+output: github_document
+params:
+  name: "{{{name}}}" # change if you rename file
+---
+
+```{r setup}
+here::i_am(paste0(params$name, ".Rmd"), uuid = "{{{uuid}}}")
+
+library("conflicted")
+library("projthis")
+library("here")
+```
+
+The purpose of this document is ...
+
+```{r directories}
+# create target directory to write *this* file's data: 
+#  - all data written by this file should be written here
+proj_create_dir_target(params$name)
+
+# create accessor functions for data directories:
+#  - get path to target directory: path_target("sample.csv")
+#  - get path to previous data: path_data("00-import", "sample.csv")
+path_target <- proj_path_target(params$name)
+path_data <- proj_path_data(params$name)
+```

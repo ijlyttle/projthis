@@ -1,0 +1,116 @@
+---
+title: "projthis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{projthis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("projthis")
+```
+
+The goal of the projthis package is to help you establish a project-based workflow, as opposed to a package-based workflow. 
+It is based on three main ideas:  
+
+  - Managing the dependencies of a project using the DESCRIPTION file.
+ 
+  - Establishing a naming convention for RMarkdown files and their associated data-directories.
+  
+  - Keeping open the possibility to convert a project-repository into a package-repository.
+  
+These ideas are largely independent of each other; you can choose to implement any or all of them.
+
+## Managing dependencies
+
+One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
+There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
+
+The central idea of these packages is they assemble a set of packages that are particular to a given project, within that project. 
+They build a package library dedicated to the project itself, offering a strong guarantee that the "same code" is run everywhere.
+
+The central idea here is to offer a weaker guarantee, essentially the guarantee offered when submitting a package to CRAN: that the code will run using the latest versions of the packages listed in the `DESCRIPTION` file. 
+It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some subset of its dependencies behave differently. Again, this a variation on the CRAN "contract". 
+
+This is a much-more lightweight approach as it requires only that the `DESCRIPTION` file be kept current.
+If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
+
+### Workflow example
+
+```r
+proj_create()
+# TODO: add empty namespace file?
+```
+
+```r
+proj_use_description()
+```
+
+```r
+proj_check_deps()
+proj_update_deps()
+```
+
+```r
+proj_install_deps()
+```
+
+Graduate to {renv}.
+
+## Naming convention
+
+Support of a workflow.
+
+```r
+# sets up directories, seeds files
+proj_use_workflow()
+# open _site.yml, index.Rmd
+```
+
+```r
+# creates a new rmd file from a template
+proj_workflow_use_rmd()
+```
+
+```r
+# wraps rmarkdown::build_site()
+proj_workflow_run()
+```
+
+```r
+# adds a GitHub action to the repository
+proj_workflow_use_action()
+```
+
+Graduate to {drake}, {targets}.
+
+## Converting to package
+
+You know the rules: copy-paste code three times, write a function. 
+Copy-paste a function three times, write a package.
+
+Use a legal name for the project. 
+This leaves the door open to building a package on the same structure. 
+
+Just like any other package, you would put the functions in the `R` directory, document, test, etc. 
+
+Graduate to [R packages](https://r-pkgs.org/)
+
+At some point, it may make sense to migrate the package away from the rest of the project, but that will be an exercise left to the reader.
+
+## Converting to RMarkdown site
+
+Who knows, maybe your project also demands a fancier, more structured website. 
+Let's keep a path open for that, too.
+
+I imagine that one repository, at some point, becomes two, and it will be up to the reader to manage that. I think the goal here is to set things up so that's as painless as possible.
+
+Graduate to [rmarkdown site](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html), then on to Hugo, bookdown, distill, etc.

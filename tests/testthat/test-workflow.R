@@ -6,7 +6,7 @@ fs::dir_create(tempdir)
 
 withr::local_options(list(usethis.quiet = TRUE))
 
-test_that("proj_use_github_action() works", {
+test_that("proj_workflow_use_action() works", {
 
   localdir <- fs::path(tempdir, "proj-01")
 
@@ -19,13 +19,13 @@ test_that("proj_use_github_action() works", {
 
   # add action
   expect_snapshot_output(
-    proj_use_github_action()
+    proj_workflow_use_action()
   )
 
   # test that file has been copied
   expect_true(
     fs::file_exists(
-      fs::path(localdir, ".github", "workflows", "project-run.yaml")
+      fs::path(localdir, ".github", "workflows", "project-workflow.yaml")
     )
   )
 

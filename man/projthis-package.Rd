@@ -5,10 +5,15 @@
 \alias{projthis-package}
 \title{Lightweight \code{R} project management}
 \description{
-The goal of this package is to provide some lightweight package-dependency
-management tools for \code{R} projects, relying on the \code{DESCRIPTION} file.
+The goals of this package are to provide:
 }
 \details{
+\itemize{
+\item some lightweight package-dependency management tools for \code{R} projects,
+relying on the \code{DESCRIPTION} file.
+\item some tools to support RMarkdown-based workflows.
+}
+
 The \code{DESCRIPTION} file is used, perhaps more famously, to manage
 dependencies for packages. Here, it is subject to the same limitation:
 the project will run using the  \strong{latest version of all its dependencies}.
@@ -17,13 +22,25 @@ the project remain current with its dependencies.
 
 This package's functions are mostly wrappers to
 \link[usethis:usethis-package]{usethis} and \link[renv:renv-package]{renv} functions.
-The main functions are:
+
+There is function to create a project: \code{\link[=proj_create]{proj_create()}}.
+
+Functions to manage dependencies:
 
 \describe{
-\item{\code{\link[=proj_create]{proj_create()}}}{Create a new project.}
 \item{\code{\link[=proj_use_description]{proj_use_description()}}}{Add a \code{DESCRIPTION} file.}
-\item{\code{\link[=proj_update_deps]{proj_update_deps()}}}{Update the package-dependency declaration in \code{DESCRIPTION}.}
+\item{\code{\link[=proj_update_deps]{proj_update_deps()}}}{Update the package-dependency declaration
+in \code{DESCRIPTION}.}
+\item{\code{\link[=proj_check_deps]{proj_check_deps()}}}{Check the package-dependency declaration
+in \code{DESCRIPTION}.}
 \item{\code{\link[=proj_install_deps]{proj_install_deps()}}}{Install the packaage dependencies.}
-\item{\code{\link[=proj_use_github_action]{proj_use_github_action()}}}{Use a GitHub Actions template.}
+}
+
+Functions to manage workflows:
+
+\describe{
+\item{\code{\link[=proj_use_workflow]{proj_use_workflow()}}}{Establish a workflow directory.}
+\item{\code{\link[=proj_workflow_use_rmd]{proj_workflow_use_rmd()}}}{Create a workflow Rmd file from a template.}
+\item{\code{\link[=proj_workflow_use_action]{proj_workflow_use_action()}}}{Use a GitHub Action for a workflow.}
 }
 }

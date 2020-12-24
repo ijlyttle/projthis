@@ -26,6 +26,9 @@ proj_create <- function(path, rstudio = rstudioapi::isAvailable(),
   # add DESCRIPTION file
   proj_use_description(fields = fields, update_deps = TRUE)
 
+  # add namespace file
+  usethis::use_namespace(roxygen = TRUE)
+
   # give feedback
   code <- usethis::ui_code("proj_update_deps()")
   pui_todo("As you add dependencies, call {code} to update DESCRIPTION.")
