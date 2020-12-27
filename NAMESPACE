@@ -2,6 +2,7 @@
 
 export(proj_create)
 export(proj_create_dir_target)
+export(proj_dir_info)
 export(proj_install_deps)
 export(proj_path_data)
 export(proj_path_target)

@@ -43,7 +43,8 @@ Imports:
     rmarkdown,
     rstudioapi,
     assertthat,
-    here
+    here,
+    tibble
 Suggests: 
     testthat,
     pkgdown,

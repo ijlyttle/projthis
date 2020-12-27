@@ -1,5 +1,6 @@
 ---
 title: "{{{name}}}"
+date: "Compiled at `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz = 'UTC')` UTC"
 output: github_document
 params:
   name: "{{{name}}}" # change if you rename file
@@ -25,4 +26,12 @@ proj_create_dir_target(params$name)
 #  - get path to previous data: path_data("00-import", "sample.csv")
 path_target <- proj_path_target(params$name)
 path_data <- proj_path_data(params$name)
+```
+
+## Files written
+
+These files have been written to ```r paste0("data/", params$name)```:
+
+```{r list-files-target}
+proj_dir_info(path_target())
 ```

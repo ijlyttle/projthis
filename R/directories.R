@@ -41,7 +41,8 @@ proj_path_target <- function(name) {
 
   # accessor-function for *this* file's data-directory
   function(...) {
-    here::here(c("data", name, ...))
+    args <- as.list(c("data", name, ...))
+    do.call(here::here, args)
   }
 }
 
@@ -62,7 +63,57 @@ proj_path_data <- function(name) {
       )
     }
 
-    here::here(c("data", path))
+    args <- as.list(c("data", path))
+    do.call(here::here, args)
   }
+}
+
+#' Local directory information
+#'
+#' This provides a different take on [fs::dir_info()], by default
+#' returning only a (hopefully useful) subset of the information.
+#'
+#' @param path `character` path for directory listing.
+#' @param tz `character` Olson time-zone to use for datetimes;
+#'   specify `NULL` to use system time-zone.
+#' @param cols `character` vector of column-names to return from
+#'   [fs::dir_info()]; specify `NULL` to return all columns.
+#' @param ... additional arguments passed to [fs::dir_info()].
+#'
+#' @return `data.frame` with S3 classes `"tbl_df"` and `"tbl"`, aka a "tibble".
+#' @examples
+#'   proj_dir_info()
+#' @export
+#'
+proj_dir_info <- function(path = ".", tz = "UTC",
+                          cols = c("path", "type", "size", "modification_time"),
+                          ...) {
+
+  # temporarily change directory to "see things"
+  # from that directory's perspective
+  withr::local_dir(path)
+  info <- fs::dir_info(path = ".", ...)
+
+  # predicate function (is this a datetime?)
+  is_POSIXct <- function(x) {
+    inherits(x, "POSIXct")
+  }
+
+  set_tz <- function(x, tz) {
+    attr(x, "tzone") <- tz
+    x
+  }
+
+  # set the timezone on all datetime columns, restore tibble
+  info <- purrr::map_if(info, is_POSIXct, set_tz, tz = tz)
+  info <- tibble::as_tibble(info)
+
+  # select only the requested columns
+  # TODO: worth implementing tidyselect?
+  if (!is.null(cols)) {
+    info <- info[, cols]
+  }
+
+  info
 }
 
