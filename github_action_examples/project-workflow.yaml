@@ -25,9 +25,9 @@ on:
     paths:
       - "**.Rmd"
 
-  # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
+  # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
   # schedule:
-  #  - cron:  '30 02 * * *' # 02:30 UTC, every day
+  #  - cron:  '00 08 * * *' # 08:00 UTC every day
 
 # name of the workflow to appear in actions portal,
 # e.g. https://github.com/ijlyttle/projthis/actions?query=workflow%3AR-CMD-check
@@ -71,20 +71,19 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rmarkdown")
           remotes::install_local(".")
         shell: Rscript {0}
 
-      # rename and adapt this step to build your project
-      - name: Build something
+      # adapt this step to build your project
+      - name: Render workflow
         # if you are running only R commands, this can be a convenient syntax
         run: |
-          # you can run more than one workflow here (uncomment to activate)
-          # rmarkdown::render_site("workflow")
+          # # you can run more than one workflow here (uncomment to activate)
+          # projthis::proj_workflow_render("workflow")
         shell: Rscript {0}
 
-      # rename and adapt this step to deploy your project
-      - name: Deploy something
+      # adapt this step to deploy your project
+      - name: Deploy
         # need to be careful with `git add -A` as you might be committing
         # files that you would prefer not to commit:
         #   https://twitter.com/JennyBryan/status/1319320033063923712
