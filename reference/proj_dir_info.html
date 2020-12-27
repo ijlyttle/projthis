@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create target directory — proj_create_dir_target • projthis</title>
+<title>Local directory information — proj_dir_info • projthis</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Create target directory — proj_create_dir_target" />
-<meta property="og:description" content="Create target directory" />
+<meta property="og:title" content="Local directory information — proj_dir_info" />
+<meta property="og:description" content="This provides a different take on fs::dir_info(), by default
+returning only a (hopefully useful) subset of the information." />
 
 
 
@@ -114,36 +115,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create target directory</h1>
+    <h1>Local directory information</h1>
     <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/directories.R'><code>R/directories.R</code></a></small>
-    <div class="hidden name"><code>proj_create_dir_target.Rd</code></div>
+    <div class="hidden name"><code>proj_dir_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create target directory</p>
+    <p>This provides a different take on <code><a href='http://fs.r-lib.org/reference/dir_ls.html'>fs::dir_info()</a></code>, by default
+returning only a (hopefully useful) subset of the information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proj_create_dir_target</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>proj_dir_info</span><span class='op'>(</span>
+  path <span class='op'>=</span> <span class='st'>"."</span>,
+  tz <span class='op'>=</span> <span class='st'>"UTC"</span>,
+  cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"path"</span>, <span class='st'>"type"</span>, <span class='st'>"size"</span>, <span class='st'>"modification_time"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p><code>character</code> name of the workflow component.</p></td>
+      <th>path</th>
+      <td><p><code>character</code> path for directory listing.</p></td>
+    </tr>
+    <tr>
+      <th>tz</th>
+      <td><p><code>character</code> Olson time-zone to use for datetimes;
+specify <code>NULL</code> to use system time-zone.</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p><code>character</code> vector of column-names to return from
+<code><a href='http://fs.r-lib.org/reference/dir_ls.html'>fs::dir_info()</a></code>; specify <code>NULL</code> to return all columns.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to <code><a href='http://fs.r-lib.org/reference/dir_ls.html'>fs::dir_info()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisible NULL, called for side effects.</p>
+    <p><code>data.frame</code> with S3 classes <code>"tbl_df"</code> and <code>"tbl"</code>, aka a "tibble".</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># not run because it creates side effects</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>proj_create_dir_target</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><div class='input'>  <span class='fu'>proj_dir_info</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 14 x 4</span><span>
+#&gt;    path                          type         size modification_time  
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fs::path&gt;</span><span>                    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fs::bytes&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dttm&gt;</span><span>             
+#&gt; </span><span style='color: #555555;'> 1</span><span> </span><span style='color: #BB00BB;font-weight: bold;'>Rplot001.png</span><span>                  file         1011 2020-12-27 </span><span style='color: #555555;'>04:02:56</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> index.html                    file        6.48K 2020-12-27 </span><span style='color: #555555;'>04:02:55</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> proj_check_deps.html          file        7.86K 2020-12-27 </span><span style='color: #555555;'>04:02:55</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> proj_create.html              file        8.59K 2020-12-27 </span><span style='color: #555555;'>04:02:56</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> proj_create_dir_target.html   file        6.28K 2020-12-27 </span><span style='color: #555555;'>04:02:56</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> proj_install_deps.html        file        8.02K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> proj_path_target.html         file        7.07K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> proj_use_description.html     file        7.28K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'> 9</span><span> proj_use_github_action.html   file        8.13K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> proj_use_workflow.html        file        9.01K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'>11</span><span> proj_workflow_render.html     file        7.44K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'>12</span><span> proj_workflow_use_action.html file         8.2K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'>13</span><span> proj_workflow_use_rmd.html    file        9.81K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span>
+#&gt; </span><span style='color: #555555;'>14</span><span> projthis-package.html         file        7.32K 2020-12-27 </span><span style='color: #555555;'>04:02:51</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
