@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Project-Management
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: 
   c(
     person(given = "Ian J",
@@ -43,7 +43,8 @@ Imports:
     rmarkdown,
     rstudioapi,
     assertthat,
-    here
+    here,
+    tibble
 Suggests: 
     testthat,
     pkgdown,
