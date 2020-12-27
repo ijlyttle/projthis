@@ -41,7 +41,8 @@ proj_path_target <- function(name) {
 
   # accessor-function for *this* file's data-directory
   function(...) {
-    here::here(c("data", name, ...))
+    args <- as.list(c("data", name, ...))
+    do.call(here::here, args)
   }
 }
 
@@ -62,7 +63,8 @@ proj_path_data <- function(name) {
       )
     }
 
-    here::here(c("data", path))
+    args <- as.list(c("data", path))
+    do.call(here::here, args)
   }
 }
 
