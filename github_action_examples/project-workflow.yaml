@@ -19,12 +19,10 @@
 # Comment, or uncomment what you think might be useful in your situation,
 # or write your own.
 on:
-
   # runs whenever you push any Rmarkdown file
   push:
     paths:
-      - "**.Rmd"
-
+      - "**.Rmd
   # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
   # schedule:
   #  - cron:  '30 02 * * *' # 02:30 UTC, every day
