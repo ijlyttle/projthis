@@ -208,6 +208,9 @@ proj_workflow_render <- function(path = "workflow", envir = new.env(),
   # change the working directory until this function exits
   withr::local_dir(usethis::proj_path(path))
 
+  # https://github.com/r-lib/crayon/issues/96
+  withr::local_options(list(crayon.enabled = NULL))
+
   # determine all the Rmd files
   files_rmd <- fs::dir_ls(path = ".", regexp = "\\.Rmd$", ignore.case = TRUE)
 
