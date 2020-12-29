@@ -6,7 +6,7 @@ params:
   name: "{{{name}}}" # change if you rename file
 ---
 
-```{r here}
+```{r here, message=FALSE}
 here::i_am(paste0(params$name, ".Rmd"), uuid = "{{{uuid}}}")
 ```
 
@@ -27,9 +27,9 @@ path_target <- projthis::proj_path_target(params$name)
 path_data <- projthis::proj_path_data(params$name)
 ```
 
-## Analysis
+## Tasks
 
-The first part of this analysis is ...
+The first task is ...
 
 ## Files written
 
