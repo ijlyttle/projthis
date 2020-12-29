@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9012</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9013</span>
       </span>
     </div>
 
@@ -148,19 +148,23 @@ returning a <code>character</code> path.</p>
 #&gt;     args &lt;- as.list(c("data", name, ...))
 #&gt;     do.call(here::here, args)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fe3d538c350&gt;
-#&gt; &lt;environment: 0x7fe3d538bc18&gt;</div><div class='input'>  <span class='fu'>proj_path_data</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
+#&gt; &lt;bytecode: 0x7f8c5a190600&gt;
+#&gt; &lt;environment: 0x7f8c5a193da0&gt;</div><div class='input'>  <span class='fu'>proj_path_data</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; function (...) 
 #&gt; {
 #&gt;     path &lt;- list(...)
-#&gt;     if (path[[1]] &gt;= name) {
-#&gt;         warning(glue::glue("{path[[1]]} is not previous to {name}"))
+#&gt;     source &lt;- as.character(path[[1]])
+#&gt;     current &lt;- as.character(name)
+#&gt;     sorted &lt;- sort_files(c(source, current))
+#&gt;     source_not_before_current &lt;- identical(source, sorted[[2]])
+#&gt;     if (source_not_before_current) {
+#&gt;         warning(glue::glue("{source} is not previous to {current}"))
 #&gt;     }
 #&gt;     args &lt;- as.list(c("data", path))
 #&gt;     do.call(here::here, args)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fe3d6349cc8&gt;
-#&gt; &lt;environment: 0x7fe3d634cf60&gt;</div></pre>
+#&gt; &lt;bytecode: 0x7f8c5a1eb588&gt;
+#&gt; &lt;environment: 0x7f8c5a1edf60&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
