@@ -56,10 +56,17 @@ proj_path_data <- function(name) {
 
     path <- list(...)
 
-    # warn if we are using "future" data
-    if (path[[1]] >= name) {
+    # are we using "previous" data?
+    source <- as.character(path[[1]])
+    current <- as.character(name)
+
+    sorted <- sort_files(c(source, current))
+
+    source_not_before_current <- identical(source, sorted[[2]])
+
+    if (source_not_before_current) {
       warning(
-        glue::glue("{path[[1]]} is not previous to {name}")
+        glue::glue("{source} is not previous to {current}")
       )
     }
 

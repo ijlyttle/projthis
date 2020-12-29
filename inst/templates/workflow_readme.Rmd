@@ -1,9 +1,14 @@
 ---
-title: "{{{name}}}"
+title: ""
+date: "Compiled at `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz = 'UTC')` UTC"
 output: github_document
 ---
 
-This would be a great place to make a summary of what is in this workflow project.
-It could also be a great place to make a:
+```{r here-directories, message=FALSE}
+here::i_am("README.Rmd", uuid = "11c1d2d6-6424-429e-9312-e14f7b7b1e05")
 
-- bulleted list of links to each of the steps.
+# function to get path to previous data: path_data("99-publish", "sample.csv")
+path_data <- projthis::proj_path_data("README")
+```
+
+In this workflow, ...

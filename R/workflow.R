@@ -214,6 +214,9 @@ proj_workflow_render <- function(path = "workflow", envir = new.env(),
   # determine all the Rmd files
   files_rmd <- fs::dir_ls(path = ".", regexp = "\\.Rmd$", ignore.case = TRUE)
 
+  # sort the files, README last
+  fles_rmd <- sort_files(files_rmd)
+
   # render Rmd files
   purrr::walk(
     files_rmd,

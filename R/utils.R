@@ -1,6 +1,20 @@
 #' @importFrom rlang `%||%`
 NULL
 
+# sort files
+sort_files <- function(files) {
+
+  # return sorted, put README at the end
+
+  is_readme <- grepl("^readme", files, ignore.case = TRUE)
+
+  files_not_readme <- files[!is_readme]
+  files_readme <- files[is_readme]
+
+  c(sort(files_not_readme), sort(files_readme))
+}
+
+
 # a collection of usethis-style internal functions
 
 pui_bullet <- function(x, bullet) {

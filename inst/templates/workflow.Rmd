@@ -1,28 +1,40 @@
 ---
 title: "{{{name}}}"
+date: "Compiled at `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz = 'UTC')` UTC"
 output: github_document
 params:
   name: "{{{name}}}" # change if you rename file
 ---
 
-```{r setup}
+```{r here}
 here::i_am(paste0(params$name, ".Rmd"), uuid = "{{{uuid}}}")
-
-library("conflicted")
-library("projthis")
-library("here")
 ```
 
 The purpose of this document is ...
 
-```{r directories}
-# create target directory to write *this* file's data: 
-#  - all data written by this file should be written here
-proj_create_dir_target(params$name)
+```{r packages}
+library("conflicted")
+```
 
-# create accessor functions for data directories:
-#  - get path to target directory: path_target("sample.csv")
-#  - get path to previous data: path_data("00-import", "sample.csv")
-path_target <- proj_path_target(params$name)
-path_data <- proj_path_data(params$name)
+```{r directories}
+# create or *empty* the target directory, used to write this file's data: 
+projthis::proj_create_dir_target(params$name)
+
+# function to get path to target directory: path_target("sample.csv")
+path_target <- projthis::proj_path_target(params$name)
+
+# function to get path to previous data: path_data("00-import", "sample.csv")
+path_data <- projthis::proj_path_data(params$name)
+```
+
+## Analysis
+
+The first part of this analysis is ...
+
+## Files written
+
+These files have been written to the target directory, ```r paste0("data/", params$name)```:
+
+```{r list-files-target}
+projthis::proj_dir_info(path_target())
 ```
