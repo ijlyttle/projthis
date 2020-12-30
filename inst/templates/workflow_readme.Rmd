@@ -7,8 +7,8 @@ output: github_document
 ```{r here-directories, message=FALSE}
 here::i_am("README.Rmd", uuid = "11c1d2d6-6424-429e-9312-e14f7b7b1e05")
 
-# function to get path to previous data: path_data("99-publish", "sample.csv")
-path_data <- projthis::proj_path_data("README")
+# function to get path to previous data: path_source("99-publish", "sample.csv")
+path_source <- projthis::proj_path_source("README")
 ```
 
 In this workflow, ...
