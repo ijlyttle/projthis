@@ -34,7 +34,7 @@ proj_create_dir_target <- function(name) {
 #'
 #' @examples
 #'   proj_path_target("01-clean")
-#'   proj_path_data("01-clean")
+#'   proj_path_source("01-clean")
 #' @export
 #'
 proj_path_target <- function(name) {
@@ -49,7 +49,7 @@ proj_path_target <- function(name) {
 #' @rdname proj_path_target
 #' @export
 #'
-proj_path_data <- function(name) {
+proj_path_source <- function(name) {
 
   # accessor-function for data-directory, use to read previous data
   function(...) {
