@@ -2,12 +2,12 @@
 % Please edit documentation in R/directories.R
 \name{proj_path_target}
 \alias{proj_path_target}
-\alias{proj_path_data}
+\alias{proj_path_source}
 \title{Create function to access directory}
 \usage{
 proj_path_target(name)
 
-proj_path_data(name)
+proj_path_source(name)
 }
 \arguments{
 \item{name}{\code{character} name of the workflow component.}
@@ -21,5 +21,5 @@ Create function to access directory
 }
 \examples{
   proj_path_target("01-clean")
-  proj_path_data("01-clean")
+  proj_path_source("01-clean")
 }
