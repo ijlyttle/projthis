@@ -26,6 +26,7 @@
 #'   # update DESCRIPTION with missing and extra dependencies
 #'   proj_update_deps()
 #' }
+#' @export
 #'
 proj_check_deps <- function(path = usethis::proj_get()) {
 

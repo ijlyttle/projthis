@@ -37,5 +37,4 @@ if (FALSE) {
   # update DESCRIPTION with missing and extra dependencies
   proj_update_deps()
 }
-
 }
