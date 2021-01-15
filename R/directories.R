@@ -1,5 +1,21 @@
 #' Create target directory
 #'
+#' A target directory is dedicated to each RMarkdown file in a workflow.
+#' Call this function from within an RMarkdown file to create its target
+#' directory. If the directory already exists, it will be deleted then
+#' re-created.
+#'
+#' Following this workflow philosophy, the target directory is the only
+#' directory to which a RMarkdown directory should write. The exception
+#' to this is the *last* RMarkdown file in a workflow sequence, which
+#' may publish data elsewhere.
+#'
+#' To establish the connection between the two, the target directory
+#' shall be named for the RMarkdown file itself; this is the purpose
+#' of the `name` argument. To make things a little easier, the templgte
+#' used by [proj_workflow_use_rmd()] includes a call to
+#' `proj_create_dir_target()`, with the `name` argument populated.
+#'
 #' @inheritParams proj_workflow_use_rmd
 #'
 #' @return Invisible NULL, called for side effects.
@@ -25,7 +41,33 @@ proj_create_dir_target <- function(name) {
   invisible(NULL)
 }
 
-#' Create function to access directory
+#' Create path-generating functions
+#'
+#' @description
+#' This workflow philosophy relies on RMarkdown files being run in a defined
+#' sequence. It follows that an RMarkdown file should not read from the data
+#' written by another RMarkdown file written *later* in the sequence. These
+#' functions help you implement this idea.
+#'
+#' To make things a little easier, the templgte used by
+#' [proj_workflow_use_rmd()] includes a calls to `proj_path_source()`
+#' and `proj_path_target()`, with the `name` argument populated.
+#'
+#' @details
+#' Each RMarkdown file in the sequence has its own target directory, created
+#' using [proj_create_dir_target()]. Once a target directory is created, use
+#' these functions to **create functions** to access your target directory,
+#' or previous RMarkdown files' target directories (as sources).
+#'
+#' For example, use `proj_path_target()` to create a path-generating function
+#' that uses your target directory. Whenever you need to provide a path to a
+#' file in your target directory, e.g. the `file` argument to
+#' [readr::write_csv()], use this path-generating function.
+#'
+#' Similarly, you can use `proj_path_source()` to create a path-generating
+#' function for your source directories, which **must** be earlier in the
+#' workflow than your current RMarkdown file. The path-generating function
+#' ckecks that the source directory is, in fact, earlier in the workflow.
 #'
 #' @inheritParams proj_workflow_use_rmd
 #'
@@ -33,8 +75,20 @@ proj_create_dir_target <- function(name) {
 #'   returning a `character` path.
 #'
 #' @examples
-#'   proj_path_target("01-clean")
-#'   proj_path_source("01-clean")
+#'   # create path-generating functions
+#'   path_target <- proj_path_target("01-clean")
+#'   path_source <- proj_path_source("01-clean")
+#'
+#'   # not run because they depend on side effcts
+#'   \dontrun{
+#'   # use path-generating functions
+#'
+#'   # returns full path to a file in one of your source directories
+#'   path_source("00-import", "old-data.csv")
+#'
+#'   # returns full path to a file in your target directory
+#'   path_target("new-data.csv")
+#'   }
 #' @export
 #'
 proj_path_target <- function(name) {
