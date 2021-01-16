@@ -2,7 +2,7 @@
 #'
 #' A target directory is dedicated to each RMarkdown file in a workflow.
 #' Call this function from within an RMarkdown file to create its target
-#' directory. If the directory already exists and `use_clean` is `TRUE`,
+#' directory. If the directory already exists and `clean` is `TRUE`,
 #' it will be deleted then re-created.
 #'
 #' Following this workflow philosophy, the target directory is the only
@@ -17,7 +17,7 @@
 #' `proj_create_dir_target()`, with the `name` argument populated.
 #'
 #' @inheritParams proj_workflow_use_rmd
-#' @param use_clean `logical` indicates to start with a clean (empty) directory.
+#' @param clean `logical` indicates to start with a clean (empty) directory.
 #'
 #' @return Invisible NULL, called for side effects.
 #'
@@ -28,12 +28,12 @@
 #' }
 #' @export
 #'
-proj_create_dir_target <- function(name, use_clean = TRUE) {
+proj_create_dir_target <- function(name, clean = TRUE) {
 
   dir_target <- here::here("data", name)
 
   # if target directory exists and we specify to clean, delete it
-  if (fs::dir_exists(dir_target) && use_clean) {
+  if (fs::dir_exists(dir_target) && clean) {
     fs::dir_delete(dir_target)
   }
 
