@@ -22,6 +22,11 @@ sequence. It follows that an RMarkdown file should not read from the data
 written by another RMarkdown file written \emph{later} in the sequence. These
 functions help you implement this idea.
 
+These functions are
+\href{https://adv-r.hadley.nz/function-factories.html}{function factories};
+they themselves return functions. You can use those returned functions
+to access paths.
+
 To make things a little easier, the templgte used by
 \code{\link[=proj_workflow_use_rmd]{proj_workflow_use_rmd()}} includes a calls to \code{proj_path_source()}
 and \code{proj_path_target()}, with the \code{name} argument populated.

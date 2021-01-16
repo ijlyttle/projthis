@@ -2,8 +2,8 @@
 #'
 #' A target directory is dedicated to each RMarkdown file in a workflow.
 #' Call this function from within an RMarkdown file to create its target
-#' directory. If the directory already exists, it will be deleted then
-#' re-created.
+#' directory. If the directory already exists and `use_clean` is `TRUE`,
+#' it will be deleted then re-created.
 #'
 #' Following this workflow philosophy, the target directory is the only
 #' directory to which a RMarkdown directory should write. The exception
@@ -17,6 +17,7 @@
 #' `proj_create_dir_target()`, with the `name` argument populated.
 #'
 #' @inheritParams proj_workflow_use_rmd
+#' @param use_clean `logical` indicates to start with a clean (empty) directory.
 #'
 #' @return Invisible NULL, called for side effects.
 #'
@@ -27,12 +28,12 @@
 #' }
 #' @export
 #'
-proj_create_dir_target <- function(name) {
+proj_create_dir_target <- function(name, use_clean = TRUE) {
 
   dir_target <- here::here("data", name)
 
-  # if target directory exists, delete it
-  if (fs::dir_exists(dir_target)) {
+  # if target directory exists and we specify to clean, delete it
+  if (fs::dir_exists(dir_target) && use_clean) {
     fs::dir_delete(dir_target)
   }
 
@@ -48,6 +49,11 @@ proj_create_dir_target <- function(name) {
 #' sequence. It follows that an RMarkdown file should not read from the data
 #' written by another RMarkdown file written *later* in the sequence. These
 #' functions help you implement this idea.
+#'
+#' These functions are
+#' [function factories](https://adv-r.hadley.nz/function-factories.html);
+#' they themselves return functions. You can use those returned functions
+#' to access paths.
 #'
 #' To make things a little easier, the templgte used by
 #' [proj_workflow_use_rmd()] includes a calls to `proj_path_source()`
