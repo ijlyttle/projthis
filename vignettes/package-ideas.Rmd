@@ -190,7 +190,7 @@ To keep this as a possibility, you have to give the project a legal package-name
 You can put R code into the `R` folder, just as you would with regular package-code. 
 Following Hadley Wickham's and Jenny Bryan's advice (conveniently compiled in their [R Packages](https://r-pkgs.org/) book):
 
-- hit the "Build" button before rendering a workflow, to install your package
+- hit the "Install and Restart" button before rendering a workflow
 - hit the "Check" button early and often
 
 Supported by the GitHub Action
