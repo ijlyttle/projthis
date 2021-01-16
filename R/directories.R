@@ -28,7 +28,7 @@
 #' }
 #' @export
 #'
-proj_create_dir_target <- function(name, clean = TRUE) {
+proj_create_dir_target <- function(name, use_clean = TRUE) {
 
   dir_target <- here::here("data", name)
 

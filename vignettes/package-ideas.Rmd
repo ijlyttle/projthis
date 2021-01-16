@@ -176,15 +176,26 @@ There are a few things you may have to customize for your particular workflow:
 
 ## Supporting ideas
 
-There's a few other ideas this package provokes that did not fit neatly into earlier sections.
+There's a few other ideas this package provokes that do not fit neatly into the earlier sections.
 
 ### Grow into a package?
 
-The project structure suggested by this package leaves open the possibility that a given workflow project could grow into a package.
+The project structure suggested by this package leaves open the possibility that a given workflow project could grow into a package. 
+You could motivate the package by solving a particular problem, then extract the code from a workflow into a package that could help solve the general problem. 
+
+Let's say you get everything in your workflow running to your satisfaction. 
+You could imagine building package functions
+
 To keep this as a possibility, you have to give the project a legal package-name, i.e. no dashes or underscores. 
+You can put R code into the `R` folder, just as you would with regular package-code. 
+Following Hadley Wickham's and Jenny Bryan's advice (conveniently compiled in their [R Packages](https://r-pkgs.org/) book):
 
-You can use the "Build" button
+- hit the "Build" button before rendering a workflow, to install your package
+- hit the "Check" button early and often
 
+Supported by the GitHub Action
+
+At some point, there might be a parting-of-the-ways between the workflow and its attached package.
 
 ### github_document: the little format that could
 

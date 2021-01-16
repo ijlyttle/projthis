@@ -4,7 +4,7 @@
 \alias{proj_create_dir_target}
 \title{Create target directory}
 \usage{
-proj_create_dir_target(name, clean = TRUE)
+proj_create_dir_target(name, use_clean = TRUE)
 }
 \arguments{
 \item{name}{\code{character} name of the workflow component.}
