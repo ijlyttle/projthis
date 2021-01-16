@@ -4,10 +4,12 @@
 \alias{proj_create_dir_target}
 \title{Create target directory}
 \usage{
-proj_create_dir_target(name)
+proj_create_dir_target(name, use_clean = TRUE)
 }
 \arguments{
 \item{name}{\code{character} name of the workflow component.}
+
+\item{use_clean}{\code{logical} indicates to start with a clean (empty) directory.}
 }
 \value{
 Invisible NULL, called for side effects.
@@ -15,8 +17,8 @@ Invisible NULL, called for side effects.
 \description{
 A target directory is dedicated to each RMarkdown file in a workflow.
 Call this function from within an RMarkdown file to create its target
-directory. If the directory already exists, it will be deleted then
-re-created.
+directory. If the directory already exists and \code{use_clean} is \code{TRUE},
+it will be deleted then re-created.
 }
 \details{
 Following this workflow philosophy, the target directory is the only
