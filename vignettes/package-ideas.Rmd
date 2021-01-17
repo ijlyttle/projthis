@@ -184,7 +184,7 @@ The project structure suggested by this package leaves open the possibility that
 You could motivate the package by solving a particular problem, then extract the code from a workflow into a package that could help solve the general problem. 
 
 Let's say you get everything in your workflow running to your satisfaction. 
-You could imagine building package functions
+You could imagine building package-functions using code from your workflow, then replacing that workflow code with calls to the package-functions. You would already have a set of "right" answers that you could use to verify that your package code is working; this could become the basis of your package-testing. Your workflow could be used as the basis of vignettes and other package documentation.
 
 To keep this as a possibility, you have to give the project a legal package-name, i.e. no dashes or underscores. 
 You can put R code into the `R` folder, just as you would with regular package-code. 
@@ -193,15 +193,28 @@ Following Hadley Wickham's and Jenny Bryan's advice (conveniently compiled in th
 - hit the "Install and Restart" button before rendering a workflow
 - hit the "Check" button early and often
 
-Supported by the GitHub Action
+The template GitHub Action includes a step to install the local project as a package, it just needs to be uncommented.
 
-At some point, there might be a parting-of-the-ways between the workflow and its attached package.
+As you develop a package alongside a workflow, it may lead to parting-of-the-ways between the workflow and its attached package. 
+This represents success.
 
 ### github_document: the little format that could
 
+The template provided with `proj_workflow_use_rmd()` uses `github_document` as its output format.
+I think that the `github_document` format is tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
+
+ - You can browse the workflow on the GitHub website itself; here's an [example](https://github.com/ijlyttle/covidStates/tree/master/workflow).
+   For private repositories, the workflow remains equally browsable for those with permission.
+
+- You can publish (and theme) a website site using GitHub Pages, here's the [same example](https://ijlyttle.github.io/covidStates/workflow/).
+  Keep in mind that if you publish using GitHub Pages, the site is public even if your repository is private.
+
+- Plays well with ggplot2 graphics; it [looks good](https://ijlyttle.github.io/covidStates/).
+
 ## Summary
 
-Lots of comprehensive tools out there to support:
+This package is meant to help you make a first start with project workflows.
+That said, there are wonderful comprehensive tools out there that support:
 
 - package dependencies, e.g.: [renv](https://rstudio.github.io/renv/index.html)
 - workflow dependencies, e.g. [targets](https://docs.ropensci.org/targets/)

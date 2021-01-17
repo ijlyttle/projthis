@@ -65,9 +65,10 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install dependencies
+        # uncomment call to `remotes::install_local(".")` to install project as a package
         run: |
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_local(".")
+          # remotes::install_local(".")
         shell: Rscript {0}
 
       # adapt this step to build your project
