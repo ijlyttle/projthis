@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/projthis)](https://CRAN.R-project.org/package=projthis)
+status](https://www.r-pkg.org/badges/version/projthis)](https://CRAN.R-project.org/)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build
@@ -35,15 +35,15 @@ You can see this package in action at this
 repository, which aims to be a minimum reproducible example of this
 package’s functionality. It includes:
 
-  - a `README.Rmd` file, in which is calculated the top-downloaded
+-   a `README.Rmd` file, in which is calculated the top-downloaded
     packages, over the last day, that contain a randomly-chosen letter.
-  - a `DESCRIPTION` file, which contains a declaration of all the
+-   a `DESCRIPTION` file, which contains a declaration of all the
     package dependencies.
-  - a [GitHub Actions
+-   a [GitHub Actions
     file](https://github.com/ijlyttle/projthis-demo/blob/master/.github/workflows/project-run.yaml),
     which instructs Actions to render `README.Rmd`:
-      - upon change, and
-      - every day at 02:30 UTC
+    -   upon change, and
+    -   every day at 02:30 UTC
 
 The README also details the steps taken to build the project.
 
@@ -53,43 +53,43 @@ There are not a lot of functions in this package.
 
 `proj_create()`, to create a project from scratch:
 
-  - wraps `usethis::create_project()`
-  - also installs a `DESCRIPTION` file to store your dependency
+-   wraps `usethis::create_project()`
+-   also installs a `DESCRIPTION` file to store your dependency
     declarations
 
 `proj_use_description()`, to add a `DESCRIPTION` file to an existing
 project:
 
-  - wraps `usethis::use_description()`
-  - default behavior is to detect existing package-dependencies in your
+-   wraps `usethis::use_description()`
+-   default behavior is to detect existing package-dependencies in your
     project, then add them to `Imports`
 
 `proj_update_deps()`, to update the package-dependency declaration in
 the `DESCRIPTION` file:
 
-  - uses `renv::dependencies()` to compile the declared and detected
+-   uses `renv::dependencies()` to compile the declared and detected
     package-dependencies
-  - to check, but not update the `DESCRIPTION` file, use
+-   to check, but not update the `DESCRIPTION` file, use
     `proj_check_deps()`
 
 `proj_install_deps()`, to reproduce the behavior of your project on
 another computer:
 
-  - wraps `remotes::install_deps()` to install the project’s package
+-   wraps `remotes::install_deps()` to install the project’s package
     dependencies
 
 `proj_use_github_action()`, to run your project using GitHub Actions:
 
-  - wraps `usethis::use_github_action()` to install an Actions template
+-   wraps `usethis::use_github_action()` to install an Actions template
     in your project
-  - template draws upon [r-lib/actions
+-   template draws upon [r-lib/actions
     examples](https://github.com/r-lib/actions/tree/master/examples) to
     install R, then to install and cache the dependencies
-  - **you will need to modify** your project’s copy of this template to
+-   **you will need to modify** your project’s copy of this template to
     tell Actions:
-      - what triggers a run
-      - how to build your project
-      - how to deploy your project
+    -   what triggers a run
+    -   how to build your project
+    -   how to deploy your project
 
 ## Installation
 

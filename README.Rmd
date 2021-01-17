@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # projthis
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/projthis)](https://CRAN.R-project.org/package=projthis)
+[![CRAN status](https://www.r-pkg.org/badges/version/projthis)](https://CRAN.R-project.org/)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build status](https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg)](https://github.com/ijlyttle/projthis/actions)
 <!-- badges: end -->
