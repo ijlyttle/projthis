@@ -18,18 +18,16 @@ knitr::opts_chunk$set(
 library("projthis")
 ```
 
-The goal of the projthis package is to help you establish a project-based workflow, as opposed to a package-based workflow. 
-It is based on three main ideas:  
+The goal of the projthis package is to help you establish project-based workflows. 
+This involves: 
 
-  - Managing the dependencies of a project using the DESCRIPTION file.
- 
-  - Establishing a naming convention for RMarkdown files and their associated data-directories.
-  
-  - Keeping open the possibility to convert a project-repository into a package-repository.
-  
-These ideas are largely independent of each other; you can choose to implement any or all of them.
+- Managing your project's package-dependencies.
 
-## Managing dependencies
+- Managing the dependencies among files in your workflow.
+
+- Automating the rendering of your workflow using GitHub Actions.
+  
+## Managing package-dependencies
 
 One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
 There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
@@ -47,7 +45,6 @@ If you have dependencies that are not on CRAN, you can use the `Remotes:` field,
 
 ```r
 proj_create()
-# TODO: add empty namespace file?
 ```
 
 ```r
