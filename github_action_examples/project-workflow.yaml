@@ -32,13 +32,12 @@ name: run-workflows
 jobs:
   # name of the job
   run-workflows:
-    # there are other OS options available,
-    # but the package-caching is set up for `macOS-latest`
+    # supported: ubuntu-20.04, macOS-latest, windows-latest
     runs-on: macOS-latest
     # set variables in your environment:
-    # as this is GitHub, your token is available
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RSPM: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"
     steps:
 
       # these steps are provided by Jim Hester - as he makes improvements,
@@ -58,11 +57,20 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
+        if: runner.os != 'Windows'
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
       - name: Install dependencies
         # uncomment call to `remotes::install_local(".")` to install project as a package
