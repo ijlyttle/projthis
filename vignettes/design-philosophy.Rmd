@@ -1,8 +1,8 @@
 ---
-title: "Philosophy"
+title: "Design Philosophy"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{philosophy}
+  %\VignetteIndexEntry{Design Philosophy}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

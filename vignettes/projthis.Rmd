@@ -14,11 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library("projthis")
-```
-
-The goal of the projthis package is to help you establish project-based workflows. 
+The goal of the projthis package is to help you establish analysis-based project workflows. 
+This is distinct from package development. 
 This involves: 
 
 - Managing your project's package-dependencies.
@@ -26,88 +23,227 @@ This involves:
 - Managing the dependencies among files in your workflow.
 
 - Automating the rendering of your workflow using GitHub Actions.
+
+If you want to skip ahead to see a finished product, this [example analysis-project](https://github.com/ijlyttle/covidStates/) was built using projthis.
+
+You can create a new workflow project from the command line:
+
+```r
+# use your path rather than "../newproject"
+projthis::proj_create("../newproject")
+```
+
+This creates a new RStudio project.
+It creates a DESCRIPTION file for the project, which is used to manage your new project's package-dependencies.
+
+At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:
+
+```r
+library("projthis")
+```
   
 ## Managing package-dependencies
 
 One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
 There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
 
-The central idea of these packages is they assemble a set of packages that are particular to a given project, within that project. 
-They build a package library dedicated to the project itself, offering a strong guarantee that the "same code" is run everywhere.
+The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file. 
+It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently. 
 
-The central idea here is to offer a weaker guarantee, essentially the guarantee offered when submitting a package to CRAN: that the code will run using the latest versions of the packages listed in the `DESCRIPTION` file. 
-It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some subset of its dependencies behave differently. Again, this a variation on the CRAN "contract". 
-
-This is a much-more lightweight approach as it requires only that the `DESCRIPTION` file be kept current.
+Compared with renv, this is a lightweight approach: it requires only that the `DESCRIPTION` file be kept current.
 If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
 
-### Workflow example
+As you develop your project, you can add dependencies to your `DESCRIPTION` file using:
 
 ```r
-proj_create()
-```
-
-```r
-proj_use_description()
-```
-
-```r
-proj_check_deps()
 proj_update_deps()
 ```
 
-```r
-proj_install_deps()
-```
+This uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
+If you want only to check the status, but not change anything, you can `projthis::proj_check_deps()`.
 
-Graduate to {renv}.
-
-## Naming convention
-
-Support of a workflow.
+You may wish update your project's package-dependencies, or to install them on another computer.
+From within your project, run:
 
 ```r
-# sets up directories, seeds files
-proj_use_workflow()
-# open _site.yml, index.Rmd
+projthis::proj_install_deps()
 ```
+
+This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
+
+Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
+For more information, please read the [vignette on managing package-dependencies](package-dependencies.html).
+
+## Managing a workflow
+
+The term "workflow" is overloaded; it has different meanings in different contexts. 
+In this context, it means a directory containing a sequence of RMarkdown files and a data subdirectory.
+
+This is a simplification of the files in a [sample workflow](https://github.com/ijlyttle/covidStates/tree/main/workflow):
+
+```
+workflow/
+  data/
+    00-import/
+    01-clean/
+    02-analyze/
+    99-publish/
+  00-import.Rmd
+  01-clean.Rmd
+  02-analyze.Rmd
+  99-publish.Rmd
+  README.Rmd
+```
+
+Note the sequence of RMarkdown files where each file (except README) has a corresponding subdirectory in `data/`. 
+
+To create a workflow directory, call `proj_use_workflow()` from the directory you wish to contain it.
+The big decision is whether or not to git-ignore the `data/` directory, the default is `TRUE`; factors may include the size of the data and privacy concerns.
+
+```r
+proj_use_workflow("workflow", git_ignore_data = FALSE)
+```
+
+At this point, your workflow directory would look like:
+
+```
+workflow/
+  data/
+  README.Rmd
+```
+
+As well, the `README.Rmd` file is opened from a template. 
+You'll see some boilerplate code is included; this is explained in the next section. 
+You may wish to use the `README` to summarize the results of your workflow.
+At any point, if you want to render the entire workflow:
+
+```r
+proj_workflow_render("workflow")
+```
+
+This renders all of the RMarkdown files in order, rendering `README.Rmd` last.
+
+The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE
+Then, for example:
 
 ```r
 # creates a new rmd file from a template
-proj_workflow_use_rmd()
+proj_workflow_use_rmd("00-import")
 ```
 
-```r
-# wraps rmarkdown::build_site()
-proj_workflow_run()
+Note that the default output-format for all the RMarkdown files is `github_document`.
+I find the `github_document` format tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
+
+More details are offered in the [vignette on managing workflows](workflow-management.html).
+
+### Managing directories
+
+In the templated RMarkdown files, you'll see some boilerplate code. For example, in the front-matter:
+
+```yaml
+params:
+  name: "00-import" # change if you rename file
 ```
 
+If you rename an RMarkdown file, be sure to change its `params$name` in the header; this is what associates an RMarkdown file to its `data/` directory.
+Also, it is used in a validation that you'll see near the start of the file:
+
 ```r
-# adds a GitHub action to the repository
+here::i_am(paste0(params$name, ".Rmd"), uuid = "f8c9b430-542e-4eaa-b315-bad86866aa06")
+```
+
+This does a couple of things:
+
+- it establishes your workflow directory as the the project root used by the [**here**](https://here.r-lib.org/) package.
+- it asserts that there exists a file named (in this case) `00-import.Rmd` in the project root, and that this file contains the text `uuid = "f8c9b430-542e-4eaa-b315-bad86866aa06"`, throwing an error if this is not the case. Your `uuid` will be different; it is generated when the RMarkdown file is created from the template.
+
+These help make sure that you render file as you expect it to be rendered.
+
+As mentioned earlier, each RMarkdown file in the sequence has its own `data/` subdirectory. 
+This is to help you enforce two rules:
+
+- A sequenced RMarkdown file can write data *only* to the `data/` subdirectory associated with it. 
+  This is called the **target** directory.
+
+- A sequenced RMarkdown file can read data *only* from `data/` subdirectories associated with earlier RMarkdown files. 
+  These are called **source** directories. 
+
+Resuming the boilerplate code, `proj_create_dir_target()` is used to create the target directory. 
+You can specify if you want to delete the contents directory if it already exists.
+
+```r
+# create or *empty* the target directory, used to write this file's data: 
+projthis::proj_create_dir_target(params$name, clean = TRUE)
+```
+
+Next are calls to the [function-factories](https://adv-r.hadley.nz/function-factories.html) `proj_path_target()` and `proj_path_source()`.
+These are function that return functions; in this case, they return functions that determine the paths to target and source directories.
+
+```r
+path_target <- projthis::proj_path_target(params$name)
+path_source <- projthis::proj_path_source(params$name)
+```
+
+In this example, `params$name = "00-import"`. 
+Let's say we wanted to write a CSV file to the our target directory; we could use:
+
+```r
+readr::write_csv(important_data, path_target("important_data.csv"))
+```
+
+`path_target()` uses the `here::here()` function, and the location of the project root (established using `here::here_iam()`) to compose the path to the target directory on the computer where the file is rendered. In other words, it figures out how to do the right thing.
+
+`path_source()` works similarly, but you have to provide the name of the source subdirectory. 
+Because `00-import.Rmd` is the first file in the sequence, we cannot access any sources using this function; this throws an error:
+
+```r
+# throws an error
+path_source("00-import", "important_data.csv")
+```
+
+Hence, in `00-import.Rmd`, any data we import *has* to be from outside the workflow. 
+This leads to the two exceptions to the target and source rules:
+
+- The file `00-import.Rmd` can read data from external (to the workflow) sources.
+- The file `99-publish.Rmd` can write data to external (to the workflow) targets.
+
+Finally, the finction `proj_dir_info()` uses `fs::dir_info` to provide a concise directory listing.
+It can be useful to list the contents of the target directory at the end of an RMarkdown file:
+
+```r
+proj_dir_info(path_target())
+```
+
+```
+## # A tibble: 2 x 4
+##   path                  type         size modification_time  
+##   <fs::path>            <fct> <fs::bytes> <dttm>             
+## 1 covid-states.csv      file       582.7K 2021-01-17 08:33:38
+## 2 population-states.csv file        98.8K 2021-01-17 08:33:38
+```
+
+By default, the times are expressed using `UTC`.
+
+For more information, please read the [vignette on managing directories](directory-management.html).
+
+## Automating a workflow
+
+Once you are happy with how a workflow runs on your computer, you may be interested in automating the workflow using GitHub Actions.
+
+To import an example from a template:
+
+```r
 proj_workflow_use_action()
 ```
 
-Graduate to {drake}, {targets}.
+Triggers
 
-## Converting to package
+System Requirements
 
-You know the rules: copy-paste code three times, write a function. 
-Copy-paste a function three times, write a package.
+Rendering 
 
-Use a legal name for the project. 
-This leaves the door open to building a package on the same structure. 
+Committing
 
-Just like any other package, you would put the functions in the `R` directory, document, test, etc. 
+A few more words on gh-pages.
 
-Graduate to [R packages](https://r-pkgs.org/)
-
-At some point, it may make sense to migrate the package away from the rest of the project, but that will be an exercise left to the reader.
-
-## Converting to RMarkdown site
-
-Who knows, maybe your project also demands a fancier, more structured website. 
-Let's keep a path open for that, too.
-
-I imagine that one repository, at some point, becomes two, and it will be up to the reader to manage that. I think the goal here is to set things up so that's as painless as possible.
-
-Graduate to [rmarkdown site](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html), then on to Hugo, bookdown, distill, etc.
+For more information, please read the [vignette on workflow automation](workflow-automation.html).

@@ -5,18 +5,59 @@ template:
 development:
   mode: auto
 
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: "Package-dependency Management"
+        href: articles/package-dependency-management.html
+      - text: "Workflow Management"
+        href: articles/workflow-management.html
+      - text: "Directory Management"
+        href: articles/directory-management.html
+      - text: "Workflow Automation"
+        href: articles/workflow-automation.html
+      - text: ---
+      - text: "Design Philosophy"
+        href: articles/design-philosophy.html
+
 reference:
-- title: Project-management functions
-  desc: ~
+- title: Package-dependency management
+  desc: |
+    Use these functions to manage a project's package dependencies using the
+    `DESCRIPTION` file.
   contents:
   - proj_create
   - proj_use_description
   - proj_update_deps
   - proj_install_deps
-  - proj_use_github_action
+- title: Workflow management
+  desc: |
+    Use these functions to manage a project workflow.
+  contents:
+  - proj_use_workflow
+  - proj_workflow_use_rmd
+  - proj_workflow_render
+- title: Directory management
+  desc: |
+    Use these functions to manage directories from within a project-workflow's
+    RMarkdown file.
+  contents:
+  - proj_create_dir_target
+  - proj_path_target
+  - proj_dir_info
+- title: Workflow automation
+  desc: |
+    Use this function to install a GitHub Action that automates the rendering
+    of your project's workflows.
+  contents:
+  - proj_workflow_use_action
 - title: Meta
   desc: ~
   contents:
   - projthis-package
+
+
 
 
