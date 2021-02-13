@@ -3,8 +3,11 @@ title: "Design Philosophy"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Design Philosophy}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
 ```{r, include = FALSE}
@@ -15,127 +18,126 @@ knitr::opts_chunk$set(
 ```
 
 This package provides a set of tools to manage reproducible workflows that use RMarkdown.
-The goal is to provide the "simplest way that works". 
+The goal is to provide the "simplest way that works".
 That said, this package has three main ideas:
 
-1. Package dependencies are managed using a DESCRIPTION file.
+1.  Package dependencies are managed using a DESCRIPTION file.
 
-1. In this context, a "workflow" is a sequence of RMarkdown files. 
-   To render an entire workflow is to render its RMarkdown files sequentially.
+2.  In this context, a "workflow" is a sequence of RMarkdown files.
+    To render an entire workflow is to render its RMarkdown files sequentially.
 
-1. Workflow-rendering can be automated using GitHub Actions.
+3.  Workflow-rendering can be automated using GitHub Actions.
 
 The first two ideas are independent of each other; the third idea builds on the first two.
 
 There are more-comprehensive tools that address each of the first two ideas, for example: [renv](https://rstudio.github.io/renv/index.html) for package dependencies, and [targets](https://docs.ropensci.org/targets/) for workflow dependencies.
-This package does *not* aspire to compete with these approaches. 
+This package does *not* aspire to compete with these approaches.
 Rather, it aspires to be a first step folks can take towards these more-comprehensive approaches, as their needs may dictate.
 
 This article takes a top-down approach to describe the philosophy of this package; other articles in this documentation aim to take a bottom-up approach.
 This article assumes you are already familiar with the problems it is trying to solve, and some of the existing solutions.
- 
+
 ## Main ideas
 
 ### DESCRIPTION file
 
-For package development and deployment, the DESCRIPTION file is used to manage dependencies. 
+For package development and deployment, the DESCRIPTION file is used to manage dependencies.
 Part of the CRAN "contract" dictates that your "stuff" work as you expect with the current CRAN versions of your dependencies (I realize I am being a little loose with terminology, but you get the idea).
 
-This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file. 
-This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to breaking changes in packages. 
+This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file.
+This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to changes in packages.
 If this is intended to be a "living" workflow, perhaps this is not too much of an imposition.
 
-Further, this package uses `remotes::install_deps()` to install dependencies. 
-The `Remotes` field can be used to specify GitHub and private repositories; this package does not have the means to populate the `Rempotes` field, so the analysis developer will have to do this manually.
+Further, this package uses `remotes::install_deps()` to install dependencies.
+The `Remotes` field can be used to specify GitHub and private repositories; this package does not have the means to populate the `Remotes` field, so the analysis developer will have to do this manually.
 Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.
 
-The purpose here is to provide a simple way to manage a project's package-dependencies. 
+The purpose here is to provide a simple way to manage a project's package-dependencies.
 As your project advances, you may need a more sophisticated approach; [renv](https://rstudio.github.io/renv/) gives you much more control to specify fixed versions of packages to use.
 
 #### Implementation
 
-- `proj_create()`: creates a new RStudio project with a DESCRIPTION file.
-- `proj_use_description()`: creates a DESCRIPTION file, updates dependencies.
-- `proj_check_deps()`, `proj_update_deps()`: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.
-- `proj_install_deps()`: Install the package-dependncies listed in the DESCRIPTION file.
+-   `proj_create()`: creates a new RStudio project with a DESCRIPTION file.
+-   `proj_use_description()`: creates a DESCRIPTION file, updates dependencies.
+-   `proj_check_deps()`, `proj_update_deps()`: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.
+-   `proj_install_deps()`: Installs the package-dependncies listed in the DESCRIPTION file.
 
 ### Sequence of RMarkdown files
 
-This package proposes a concept of a *workflow*, an overloaded word to be sure, but useful here. 
-Here, a workflow consists of a directory containing a sequence of RMarkdown files and its own data directory.
+This package proposes a concept of a *workflow*: an overloaded word, to be sure.
+Here, a workflow consists of a directory containing a sequence of RMarkdown files and a data directory.
 An example:
 
-```
-important-workflow/
-  data/
-    00-import/
-    01-do-stuff/
-    02-do-more-stuff/
-    99-publish/
-  00-import.Rmd
-  01-do-stuff.Rmd
-  02-do-more-stuff.Rmd
-  99-publish.Rmd
-  README.Rmd
-```
+    important-workflow/
+      data/
+        00-import/
+        01-do-stuff/
+        02-do-more-stuff/
+        99-publish/
+      00-import.Rmd
+      01-do-stuff.Rmd
+      02-do-more-stuff.Rmd
+      99-publish.Rmd
+      README.Rmd
 
 There are some rules governing the use of subdirectories of `data/`:
 
-- Each RMarkdown file can write data to only one subdirectory: its *target* directory.
+-   Each RMarkdown file can write data to only one subdirectory: its *target* directory.
 
-- An RMarkdown file can use as *source* directories only subdirectories created earlier in the workflow.
+-   An RMarkdown file can use as *source* directories only subdirectories created earlier in the workflow.
 
 There are two special files in the workflow: `00-import.Rmd` and `99-publish.Rmd`:
 
-- Use `00-import.Rmd` to import data into the workflow from the "rest of the universe". 
+-   Use `00-import.Rmd` to import data into the workflow from the "rest of the universe".
 
-- Use `99-publish.Rmd` to manage the data that you wish to make available outside your workflow.
+-   Use `99-publish.Rmd` to manage the data that you wish to make available outside your workflow.
 
-Using externally-accessible sites (e.g. Google Drive) from which to import data would make your workflow portable. 
+Using externally-accessible sites (e.g. Google Drive) from which to import data would make your workflow portable.
 To run your workflow on other computers, you would have to ensure access (credentials, etc.) to the external sites.
 
 Similarly, you may wish to use the `99-publish.Rmd` file to post your "finished" data to an external site.
 
-As with the package-dependencies, the purpose here is to provide a simple way to manage the dependencies within a workflow. 
+As with the package-dependencies, the purpose here is to provide a simple way to manage the dependencies within a workflow.
 As your project advances, you may need a more sophisticated approach; [targets](https://docs.ropensci.org/targets/) (successor to [drake](https://docs.ropensci.org/drake/)) gives you much more control to specify the dependencies within your project.
 
 #### Implementation
 
 There's a set of functions to manage workflows:
 
-- `proj_use_workflow()`: creates a directory for a new workflow, including a `data` directory and a `README.Rmd` file (from a template).
-- `proj_workflow_use_rmd()`: creates a new RMarkdown file (from a template) in your workflow.
-- `proj_workflow_render()`: renders all the RMarkdown files in sequence, with `README.Rmd` last.
+-   `proj_use_workflow()`: creates a directory for a new workflow, including a `data` directory and a `README.Rmd` file (from a template).
+-   `proj_workflow_use_rmd()`: creates a new RMarkdown file (from a template) in your workflow.
+-   `proj_workflow_render()`: renders all the RMarkdown files in sequence, with `README.Rmd` last.
 
 The function `proj_use_workflow()` has an argument `git_ignore_data`, which defaults to `FALSE`; this applies to the workflow's `data/` directory.
-You will have to figure out the right answer for a given situation, or you may have to make your own `.gitignore` file if you want to manage with finer granularity.
+You will have to figure out the right answer for a given situation, or you may have to manage `.gitignore` file yourself if you want to manage with finer granularity.
 
 The function `proj_workflow_use_rmd()` works best if called when the active file in your RStudio IDE is another RMarkdown file from the same workflow; this provides the directory in which to create the new file.
 
-There's another set of functions to manage directories from within an RMarkdown file. 
+There's another set of functions to manage directories from within an RMarkdown file.
 
-- `proj_create_dir_target()`: create the target directory.
-- `proj_path_source()`: function factory, creates function to access source paths.
-- `proj_path_target()`: function factory, creates function to access target paths.
-- `proj_dir_info()`: get concise version of data returned from `fs::dir_info()`.
+-   `proj_create_dir_target()`: create the target directory.
+-   `proj_path_source()`: function factory, creates function to access source paths.
+-   `proj_path_target()`: function factory, creates function to access target paths.
+-   `proj_dir_info()`: get concise version of data returned from `fs::dir_info()`.
 
-The function `proj_create_dir_target()` has an argument `clean` which defaults to `TRUE`. 
-Its purpose is to indicate if an existing target directory is to be deleted before it is created. 
+The function `proj_create_dir_target()` has an argument `clean` which defaults to `TRUE`.
+Its purpose is to indicate if an existing target directory is to be deleted before it is created.
 
 There is one situation where I think it useful to specify `clean` as `FALSE`.
-Let's say that the external source used by your `00-import.Rmd` file is a collection of daily files, with a new file added every day. 
-You may not wish to download all the files every time the workflow is rendered. If your method for downloading files takes this into account, you may wish to 
+Let's say that the external source used by your `00-import.Rmd` file is a collection of daily files, with a new file added every day.
+You may not wish to download *all* the files, every time the workflow is rendered.
 
 The functions `proj_path_source()` and `proj_path_target()` are function factories; they return functions.
 Within an RMarkdown file, you would use these returned functions to access paths in your source directories and your target directory.
 
 For example:
 
-```r
+``` {.r}
 # path_source and path_target will be functions
 path_source <- proj_path_source("01-do-stuff")
 path_target <- proj_path_target("01-do-stuff")
 ```
+
 These function factories each take a single argument, `name`, which shall correspond to the basename of the RMarkdown file that uses it.
 The boilerplate code to support this is included in the template used with `proj_workflow_use_rmd()`.
 
@@ -143,7 +145,7 @@ In the rest of your RMarkdown file, you can use `path_source()` and `path_target
 
 `path_source()` validates that the path requested is **earlier** in the workflow than the `name` used in the function factory; `path_target()` uses the `name` to help form the path:
 
-```r
+``` {.r}
 # returns: "/path/to/this/workflow/00-import/raw-data.csv"
 path_source("00-import", "raw-data.csv") 
 
@@ -156,23 +158,24 @@ path_target("clean-data.csv")
 
 ### GitHub Actions
 
-The idea with Github Actions is to automate your workflow. To render a workflow on a new computer (which is what Actions does), you need to do two things:
+The idea with Github Actions is to automate your workflow.
+To render a workflow on a new computer (which is what Actions does), you need to do two things:
 
-1. Install your package dependencies, as listed in your DESCRIPTION file.
-1. Render your workflow, using `proj_workflow_render()`.
+1.  Install your package dependencies, as listed in your DESCRIPTION file.
+2.  Render your workflow, using `proj_workflow_render()`.
 
-These steps are included in an template GitHub action; you can add it to your project using `proj_workflow_use_action()`. 
-This action is put together using actions compiled in r-lib's [actions](https://github.com/r-lib/actions/) repository.
+These steps are included in an template GitHub action; you can add it to your project using `proj_workflow_use_action()`.
+This action is put together using actions compiled in r-lib's [actions](https://github.com/r-lib/actions/) repository, developed by Jim Hester.
 
 There are a few things you may have to customize for your particular workflow:
 
-- specify the trigger(s) that launch the action: this could be an RMarkdown file being pushed, and/or a schedule, and/or something else.
-- specify the workflow(s) to be rendered: there is no reason there can't be more than one workflow in a project.
-- specify what, if any, files should be committed back into the git repository.
- 
+-   specify the trigger(s) that launch the action: this could be an RMarkdown file being pushed, and/or a schedule, and/or something else.
+-   specify the workflow(s) to be rendered: there is no reason there can't be more than one workflow in a project.
+-   specify what, if any, files should be committed back into the git repository.
+
 #### Implementation
 
-- `proj_workflow_use_action()`: install a GitHub Action from a template.
+-   `proj_workflow_use_action()`: install a GitHub Action from a template.
 
 ## Supporting ideas
 
@@ -180,22 +183,24 @@ There's a few other ideas this package provokes that do not fit neatly into the 
 
 ### Grow into a package?
 
-The project structure suggested by this package leaves open the possibility that a given workflow project could grow into a package. 
-You could motivate the package by solving a particular problem, then extract the code from a workflow into a package that could help solve the general problem. 
+The project structure suggested by this package leaves open the possibility that a given workflow project could grow into a package.
+You could motivate the package by solving a particular problem, then extract the code from a workflow into a package that could help solve the general problem.
 
-Let's say you get everything in your workflow running to your satisfaction. 
-You could imagine building package-functions using code from your workflow, then replacing that workflow code with calls to the package-functions. You would already have a set of "right" answers that you could use to verify that your package code is working; this could become the basis of your package-testing. Your workflow could be used as the basis of vignettes and other package documentation.
+Let's say you get everything in your workflow running to your satisfaction.
+You could imagine building package-functions using code from your workflow, then replacing that workflow code with calls to the package-functions.
+You would already have a set of "right" answers that you could use to verify that your package code is working; this could become the basis of your package-testing.
+Your workflow could be used as the basis of vignettes and other package documentation.
 
-To keep this as a possibility, you have to give the project a legal package-name, i.e. no dashes or underscores. 
-You can put R code into the `R` folder, just as you would with regular package-code. 
+To keep this as a possibility, you have to give the project a legal package-name, i.e. no dashes or underscores.
+You can put R code into the `R` folder, just as you would with regular package-code.
 Following Hadley Wickham's and Jenny Bryan's advice (conveniently compiled in their [R Packages](https://r-pkgs.org/) book):
 
-- hit the "Install and Restart" button before rendering a workflow
-- hit the "Check" button early and often
+-   hit the "Install and Restart" button before rendering a workflow
+-   hit the "Check" button early and often
 
 The template GitHub Action includes a step to install the local project as a package, it just needs to be uncommented.
 
-As you develop a package alongside a workflow, it may lead to parting-of-the-ways between the workflow and its attached package. 
+As you develop a package alongside a workflow, it may lead to parting-of-the-ways between the workflow and its attached package.
 This represents success.
 
 ### github_document: the little format that could
@@ -203,22 +208,22 @@ This represents success.
 The template provided with `proj_workflow_use_rmd()` uses `github_document` as its output format.
 I think that the `github_document` format is tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
 
- - You can browse the workflow on the GitHub website itself; here's an [example](https://github.com/ijlyttle/covidStates/tree/master/workflow).
-   For private repositories, the workflow remains equally browsable for those with permission.
+-   You can browse the workflow on the GitHub website itself; here's an [example](https://github.com/ijlyttle/covidStates/tree/master/workflow).
+    For private repositories, the workflow remains equally browsable for those with permission.
 
-- You can publish (and theme) a website site using GitHub Pages, here's the [same example](https://ijlyttle.github.io/covidStates/workflow/).
-  Keep in mind that if you publish using GitHub Pages, the site is public even if your repository is private.
+-   You can publish (and theme) a website site using GitHub Pages, here's the [same example](https://ijlyttle.github.io/covidStates/workflow/).
+    Keep in mind that if you publish using GitHub Pages, the site is public even if your repository is private.
 
-- Plays well with ggplot2 graphics; it [looks good](https://ijlyttle.github.io/covidStates/).
+-   Plays well with ggplot2 graphics; it [looks good](https://ijlyttle.github.io/covidStates/).
 
 ## Summary
 
 This package is meant to help you make a first start with project workflows.
 That said, there are wonderful comprehensive tools out there that support:
 
-- package dependencies, e.g.: [renv](https://rstudio.github.io/renv/index.html)
-- workflow dependencies, e.g. [targets](https://docs.ropensci.org/targets/)
-- RMarkdown formats, e.g. the whole [RMarkdown universe](https://bookdown.org/yihui/rmarkdown/)
+-   package dependencies, e.g.: [renv](https://rstudio.github.io/renv/index.html)
+-   workflow dependencies, e.g. [targets](https://docs.ropensci.org/targets/)
+-   RMarkdown formats, e.g. the whole [RMarkdown universe](https://bookdown.org/yihui/rmarkdown/)
 
-As you get a handle on a particular workflow, it may make sense to implement one of these more-comprehensive tools; this represents success. 
+As you get a handle on a particular workflow, it may make sense to implement one of these more-comprehensive tools; this represents success.
 In the end, the goal of this package is to help you get your workflow off the ground, to give it a chance to grow robustly so that it can figure out what, ultimately, it really is.
