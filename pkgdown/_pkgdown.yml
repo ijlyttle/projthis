@@ -10,15 +10,6 @@ navbar:
     articles:
       text: Articles
       menu:
-      - text: "Package-dependency Management"
-        href: articles/package-dependency-management.html
-      - text: "Workflow Management"
-        href: articles/workflow-management.html
-      - text: "Directory Management"
-        href: articles/directory-management.html
-      - text: "Workflow Automation"
-        href: articles/workflow-automation.html
-      - text: ---
       - text: "Design Philosophy"
         href: articles/design-philosophy.html
 

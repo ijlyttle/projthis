@@ -72,7 +72,6 @@ projthis::proj_install_deps()
 This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
 
 Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
-For more information, please read the [vignette on managing package-dependencies](package-dependencies.html).
 
 ## Managing a workflow
 
@@ -128,8 +127,6 @@ proj_workflow_use_rmd("00-import")
 
 Note that the default output-format for all the RMarkdown files is `github_document`.
 I find the `github_document` format tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
-
-More details are offered in the [article on managing workflows](workflow-management.html).
 
 ### Managing directories
 
@@ -221,8 +218,6 @@ proj_dir_info(path_target())
 
 By default, the times are expressed using `UTC`.
 
-For more information, please read the [article on managing directories](directory-management.html).
-
 ## Automating a workflow
 
 Once you are happy with how a workflow renders on your computer, you may be interested in automating it using GitHub Actions.
@@ -305,5 +300,3 @@ A few things to keep in mind about this deployment pattern:
 
 -   If you render your RMarkdown files into `github_document`s, you can use GitHub pages on your default branch: GitHub will render the markdown as HTML.
     You can also apply a theme.
-
-For more information, please read the [article on workflow automation](workflow-automation.html).
