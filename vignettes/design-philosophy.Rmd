@@ -180,11 +180,10 @@ There's a few other ideas this package provokes that do not fit neatly into the 
 
 ### Grow into a package?
 
-The project structure suggested by this package leaves open the possibility that a given workflow project could grow into a package.
-You could motivate the package by solving a particular problem, then extract the code from a workflow into a package that could help solve the general problem.
+The project structure suggested by this framework leaves open the possibility that a given workflow project could grow into a package.
+You could motivate a package by solving a particular problem, then generalize the code from the workflow into that package.
+This approach is suggested by Sharla Gelfand, first in a [blog post](https://sharla.party/post/usethis-for-reporting/), then in an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/).
 
-Let's say you get everything in your workflow running to your satisfaction.
-You could imagine building package-functions using code from your workflow, then replacing that workflow code with calls to the package-functions.
 You would already have a set of "right" answers that you could use to verify that your package code is working; this could become the basis of your package-testing.
 Your workflow could be used as the basis of vignettes and other package documentation.
 
@@ -218,9 +217,9 @@ I think that the `github_document` format is tremendously useful; Jenny Bryan di
 This package is meant to help you make a first start with project workflows.
 That said, there are wonderful comprehensive tools out there that support:
 
--   package dependencies, e.g.: [renv](https://rstudio.github.io/renv/index.html)
--   workflow dependencies, e.g. [targets](https://docs.ropensci.org/targets/)
--   RMarkdown formats, e.g. the whole [RMarkdown universe](https://bookdown.org/yihui/rmarkdown/)
+-   package dependencies, e.g. [renv](https://rstudio.github.io/renv/index.html).
+-   workflow dependencies, e.g. [targets](https://docs.ropensci.org/targets/).
+-   RMarkdown formats, e.g. the whole [RMarkdown universe](https://bookdown.org/yihui/rmarkdown/).
 
 As you get a handle on a particular workflow, it may make sense to implement one of these more-comprehensive tools; this represents success.
 In the end, the goal of this package is to help you get your workflow off the ground, to give it a chance to grow robustly so that it can figure out what, ultimately, it really is.
