@@ -52,9 +52,12 @@ thing. This package rests heavily on the foundation laid by the
 [**renv**](https://rstudio.github.io/renv/),
 [**desc**](https://github.com/r-lib/desc),
 [**remotes**](https://remotes.r-lib.org/), and
-[**actions**](https://github.com/r-lib/actions). The idea to incorporate
-usethis into analysis development is not new; one of my favorite
-implementations is by Sharla Gelfand, who made a [blog
+[**actions**](https://github.com/r-lib/actions). Of course, the
+gold-standard for managing dependencies within a workflow is William
+Landau’s [**drake**](https://docs.ropensci.org/drake/), now superseded
+by [**targets**](https://docs.ropensci.org/targets/). The idea to
+incorporate usethis into analysis development is not new; one of my
+favorite implementations is by Sharla Gelfand, who made a [blog
 post](https://sharla.party/post/usethis-for-reporting/) and an
 [rstudio::conf()
 presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/)
