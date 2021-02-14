@@ -158,7 +158,7 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 
   # is path in project?
   if (!is_in_proj(path)) {
-    usethis::ui_stop("path is not in project")
+    usethis::ui_stop("path is not in project: {usethis::proj_get()}")
   }
 
   name <- tools::file_path_sans_ext(name)

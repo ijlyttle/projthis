@@ -76,8 +76,6 @@ test_that("proj_workflow_use_rmd() works", {
     proj_workflow_use_rmd("00-import", path = ".")
   )
 
-  print(usethis::proj_get())
-
   # check that the file is there
   expect_true(
     fs::file_exists(
