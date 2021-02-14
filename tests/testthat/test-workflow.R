@@ -15,17 +15,17 @@ has_rstudio_ide <- rstudioapi::isAvailable("0.99.1111")
 
 test_that("proj_use_workflow() works", {
 
-  # # in root
-  # expect_snapshot(
-  #   proj_use_workflow(path = ".")
-  # )
-  #
-  # expect_true(fs::dir_exists("data"))
-  # expect_true(fs::file_exists("README.Rmd"))
-  #
-  # # clean up
-  # fs::dir_delete("data")
-  # fs::file_delete("README.Rmd")
+  # in root
+  expect_snapshot(
+    proj_use_workflow(path = ".")
+  )
+
+  expect_true(fs::dir_exists("data"))
+  expect_true(fs::file_exists("README.Rmd"))
+
+  # clean up
+  fs::dir_delete("data")
+  fs::file_delete("README.Rmd")
 
   # in subdirectory (keep this one for following tests)
 
