@@ -285,6 +285,9 @@ get_rmd_path <- function() {
     return(NULL)
   }
 
+  # TODO: The code beyond this point is not testable in CI using testthat
+  #  because it depends on the RStudio IDE. Will need to create manual tests.
+
   context <- rstudioapi::getSourceEditorContext()
   active_file <- context$path
 

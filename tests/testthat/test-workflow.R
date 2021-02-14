@@ -31,5 +31,17 @@ test_that("proj_workflow_use_action() works", {
 
 })
 
+test_that("get_rmd_path() works", {
+
+  # note this is an abbreviated test because get_rmd_path() depends on the
+  #  RStudio API.
+
+  # we want this to run *only* on CI
+  skip_if_not(!rstudioapi::isAvailable("0.99.1111"))
+
+  expect_null(get_rmd_path())
+
+})
+
 # delete project directory
 unlink(tempdir)
