@@ -156,11 +156,6 @@ proj_workflow_use_rmd <- function(name, path = NULL,
     usethis::ui_stop("must provide path explicitly")
   }
 
-  # is path in project?
-  if (!is_in_proj(path)) {
-    usethis::ui_stop("path is not in project. path: {path}, project: {usethis::proj_get()}")
-  }
-
   name <- tools::file_path_sans_ext(name)
   filename <- glue::glue("{name}.Rmd")
 
@@ -304,13 +299,3 @@ get_rmd_path <- function() {
   fs::path_rel(path_abs, start = usethis::proj_get())
 }
 
-# adapted from usethis (Bryan and Wickham)
-is_in_proj <- function (path) {
-
-  path_proj <- usethis::proj_get()
-
-  identical(
-    path_proj,
-    fs::path_common(c(path_proj, fs::path_expand(fs::path_abs(path))))
-  )
-}

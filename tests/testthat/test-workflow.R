@@ -65,12 +65,6 @@ test_that("proj_workflow_use_rmd() works", {
     )
   }
 
-  # path must be in project
-  expect_error(
-    proj_workflow_use_rmd("foo.Rmd", path = "/dev/null"),
-    "path is not in project"
-  )
-
   # we create an RMarkdown file, and it is where we expect
   expect_snapshot(
     proj_workflow_use_rmd("00-import", path = ".")
