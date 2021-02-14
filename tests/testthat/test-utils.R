@@ -17,3 +17,12 @@ test_that("sort_files works", {
      tolower(files_sorted)
    )
 })
+
+test_that("print utilities work", {
+
+   expect_snapshot(pui_done("wooo!"))
+   expect_snapshot(pui_info("so, ..."))
+   expect_snapshot(pui_oops("well, ..."))
+   expect_snapshot(pui_todo("next, ..."))
+
+})
