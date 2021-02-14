@@ -1,19 +1,6 @@
 # proj_use_workflow() works
 
     Code
-      proj_use_workflow(path = ".")
-    Message <message>
-      i project root specified - not adding to '.Rbuildignore'
-    Message <message>
-      v Creating 'data/'
-    Message <message>
-      v Adding './data' to '.gitignore'
-    Message <message>
-      v Writing 'README.Rmd'
-
----
-
-    Code
       proj_use_workflow(path = "new-workflow")
     Message <message>
       v Creating 'new-workflow/'
