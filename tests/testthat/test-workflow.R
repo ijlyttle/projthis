@@ -11,6 +11,8 @@ withr::with_options(
 # change to project directory
 withr::local_dir(localdir)
 
+print(usethis::proj_get())
+
 has_rstudio_ide <- rstudioapi::isAvailable("0.99.1111")
 
 test_that("proj_workflow_use_action() works", {
@@ -73,6 +75,8 @@ test_that("proj_workflow_use_rmd() works", {
   expect_snapshot(
     proj_workflow_use_rmd("00-import", path = ".")
   )
+
+  print(usethis::proj_get())
 
   # check that the file is there
   expect_true(
