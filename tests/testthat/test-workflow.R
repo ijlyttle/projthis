@@ -11,42 +11,37 @@ withr::with_options(
 # change to project directory
 withr::local_dir(localdir)
 
-print(usethis::proj_get())
-
 has_rstudio_ide <- rstudioapi::isAvailable("0.99.1111")
 
-test_that("proj_workflow_use_action() works", {
+test_that("proj_use_workflow() works", {
 
-  # add action - this cannot be snapshotted because the path will
-  #  vary according to the computer it's running on.
-  withr::with_options(
-    list(projthis.quiet = TRUE, usethis.quiet = TRUE),
-    proj_workflow_use_action()
-  )
-
-  # test that file has been copied
-  expect_true(
-    fs::file_exists(
-      fs::path(localdir, ".github", "workflows", "project-workflow.yaml")
-    )
-  )
-
-})
-
-test_that("get_rmd_path() works", {
-
-  # note this is an abbreviated test because get_rmd_path() depends on the
-  #  RStudio API.
-
-  # we want this to run *only* on CI, where RStudio IDE is not available
-  skip_if_not(!has_rstudio_ide)
-
-  # RStudio IDE is not available, return NULL
+  # in root
   expect_snapshot(
-    expect_null(get_rmd_path())
+    proj_use_workflow(path = ".")
   )
 
+  expect_true(fs::dir_exists("data"))
+  expect_true(fs::file_exists("README.Rmd"))
+
+  # clean up
+  fs::dir_delete("data")
+  fs::file_delete("README.Rmd")
+
+  # in subdirectory (keep this one for following tests)
+
+  expect_snapshot(
+    proj_use_workflow(path = "new-workflow")
+  )
+
+  expect_true(fs::dir_exists("new-workflow"))
+  expect_true(fs::dir_exists("new-workflow/data"))
+  expect_true(fs::file_exists("new-workflow/README.Rmd"))
+
 })
+
+
+# now let's work in the workflow directory
+withr::local_dir("new-workflow")
 
 test_that("proj_workflow_use_rmd() works", {
 
@@ -79,3 +74,37 @@ test_that("proj_workflow_use_rmd() works", {
 
 })
 
+
+test_that("proj_workflow_use_action() works", {
+
+  # add action - this cannot be snapshotted because the path will
+  #  vary according to the computer it's running on.
+  withr::with_options(
+    list(projthis.quiet = TRUE, usethis.quiet = TRUE),
+    proj_workflow_use_action()
+  )
+
+  # test that file has been copied
+  expect_true(
+    fs::file_exists(
+      fs::path(localdir, ".github", "workflows", "project-workflow.yaml")
+    )
+  )
+
+})
+
+
+test_that("get_rmd_path() works", {
+
+  # note this is an abbreviated test because get_rmd_path() depends on the
+  #  RStudio API.
+
+  # we want this to run *only* on CI, where RStudio IDE is not available
+  skip_if_not(!has_rstudio_ide)
+
+  # RStudio IDE is not available, return NULL
+  expect_snapshot(
+    expect_null(get_rmd_path())
+  )
+
+})
