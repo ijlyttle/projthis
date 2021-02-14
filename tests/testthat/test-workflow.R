@@ -1,24 +1,22 @@
-testthat_dir <- getwd()
-
 # create dummy directory
-tempdir <- fs::path(tempdir(), "projthis-action")
-fs::dir_create(tempdir)
+tempdir <- withr::local_tempdir("projthis-action")
 
-withr::local_options(list(usethis.quiet = TRUE))
+# create project for tests
+localdir <- fs::path(tempdir, "proj-01")
+withr::with_options(
+  list(projthis.quiet = TRUE, usethis.quiet = TRUE),
+  proj_create(path = localdir) # this is tested elsewhere
+)
+
+# change to project directory
+withr::local_dir(localdir)
+
+has_rstudio_ide <- rstudioapi::isAvailable("0.99.1111")
 
 test_that("proj_workflow_use_action() works", {
 
-  localdir <- fs::path(tempdir, "proj-01")
-
-  # create project
-  expect_snapshot_output(
-    proj_create(path = localdir)
-  )
-
-  withr::local_dir(localdir)
-
   # add action
-  expect_snapshot_output(
+  expect_snapshot(
     proj_workflow_use_action()
   )
 
@@ -36,12 +34,50 @@ test_that("get_rmd_path() works", {
   # note this is an abbreviated test because get_rmd_path() depends on the
   #  RStudio API.
 
-  # we want this to run *only* on CI
-  skip_if_not(!rstudioapi::isAvailable("0.99.1111"))
+  # we want this to run *only* on CI, where RStudio IDE is not available
+  skip_if_not(!has_rstudio_ide)
 
-  expect_null(get_rmd_path())
+  # RStudio IDE is not available, return NULL
+  expect_snapshot(
+    expect_null(get_rmd_path())
+  )
 
 })
 
-# delete project directory
-unlink(tempdir)
+test_that("proj_workflow_use_rmd() works", {
+
+  # name cannot contain a subdirectory
+  expect_error(
+    proj_workflow_use_rmd("foo/bar"),
+    "sub-directory"
+  )
+
+  # path cannot be null (skip if RStudio  IDE is available)
+  if (!has_rstudio_ide) {
+    expect_snapshot(
+      expect_error(
+        proj_workflow_use_rmd("foo.Rmd", path = NULL)
+      )
+    )
+  }
+
+  # path must be in project
+  expect_error(
+    proj_workflow_use_rmd("foo.Rmd", path = "/dev/null"),
+    "path is not in project"
+  )
+
+  # we create an RMarkdown file, and it is where we expect
+  expect_snapshot(
+    proj_workflow_use_rmd("00-import", path = ".")
+  )
+
+  # check that the file is there
+  expect_true(
+    fs::file_exists(
+      fs::path(localdir, "00-import.Rmd")
+    )
+  )
+
+})
+

@@ -281,7 +281,7 @@ get_rmd_path <- function() {
 
   # this is inspired heavily by usethis::use_test()
   if (!rstudioapi::isAvailable("0.99.1111")) {
-    usethis::ui_oops("RStudio IDE not available")
+    pui_oops("RStudio IDE not available")
     return(NULL)
   }
 

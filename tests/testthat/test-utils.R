@@ -25,4 +25,12 @@ test_that("print utilities work", {
    expect_snapshot(pui_oops("well, ..."))
    expect_snapshot(pui_todo("next, ..."))
 
+   # make sure this runs quiet
+   withr::local_options(projthis.quiet = TRUE)
+
+   expect_snapshot(pui_done("wooo!"))
+   expect_snapshot(pui_info("so, ..."))
+   expect_snapshot(pui_oops("well, ..."))
+   expect_snapshot(pui_todo("next, ..."))
+
 })

@@ -31,7 +31,9 @@ print_util <- function(x, bullet, .envir) {
   # call glue with args
   str <- do.call(glue::glue, args)
 
-  print(str)
+  if (!identical(getOption("projthis.quiet"), TRUE)) {
+    print(str)
+  }
 
   invisible(NULL)
 }
