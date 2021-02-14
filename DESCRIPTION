@@ -45,7 +45,8 @@ Imports:
     rstudioapi,
     assertthat,
     here,
-    tibble
+    tibble,
+    utils
 Suggests: 
     testthat,
     pkgdown,
