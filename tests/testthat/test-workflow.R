@@ -15,8 +15,10 @@ has_rstudio_ide <- rstudioapi::isAvailable("0.99.1111")
 
 test_that("proj_workflow_use_action() works", {
 
-  # add action
-  expect_snapshot(
+  # add action - this cannot be snapshotted because the path will
+  #  vary according to the computer it's running on.
+  withr::with_options(
+    list(projthis.quiet = TRUE, usethis.quiet = TRUE),
     proj_workflow_use_action()
   )
 

@@ -1,20 +1,3 @@
-# proj_workflow_use_action() works
-
-    Code
-      proj_workflow_use_action()
-    Message <message>
-      v Creating '.github/'
-    Message <message>
-      v Adding '^\\.github$' to '.Rbuildignore'
-    Message <message>
-      v Adding '*.html' to '.github/.gitignore'
-    Message <message>
-      v Creating '.github/workflows/'
-    Message <message>
-      v Writing '.github/workflows/project-workflow.yaml'
-    Message <message>
-      * Edit '.github/workflows/project-workflow.yaml'
-
 # get_rmd_path() works
 
     Code
