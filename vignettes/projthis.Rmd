@@ -14,21 +14,21 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of the projthis package is to help you establish analysis-based project workflows. 
-This is distinct from package development. 
-This involves: 
+The goal of the projthis package is to help you establish analysis-based project workflows.
+This is distinct from package development.
+This involves:
 
-- Managing your project's package-dependencies.
+-   Managing your project's package-dependencies.
 
-- Managing the dependencies among files in your workflow.
+-   Managing the dependencies among files in your workflow.
 
-- Automating the rendering of your workflow using GitHub Actions.
+-   Automating the rendering of your workflow using GitHub Actions.
 
 If you want to skip ahead to see a finished product, this [example analysis-project](https://github.com/ijlyttle/covidStates/) was built using projthis.
 
 You can create a new workflow project from the command line:
 
-```r
+``` {.r}
 # use your path rather than "../newproject"
 projthis::proj_create("../newproject")
 ```
@@ -38,24 +38,24 @@ It creates a DESCRIPTION file for the project, which is used to manage your new 
 
 At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:
 
-```r
+``` {.r}
 library("projthis")
 ```
-  
+
 ## Managing package-dependencies
 
 One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
 There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
 
-The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file. 
-It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently. 
+The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file.
+It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.
 
 Compared with renv, this is a lightweight approach: it requires only that the `DESCRIPTION` file be kept current.
 If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
 
 As you develop your project, you can add dependencies to your `DESCRIPTION` file using:
 
-```r
+``` {.r}
 proj_update_deps()
 ```
 
@@ -65,7 +65,7 @@ If you want only to check the status, but not change anything, you can `projthis
 You may wish update your project's package-dependencies, or to install them on another computer.
 From within your project, run:
 
-```r
+``` {.r}
 projthis::proj_install_deps()
 ```
 
@@ -76,57 +76,52 @@ For more information, please read the [vignette on managing package-dependencies
 
 ## Managing a workflow
 
-The term "workflow" is overloaded; it has different meanings in different contexts. 
-In this context, it means a directory containing a sequence of RMarkdown files and a data subdirectory.
+The term "workflow" is overloaded; it has different meanings in different contexts.
+In this context, it means a directory containing a sequence of RMarkdown files and a data directory.
 
-This is a simplification of the files in a [sample workflow](https://github.com/ijlyttle/covidStates/tree/main/workflow):
+This is a simplification of the files in an [example workflow](https://github.com/ijlyttle/covidStates/tree/main/workflow):
 
-```
-workflow/
-  data/
-    00-import/
-    01-clean/
-    02-analyze/
-    99-publish/
-  00-import.Rmd
-  01-clean.Rmd
-  02-analyze.Rmd
-  99-publish.Rmd
-  README.Rmd
-```
+    workflow/
+      data/
+        00-import/
+        01-clean/
+        02-analyze/
+        99-publish/
+      00-import.Rmd
+      01-clean.Rmd
+      02-analyze.Rmd
+      99-publish.Rmd
+      README.Rmd
 
-Note the sequence of RMarkdown files where each file (except README) has a corresponding subdirectory in `data/`. 
+Note the sequence of RMarkdown files where each file (except README) has a corresponding subdirectory in `data/`.
 
 To create a workflow directory, call `proj_use_workflow()` from the directory you wish to contain it.
 The big decision is whether or not to git-ignore the `data/` directory, the default is `TRUE`; factors may include the size of the data and privacy concerns.
 
-```r
+``` {.r}
 proj_use_workflow("workflow", git_ignore_data = FALSE)
 ```
 
 At this point, your workflow directory would look like:
 
-```
-workflow/
-  data/
-  README.Rmd
-```
+    workflow/
+      data/
+      README.Rmd
 
-As well, the `README.Rmd` file is opened from a template. 
-You'll see some boilerplate code is included; this is explained in the next section. 
+As well, the `README.Rmd` file is opened from a template.
+You'll see some boilerplate code is included; this is explained in the next section.
 You may wish to use the `README` to summarize the results of your workflow.
 At any point, if you want to render the entire workflow:
 
-```r
+``` {.r}
 proj_workflow_render("workflow")
 ```
 
 This renders all of the RMarkdown files in order, rendering `README.Rmd` last.
 
-The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE
-Then, for example:
+The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE Then, for example:
 
-```r
+``` {.r}
 # creates a new rmd file from a template
 proj_workflow_use_rmd("00-import")
 ```
@@ -134,13 +129,14 @@ proj_workflow_use_rmd("00-import")
 Note that the default output-format for all the RMarkdown files is `github_document`.
 I find the `github_document` format tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
 
-More details are offered in the [vignette on managing workflows](workflow-management.html).
+More details are offered in the [article on managing workflows](workflow-management.html).
 
 ### Managing directories
 
-In the templated RMarkdown files, you'll see some boilerplate code. For example, in the front-matter:
+In the templated RMarkdown files, you'll see some boilerplate code.
+For example, in the front-matter:
 
-```yaml
+``` {.yaml}
 params:
   name: "00-import" # change if you rename file
 ```
@@ -148,102 +144,166 @@ params:
 If you rename an RMarkdown file, be sure to change its `params$name` in the header; this is what associates an RMarkdown file to its `data/` directory.
 Also, it is used in a validation that you'll see near the start of the file:
 
-```r
+``` {.r}
 here::i_am(paste0(params$name, ".Rmd"), uuid = "f8c9b430-542e-4eaa-b315-bad86866aa06")
 ```
 
 This does a couple of things:
 
-- it establishes your workflow directory as the the project root used by the [**here**](https://here.r-lib.org/) package.
-- it asserts that there exists a file named (in this case) `00-import.Rmd` in the project root, and that this file contains the text `uuid = "f8c9b430-542e-4eaa-b315-bad86866aa06"`, throwing an error if this is not the case. Your `uuid` will be different; it is generated when the RMarkdown file is created from the template.
+-   it establishes your workflow directory as the the project root used by the [**here**](https://here.r-lib.org/) package.
+-   it asserts that there exists a file named (in this case) `00-import.Rmd` in the project root, and that this file contains the text `uuid = "f8c9b430-542e-4eaa-b315-bad86866aa06"`, throwing an error if this is not the case. Your `uuid` will be different; it is generated when the RMarkdown file is created from the template.
 
-These help make sure that you render file as you expect it to be rendered.
+In short, this helps ensure that your RMarkdown files are rendered as you expect.
 
-As mentioned earlier, each RMarkdown file in the sequence has its own `data/` subdirectory. 
-This is to help you enforce two rules:
+As mentioned earlier, each RMarkdown file in the sequence has its own subdirectory within `data/`.
+This helps you enforce two rules:
 
-- A sequenced RMarkdown file can write data *only* to the `data/` subdirectory associated with it. 
-  This is called the **target** directory.
+-   A sequenced RMarkdown file can write data *only* to the `data/` subdirectory associated with it.
+    This is called the **target** directory.
 
-- A sequenced RMarkdown file can read data *only* from `data/` subdirectories associated with earlier RMarkdown files. 
-  These are called **source** directories. 
+-   A sequenced RMarkdown file can read data *only* from `data/` subdirectories associated with earlier RMarkdown files.
+    These are called **source** directories.
 
-Resuming the boilerplate code, `proj_create_dir_target()` is used to create the target directory. 
+Within an RMarkdown file, use `proj_create_dir_target()` to create the target directory.
 You can specify if you want to delete the contents directory if it already exists.
 
-```r
+``` {.r}
 # create or *empty* the target directory, used to write this file's data: 
 projthis::proj_create_dir_target(params$name, clean = TRUE)
 ```
 
 Next are calls to the [function-factories](https://adv-r.hadley.nz/function-factories.html) `proj_path_target()` and `proj_path_source()`.
-These are function that return functions; in this case, they return functions that determine the paths to target and source directories.
+These are functions that return functions; in this case, they return functions that determine the paths to target and source directories.
 
-```r
+``` {.r}
 path_target <- projthis::proj_path_target(params$name)
 path_source <- projthis::proj_path_source(params$name)
 ```
 
-In this example, `params$name = "00-import"`. 
-Let's say we wanted to write a CSV file to the our target directory; we could use:
+Recall that in this example, `params$name = "00-import"`.
+Let's say we wanted to write a CSV file to the our target directory; within the RMarkdown file you could use:
 
-```r
+``` {.r}
 readr::write_csv(important_data, path_target("important_data.csv"))
 ```
 
-`path_target()` uses the `here::here()` function, and the location of the project root (established using `here::here_iam()`) to compose the path to the target directory on the computer where the file is rendered. In other words, it figures out how to do the right thing.
+Behind the scenes, `path_target()` uses `here::here()` and the location of the project root (established using `here::here_iam()`) to compose the path to the target directory on the computer where the file is rendered.
+In other words, it figures out how to do the right thing.
 
-`path_source()` works similarly, but you have to provide the name of the source subdirectory. 
-Because `00-import.Rmd` is the first file in the sequence, we cannot access any sources using this function; this throws an error:
+`path_source()` works similarly, but you have to provide the name of the source subdirectory.
+This allows `path_source()` to validate that source directory is associated with an earlier RMarkdown file.
+In this case, because `00-import.Rmd` is the first file in the sequence, we cannot access *any* sources using this function.
+This throws an error:
 
-```r
+``` {.r}
 # throws an error
 path_source("00-import", "important_data.csv")
 ```
 
-Hence, in `00-import.Rmd`, any data we import *has* to be from outside the workflow. 
+Hence, in `00-import.Rmd`, any data we import *has* to be from outside the workflow.
 This leads to the two exceptions to the target and source rules:
 
-- The file `00-import.Rmd` can read data from external (to the workflow) sources.
-- The file `99-publish.Rmd` can write data to external (to the workflow) targets.
+-   The file `00-import.Rmd` can read data from external (to the workflow) sources.
+-   The file `99-publish.Rmd` can write data to external (to the workflow) targets.
 
-Finally, the finction `proj_dir_info()` uses `fs::dir_info` to provide a concise directory listing.
+Finally, the function `proj_dir_info()` uses `fs::dir_info()` to provide a concise directory listing.
 It can be useful to list the contents of the target directory at the end of an RMarkdown file:
 
-```r
+``` {.r}
 proj_dir_info(path_target())
 ```
 
-```
-## # A tibble: 2 x 4
-##   path                  type         size modification_time  
-##   <fs::path>            <fct> <fs::bytes> <dttm>             
-## 1 covid-states.csv      file       582.7K 2021-01-17 08:33:38
-## 2 population-states.csv file        98.8K 2021-01-17 08:33:38
-```
+    ## # A tibble: 2 x 4
+    ##   path                  type         size modification_time  
+    ##   <fs::path>            <fct> <fs::bytes> <dttm>             
+    ## 1 covid-states.csv      file       582.7K 2021-01-17 08:33:38
+    ## 2 population-states.csv file        98.8K 2021-01-17 08:33:38
 
 By default, the times are expressed using `UTC`.
 
-For more information, please read the [vignette on managing directories](directory-management.html).
+For more information, please read the [article on managing directories](directory-management.html).
 
 ## Automating a workflow
 
-Once you are happy with how a workflow runs on your computer, you may be interested in automating the workflow using GitHub Actions.
+Once you are happy with how a workflow renders on your computer, you may be interested in automating it using GitHub Actions.
+For example, this [repository](https://github.com/ijlyttle/covidStates/) uses a GitHub Action to render a workflow daily, as well as whenever an RMarkdown file is pushed.
 
-To import an example from a template:
+You can create a GitHub Action for your repository using `proj_workflow_use_action()`.
+As of now there is only one Action available; it is based heavily on Jim Hester's work on [GitHub Actions for R](https://github.com/r-lib/actions/):
 
-```r
+``` {.r}
 proj_workflow_use_action()
 ```
 
-Triggers
+This will open the YAML file used to specify the action.
+Although it it is designed to be ready-to-go, there are a few things you will have to customize.
 
-System Requirements
+You may need to customize the triggers for the workflow; the set of conditions GitHub uses to determine when to run the Action.
+The default is to run when any Rmarkdown file is pushed to any branch.
 
-Rendering 
+``` {.yaml}
+on:
+  # runs whenever you push any Rmarkdown file
+  push:
+    paths:
+      - "**.Rmd"
+  # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
+  # schedule:
+  #  - cron:  '00 08 * * *' # 08:00 UTC every day
+```
 
-Committing
+You can schedule runs (for the default branch only), but you may wish to wait until you are confident in your workflow.
+Keep in mind that `cron` uses UTC.
 
-A few more words on gh-pages.
+You will need to choose which platform you wish to run your workflow on; the default is `macOS-latest`:
 
-For more information, please read the [vignette on workflow automation](workflow-automation.html).
+``` {.yaml}
+    # supported: ubuntu-20.04, macOS-latest, windows-latest
+    runs-on: macOS-latest
+```
+
+If you use `ubuntu-20.04`, you may need to specify the system libraries your repository (including the package-dependencies) requires, which might be a bit tricky.
+
+You may have to customize the rendering step, calling `projthis::proj_workflow_render()`, and providing a `path` (relative to the repository root) for each workflow.
+Note that the call is commented out on the template.
+
+``` {.yaml}
+      # adapt this step to build your project
+      - name: Render workflow
+        # - uncomment and adapt the call to `projthis::proj_workflow_render()`
+        # - to run another workflow, add another call
+        run: |
+          # projthis::proj_workflow_render("workflow")
+        shell: Rscript {0}
+```
+
+Once your workflow renders, you will want to deploy the results.
+The default is to commit the results back into the repository.
+
+``` {.yaml}
+      # adapt this step to deploy your project
+      - name: Deploy
+        # - `git add -u` adds files that are *already* part of the repository
+        # - you may have to be creative with your `git add` call(s)
+        # - be wary of `git add -A`, as you might commit files you wish you hadn't
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -u
+          git commit -m "updated by Actions" || echo "No changes to commit"
+          git push || echo "No changes to commit"
+```
+
+A few things to keep in mind about this deployment pattern:
+
+-   What files do you intend to commit back into the repository?
+    The default behavior is `git add -u`, staging only those files already in the repository.
+
+-   You are now sharing the branch with GitHub Actions.
+    This means that you have to pull the latest version from GitHub before you can push any new work from your local computer.
+    This makes itself apparent should you run this action on a schedule.
+
+-   If you render your RMarkdown files into `github_document`s, you can use GitHub pages on your default branch: GitHub will render the markdown as HTML.
+    You can also apply a theme.
+
+For more information, please read the [article on workflow automation](workflow-automation.html).
