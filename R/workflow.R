@@ -182,7 +182,8 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 #' @inheritParams proj_use_workflow
 #' @param envir `environment` in which code chunks are to be evaluated.
 #' @param output_options `list` of output options that can override the
-#'   RMarkdown file metadata.
+#'   RMarkdown file metadata. The default sets `html_preview = FALSE` to avoid
+#'   HTML files being created for `github_document`.
 #' @param ... other arguments passed on to [rmarkdown::render()].
 #'
 #' @return Invisible `NULL`, called for side effects.

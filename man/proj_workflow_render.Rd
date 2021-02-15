@@ -18,7 +18,8 @@ relative to project root.}
 \item{envir}{\code{environment} in which code chunks are to be evaluated.}
 
 \item{output_options}{\code{list} of output options that can override the
-RMarkdown file metadata.}
+RMarkdown file metadata. The default sets \code{html_preview = FALSE} to avoid
+HTML files being created for \code{github_document}.}
 
 \item{...}{other arguments passed on to \code{\link[rmarkdown:render]{rmarkdown::render()}}.}
 }

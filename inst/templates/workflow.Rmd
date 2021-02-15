@@ -39,10 +39,3 @@ These files have been written to the target directory, ```r paste0("data/", para
 projthis::proj_dir_info(path_target())
 ```
 
-## Files written
-
-These files have been written to ```r paste0("data/", params$name)```:
-
-```{r list-files-target}
-proj_dir_info(path_target())
-```

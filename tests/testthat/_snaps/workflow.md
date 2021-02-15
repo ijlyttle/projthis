@@ -29,9 +29,9 @@
 ---
 
     Code
-      proj_workflow_use_rmd("00-import", path = ".")
+      proj_workflow_use_rmd("00-import", path = "new-workflow")
     Message <message>
-      v Writing '00-import.Rmd'
+      v Writing 'new-workflow/00-import.Rmd'
 
 # get_rmd_path() works
 

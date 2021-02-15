@@ -62,13 +62,13 @@ test_that("proj_workflow_use_rmd() works", {
 
   # we create an RMarkdown file, and it is where we expect
   expect_snapshot(
-    proj_workflow_use_rmd("00-import", path = ".")
+    proj_workflow_use_rmd("00-import", path = "new-workflow")
   )
 
   # check that the file is there
   expect_true(
     fs::file_exists(
-      fs::path(localdir, "00-import.Rmd")
+      fs::path(localdir, "new-workflow", "00-import.Rmd")
     )
   )
 
@@ -93,6 +93,18 @@ test_that("proj_workflow_use_action() works", {
 
 })
 
+test_that("proj_workflow_render() works", {
+
+  # diaper to capture machine-dependent output from rendering
+  suppressMessages(
+    utils::capture.output(proj_workflow_render(path = "new-workflow"))
+  )
+
+  expect_true(fs::file_exists("README.md"))
+  expect_true(fs::file_exists("00-import.md"))
+  expect_true(fs::dir_exists("data/00-import"))
+
+})
 
 test_that("get_rmd_path() works", {
 
