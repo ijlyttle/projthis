@@ -46,8 +46,7 @@ Imports:
     assertthat,
     here,
     tibble,
-    utils,
-    gert (== 1.1.0)
+    utils
 Suggests: 
     testthat,
     pkgdown,
