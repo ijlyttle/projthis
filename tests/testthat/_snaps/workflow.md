@@ -21,6 +21,10 @@
 
 # proj_workflow_use_rmd() works
 
+    you cannot specify a sub-directory to `path`
+
+---
+
     Code
       expect_error(proj_workflow_use_rmd("foo.Rmd", path = NULL))
     Output

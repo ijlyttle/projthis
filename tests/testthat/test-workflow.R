@@ -46,9 +46,8 @@ withr::local_dir("new-workflow")
 test_that("proj_workflow_use_rmd() works", {
 
   # name cannot contain a subdirectory
-  expect_error(
-    proj_workflow_use_rmd("foo/bar"),
-    "sub-directory"
+  expect_snapshot_error(
+    proj_workflow_use_rmd("foo/bar")
   )
 
   # path cannot be null (skip if RStudio  IDE is available)
