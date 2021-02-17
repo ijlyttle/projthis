@@ -93,7 +93,8 @@ test_that("proj_path_source() works", {
 
 test_that("proj_dir_info() works", {
 
-  # expecting workflow directory
-  expect_snapshot(proj_dir_info(".", cols = c("path", "type", "size")))
+  # expecting workflow directory - only path and type are constant
+  # across platforms.
+  expect_snapshot(proj_dir_info(".", cols = c("path", "type")))
 
 })
