@@ -1,12 +1,12 @@
 # proj_dir_info() works
 
     Code
-      proj_dir_info(".", cols = c("path", "type", "size"))
+      proj_dir_info(".", cols = c("path", "type"))
     Output
-      # A tibble: 3 x 3
-        path         type             size
-        <fs::path>   <fct>     <fs::bytes>
-      1 01-clean.Rmd file             1019
-      2 README.Rmd   file              359
-      3 data         directory          96
+      # A tibble: 3 x 2
+        path         type     
+        <fs::path>   <fct>    
+      1 01-clean.Rmd file     
+      2 README.Rmd   file     
+      3 data         directory
 
