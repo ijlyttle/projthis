@@ -68,7 +68,7 @@ proj_create_dir_target <- function(name, clean = TRUE) {
 #' For example, use `proj_path_target()` to create a path-generating function
 #' that uses your target directory. Whenever you need to provide a path to a
 #' file in your target directory, e.g. the `file` argument to
-#' [readr::write_csv()], use this path-generating function.
+#' [write.csv()], use this path-generating function.
 #'
 #' Similarly, you can use `proj_path_source()` to create a path-generating
 #' function for your source directories, which **must** be earlier in the

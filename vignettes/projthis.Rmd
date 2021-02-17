@@ -178,10 +178,10 @@ path_source <- projthis::proj_path_source(params$name)
 ```
 
 Recall that in this example, `params$name = "00-import"`.
-Let's say we wanted to write a CSV file to the our target directory; within the RMarkdown file you could use:
+Let's say we wanted to write a CSV file to the target directory; within the RMarkdown file you could use:
 
 ``` {.r}
-readr::write_csv(important_data, path_target("important_data.csv"))
+write.csv(important_data, path_target("important_data.csv"))
 ```
 
 Behind the scenes, `path_target()` uses `here::here()` and the location of the project root (established using `here::here_iam()`) to compose the path to the target directory on the computer where the file is rendered.

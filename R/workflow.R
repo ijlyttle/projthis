@@ -109,14 +109,14 @@ proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
 #'   file to compose paths to this data-directory. For example:
 #'
 #'   ```
-#'   readr::write_csv(mtcars, path_target("mtcars.csv"))
+#'   write.csv(mtcars, path_target("mtcars.csv"))
 #'   ```
 #'
 #'   It also provides an accessor function to the data directory itself, which can
 #'   be useful for reading data from "previous" files.
 #'
 #'   ```
-#'   fun_data <- readr::read_csv(path_data("00-import", "fun_data.csv"))
+#'   fun_data <- read.csv(path_data("00-import", "fun_data.csv"))
 #'   ```
 #'
 #' These opinionated features can help you access your data more easily, while
