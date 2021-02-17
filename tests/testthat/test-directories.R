@@ -95,6 +95,11 @@ test_that("proj_dir_info() works", {
 
   # expecting workflow directory - only path and type are constant
   # across platforms.
-  expect_snapshot(proj_dir_info(".", cols = c("path", "type")))
+
+  # we also have to specify the order because Windows - aaaaaaaaaugh
+  df <- proj_dir_info(".", cols = c("path", "type"))
+  df_by_path <- df[order(df$path), ]
+
+  expect_snapshot(df_by_path)
 
 })

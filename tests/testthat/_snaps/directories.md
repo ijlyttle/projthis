@@ -1,7 +1,7 @@
 # proj_dir_info() works
 
     Code
-      proj_dir_info(".", cols = c("path", "type"))
+      df_by_path
     Output
       # A tibble: 3 x 2
         path         type     
