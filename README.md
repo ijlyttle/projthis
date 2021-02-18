@@ -5,91 +5,37 @@
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/projthis)](https://CRAN.R-project.org/package=projthis)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build
 status](https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg)](https://github.com/ijlyttle/projthis/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ijlyttle/projthis/branch/master/graph/badge.svg)](https://codecov.io/gh/ijlyttle/projthis?branch=master)
+
 <!-- badges: end -->
 
-The goal of projthis to provide a lightweight package-dependency
-management framework for R projects, by using the `DESCRIPTION` file.
+The goal of the projthis package is to offer a framework to establish
+analysis-based project workflows. This is distinct from package
+development. This involves:
 
-This mechanism is also used to manage dependencies among packages; it is
-subject to the same limitation: it is assumed the project will run
-correctly using the **latest version of all its dependencies**. This
-assumption permits a lightweight solution; the cost is to ensure the
-project remains current with its dependencies.
+-   Managing your project’s package-dependencies; this framework uses
+    the `DESCRIPTION` file.
 
-This effort sprang from a discussion of a [usethis
-issue](https://github.com/r-lib/usethis/issues/1194). This package lies
-somewhere between [usethis](https://usethis.r-lib.org/) and
-[renv](https://rstudio.github.io/renv), hence the thought to create yet
-another package, at least for now.
+-   Managing the dependencies among files in your workflow; this
+    framework supports a directory structure and a naming convention.
 
-## Demo
+-   Automating the rendering of your workflow using GitHub Actions. This
+    framework provides a template for an Action.
 
-You can see this package in action at this
-[projthis-demo](https://github.com/ijlyttle/projthis-demo#projthis-demonstration)
-repository, which aims to be a minimum reproducible example of this
-package’s functionality. It includes:
+For a bottom-up treatment of what this package does, there is a
+[getting-started
+article](https://ijlyttle.github.io/projthis/articles/projthis.html).
 
-  - a `README.Rmd` file, in which is calculated the top-downloaded
-    packages, over the last day, that contain a randomly-chosen letter.
-  - a `DESCRIPTION` file, which contains a declaration of all the
-    package dependencies.
-  - a [GitHub Actions
-    file](https://github.com/ijlyttle/projthis-demo/blob/master/.github/workflows/project-run.yaml),
-    which instructs Actions to render `README.Rmd`:
-      - upon change, and
-      - every day at 02:30 UTC
+For a top-down overview, see the [design-philosophy
+article](https://ijlyttle.github.io/projthis/articles/design-phlosophy.html).
 
-The README also details the steps taken to build the project.
-
-## Usage
-
-There are not a lot of functions in this package.
-
-`proj_create()`, to create a project from scratch:
-
-  - wraps `usethis::create_project()`
-  - also installs a `DESCRIPTION` file to store your dependency
-    declarations
-
-`proj_use_description()`, to add a `DESCRIPTION` file to an existing
-project:
-
-  - wraps `usethis::use_description()`
-  - default behavior is to detect existing package-dependencies in your
-    project, then add them to `Imports`
-
-`proj_update_deps()`, to update the package-dependency declaration in
-the `DESCRIPTION` file:
-
-  - uses `renv::dependencies()` to compile the declared and detected
-    package-dependencies
-  - to check, but not update the `DESCRIPTION` file, use
-    `proj_check_deps()`
-
-`proj_install_deps()`, to reproduce the behavior of your project on
-another computer:
-
-  - wraps `remotes::install_deps()` to install the project’s package
-    dependencies
-
-`proj_use_github_action()`, to run your project using GitHub Actions:
-
-  - wraps `usethis::use_github_action()` to install an Actions template
-    in your project
-  - template draws upon [r-lib/actions
-    examples](https://github.com/r-lib/actions/tree/master/examples) to
-    install R, then to install and cache the dependencies
-  - **you will need to modify** your project’s copy of this template to
-    tell Actions:
-      - what triggers a run
-      - how to build your project
-      - how to deploy your project
+To see this in action, here’s a [repository that uses this
+framework](https://github.com/ijlyttle/covidStates).
 
 ## Installation
 
@@ -103,12 +49,37 @@ remotes::install_github("ijlyttle/projthis")
 ## Acknowledgments
 
 There is precious little original to this package, which is a good
-thing. This package rests heavily on the foundation laid by the
+thing. This package rests heavily on the foundation laid by RStudio’s
 [**usethis**](https://usethis.r-lib.org/) package, and also relies on
-[**renv**](https://rstudio.github.io/renv/),
+their [**renv**](https://rstudio.github.io/renv/),
 [**desc**](https://github.com/r-lib/desc),
 [**remotes**](https://remotes.r-lib.org/), and
-[**actions**](https://github.com/r-lib/actions).
+[**actions**](https://github.com/r-lib/actions)packages. Of course, the
+gold-standard for managing dependencies within a workflow is William
+Landau’s [**drake**](https://docs.ropensci.org/drake/), now superseded
+by [**targets**](https://docs.ropensci.org/targets/).
+
+The idea to put some structure on analysis development in R is not new:
+
+-   I learned the term “analysis development” from Hilary Parker, who
+    has published a [pre-print](https://peerj.com/preprints/3210/), and
+    given an [rstudio::conf()
+    presentation](https://rstudio.com/resources/rstudioconf-2017/opinionated-analysis-development/)
+    on the topic.
+
+-   Sharla Gelfand has discussed her implementation in a [blog
+    post](https://sharla.party/post/usethis-for-reporting/) and an
+    [rstudio::conf()
+    presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/).
+
+-   As well, Emily Reiderer discussed her approach in a [blog
+    post](https://emilyriederer.netlify.app/post/rmarkdown-driven-development/)
+    and an [rstudio::conf()
+    presentation](https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/).
+
+-   Steph Locke and Maëlle Salmon offer the
+    [**starters**](https://itsalocke.com/starters/) package, to help you
+    set up R projects for a variety of use cases.
 
 ## Code of Conduct
 

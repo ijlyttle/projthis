@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Project-Management
-Version: 0.0.0.9016
+Version: 0.0.0.9017
 Authors@R: 
   c(
     person(given = "Ian J",
@@ -9,7 +9,8 @@ Authors@R:
            email = "ian.lyttle@schneider-electric.com",
            comment = c(ORCID = "0000-0001-9962-4849")),
     person("Jennifer", "Bryan", role = "ctb", comment = "usethis"),
-    person("Hadley", "Wickham", role = "ctb", comment = "usethis")
+    person("Hadley", "Wickham", role = "ctb", comment = "usethis"),
+    person("Jim", "Hester", role = "ctb", comment = "actions")
   )
 Description: One of the barriers to making projects portable is dependency
   management. The goal of this package to provide a lightweight solution, 
@@ -44,11 +45,14 @@ Imports:
     rstudioapi,
     assertthat,
     here,
-    tibble
+    tibble,
+    utils
 Suggests: 
     testthat,
     pkgdown,
-    knitr
+    knitr,
+    covr,
+    conflicted
 Remotes: r-lib/testthat
 Config/testthat/edition: 3 
 VignetteBuilder: knitr

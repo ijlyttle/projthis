@@ -1,7 +1,11 @@
 #' Create project
 #'
+#' @description
 #' To create a new project, this function calls [usethis::create_project()],
 #' then [proj_use_description()] to create a `DESCRIPTION` file.
+#'
+#' The function acts in the same way as `usethis::create_project()`; provide
+#' an absolute `path`, or a relative `path` from your current working-directory.
 #'
 #' @inheritParams usethis::create_project
 #' @inheritParams proj_use_description

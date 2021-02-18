@@ -38,7 +38,6 @@ test_that("check_deps works", {
 
 })
 
-
 test_that("proj_check_deps works", {
 
   expect_snapshot_output(proj_check_deps())
@@ -59,6 +58,23 @@ test_that("update_check_deps works", {
   # make sure output works (nothing messing or extra)
   expect_snapshot_output(proj_check_deps())
   expect_snapshot_output(proj_update_deps())
+
+})
+
+test_that("proj_install_deps() works", {
+
+  # TODO: create situation where a dependency will need to be installed
+
+  expect_invisible(
+    expect_identical(proj_install_deps(), NULL)
+  )
+
+  # use a diaper to absorb dependencies() output
+  x <- utils::capture.output(deps <- renv::dependencies(path = "."))
+
+  expect_true(
+    all(deps$Package %in% rownames(installed.packages()))
+  )
 
 })
 

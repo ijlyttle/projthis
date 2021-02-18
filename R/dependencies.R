@@ -12,7 +12,8 @@
 #'     extra dependencies.}
 #' }
 #'
-#' @param path `character`, path to the project-root directory.
+#' @param path `character`, path to the project directory. If your current
+#' working-directory in is in the project, the default will do the right thing.
 #'
 #' @return Invisible `NULL`, called for side effects.
 #'
@@ -26,6 +27,7 @@
 #'   # update DESCRIPTION with missing and extra dependencies
 #'   proj_update_deps()
 #' }
+#' @export
 #'
 proj_check_deps <- function(path = usethis::proj_get()) {
 
@@ -101,7 +103,7 @@ proj_update_deps <- function(path = usethis::proj_get()) {
 #' This is a thin wrapper to [remotes::install_deps()]; by default, it installs
 #' all "Depends", "Imports", "Suggests", and "LinkingTo".
 #'
-#' @param path `character` path to project root.
+#' @param path `character` path to project directory. The default
 #' @inheritParams remotes::install_deps
 #' @param ... other arguments passed to [remotes::install_deps()].
 #'

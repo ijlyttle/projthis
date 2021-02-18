@@ -12,7 +12,7 @@ proj_use_workflow(
 }
 \arguments{
 \item{path}{\code{character} path to workflow directory,
-relative to project root.}
+relative to the project directory.}
 
 \item{git_ignore_data}{\code{logical} indicates to add \code{data} directory
 to \code{.gitignore}.}

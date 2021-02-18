@@ -38,7 +38,7 @@
 #' Actions; you can use [proj_workflow_use_action()].
 #'
 #' @param path `character` path to workflow directory,
-#'   relative to project root.
+#'   relative to the project directory.
 #' @param git_ignore_data `logical` indicates to add `data` directory
 #'   to `.gitignore`.
 #' @param open `logical` indicates to open the file for interactive editing.
@@ -54,11 +54,11 @@
 proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
                               open = rlang::is_interactive()) {
 
-  # don't ignore project root
+  # don't ignore project directory
   ignore <- TRUE
   if (identical(usethis::proj_path("."), usethis::proj_path(path))) {
     value <- usethis::ui_value('.Rbuildignore')
-    usethis::ui_info("project root specified - not adding to {value}")
+    usethis::ui_info("project directory specified - not adding to {value}")
     ignore <- FALSE
   }
 
@@ -109,14 +109,14 @@ proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
 #'   file to compose paths to this data-directory. For example:
 #'
 #'   ```
-#'   readr::write_csv(mtcars, path_target("mtcars.csv"))
+#'   write.csv(mtcars, path_target("mtcars.csv"))
 #'   ```
 #'
 #'   It also provides an accessor function to the data directory itself, which can
 #'   be useful for reading data from "previous" files.
 #'
 #'   ```
-#'   fun_data <- readr::read_csv(path_data("00-import", "fun_data.csv"))
+#'   fun_data <- read.csv(path_data("00-import", "fun_data.csv"))
 #'   ```
 #'
 #' These opinionated features can help you access your data more easily, while
@@ -156,11 +156,6 @@ proj_workflow_use_rmd <- function(name, path = NULL,
     usethis::ui_stop("must provide path explicitly")
   }
 
-  # is path in project?
-  if (!is_in_proj(path)) {
-    usethis::ui_stop("path is not in project")
-  }
-
   name <- tools::file_path_sans_ext(name)
   filename <- glue::glue("{name}.Rmd")
 
@@ -187,7 +182,8 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 #' @inheritParams proj_use_workflow
 #' @param envir `environment` in which code chunks are to be evaluated.
 #' @param output_options `list` of output options that can override the
-#'   RMarkdown file metadata.
+#'   RMarkdown file metadata. The default sets `html_preview = FALSE` to avoid
+#'   HTML files being created for `github_document`.
 #' @param ... other arguments passed on to [rmarkdown::render()].
 #'
 #' @return Invisible `NULL`, called for side effects.
@@ -281,9 +277,12 @@ get_rmd_path <- function() {
 
   # this is inspired heavily by usethis::use_test()
   if (!rstudioapi::isAvailable("0.99.1111")) {
-    usethis::ui_oops("RStudio IDE not available")
+    pui_oops("RStudio IDE not available")
     return(NULL)
   }
+
+  # TODO: The code beyond this point is not testable in CI using testthat
+  #  because it depends on the RStudio IDE. Will need to create manual tests.
 
   context <- rstudioapi::getSourceEditorContext()
   active_file <- context$path
@@ -297,17 +296,7 @@ get_rmd_path <- function() {
 
   path_abs <- fs::path_dir(active_file)
 
-  # return path relative to project root
+  # return path relative to project directory
   fs::path_rel(path_abs, start = usethis::proj_get())
 }
 
-# adapted from usethis (Bryan and Wickham)
-is_in_proj <- function (path) {
-
-  path_proj <- usethis::proj_get()
-
-  identical(
-    path_proj,
-    fs::path_common(c(path_proj, fs::path_expand(fs::path_abs(path))))
-  )
-}

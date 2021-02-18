@@ -14,7 +14,6 @@ sort_files <- function(files) {
   c(sort(files_not_readme), sort(files_readme))
 }
 
-
 # a collection of usethis-style internal functions
 
 pui_bullet <- function(x, bullet) {
@@ -32,7 +31,9 @@ print_util <- function(x, bullet, .envir) {
   # call glue with args
   str <- do.call(glue::glue, args)
 
-  print(str)
+  if (!identical(getOption("projthis.quiet"), TRUE)) {
+    print(str)
+  }
 
   invisible(NULL)
 }

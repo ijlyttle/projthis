@@ -10,7 +10,8 @@ proj_check_deps(path = usethis::proj_get())
 proj_update_deps(path = usethis::proj_get())
 }
 \arguments{
-\item{path}{\code{character}, path to the project-root directory.}
+\item{path}{\code{character}, path to the project directory. If your current
+working-directory in is in the project, the default will do the right thing.}
 }
 \value{
 Invisible \code{NULL}, called for side effects.
@@ -37,5 +38,4 @@ if (FALSE) {
   # update DESCRIPTION with missing and extra dependencies
   proj_update_deps()
 }
-
 }

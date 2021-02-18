@@ -39,6 +39,9 @@ Invisible \code{NULL}, called for side effects.
 \description{
 To create a new project, this function calls \code{\link[usethis:create_package]{usethis::create_project()}},
 then \code{\link[=proj_use_description]{proj_use_description()}} to create a \code{DESCRIPTION} file.
+
+The function acts in the same way as \code{usethis::create_project()}; provide
+an absolute \code{path}, or a relative \code{path} from your current working-directory.
 }
 \examples{
 # not run because it produces side effects

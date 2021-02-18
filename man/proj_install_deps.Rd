@@ -7,7 +7,7 @@
 proj_install_deps(path = usethis::proj_get(), dependencies = TRUE, ...)
 }
 \arguments{
-\item{path}{\code{character} path to project root.}
+\item{path}{\code{character} path to project directory. The default}
 
 \item{dependencies}{Which dependencies do you want to check?
 Can be a character vector (selecting from "Depends", "Imports",

@@ -3,7 +3,7 @@
 \name{proj_path_target}
 \alias{proj_path_target}
 \alias{proj_path_source}
-\title{Create function to access directory}
+\title{Create path-generating functions}
 \usage{
 proj_path_target(name)
 
@@ -17,9 +17,49 @@ proj_path_source(name)
 returning a \code{character} path.
 }
 \description{
-Create function to access directory
+This workflow philosophy relies on RMarkdown files being run in a defined
+sequence. It follows that an RMarkdown file should not read from the data
+written by another RMarkdown file written \emph{later} in the sequence. These
+functions help you implement this idea.
+
+These functions are
+\href{https://adv-r.hadley.nz/function-factories.html}{function factories};
+they themselves return functions. You can use those returned functions
+to access paths.
+
+To make things a little easier, the template used by
+\code{\link[=proj_workflow_use_rmd]{proj_workflow_use_rmd()}} includes a calls to \code{proj_path_source()}
+and \code{proj_path_target()}, with the \code{name} argument populated.
+}
+\details{
+Each RMarkdown file in the sequence has its own target directory, created
+using \code{\link[=proj_create_dir_target]{proj_create_dir_target()}}. Once a target directory is created, use
+these functions to \strong{create functions} to access your target directory,
+or previous RMarkdown files' target directories (as sources).
+
+For example, use \code{proj_path_target()} to create a path-generating function
+that uses your target directory. Whenever you need to provide a path to a
+file in your target directory, e.g. the \code{file} argument to
+\code{\link[=write.csv]{write.csv()}}, use this path-generating function.
+
+Similarly, you can use \code{proj_path_source()} to create a path-generating
+function for your source directories, which \strong{must} be earlier in the
+workflow than your current RMarkdown file. The path-generating function
+ckecks that the source directory is, in fact, earlier in the workflow.
 }
 \examples{
-  proj_path_target("01-clean")
-  proj_path_source("01-clean")
+  # create path-generating functions
+  path_target <- proj_path_target("01-clean")
+  path_source <- proj_path_source("01-clean")
+
+  # not run because they depend on side effects
+  \dontrun{
+  # use path-generating functions
+
+  # returns full path to a file in one of your source directories
+  path_source("00-import", "old-data.csv")
+
+  # returns full path to a file in your target directory
+  path_target("new-data.csv")
+  }
 }
