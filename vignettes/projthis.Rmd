@@ -94,7 +94,7 @@ Here's a simplification of the files in an [example project](https://github.com/
 
 ### Vocabulary
 
-This package offers a specific vocabulary:
+This package uses a specific vocabulary:
 
 -   **project (directory)**: top-level directory of a repository, usually corresponds to an RStudio project (contains `.Rproj` file).
     In this example, the project is named `covidStates`.
@@ -111,20 +111,22 @@ For those functions that take a `path` or a `name` as an argument, I try to be c
 
 ### Managing a workflow
 
-To create a workflow directory, call `proj_use_workflow()` from the directory you wish to contain it.
+To create a workflow directory, call `proj_use_workflow()` from somewhere the within the project directory.
+It accepts a `path` argument, which is relative to the project directory.
 The big decision is whether or not to git-ignore the `data/` directory, the default is `TRUE`; factors may include the size of the data and privacy concerns.
 
 ``` {.r}
 proj_use_workflow("workflow", git_ignore_data = FALSE)
 ```
 
-At this point, your workflow directory would look like:
+At this point, your project directory would look like:
 
-    workflow/
-      data/
-      README.Rmd
+    covidStates/
+      workflow/
+        data/
+        README.Rmd
 
-As well, the `README.Rmd` file is opened from a template.
+As well, the workflow `README.Rmd` file is opened from a template.
 You'll see some boilerplate code is included; this is explained in the next section.
 You may wish to use the `README` to summarize the results of your workflow.
 At any point, if you want to render the entire workflow:

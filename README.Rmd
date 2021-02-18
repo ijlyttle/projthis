@@ -61,7 +61,7 @@ The idea to put some structure on analysis development in R is not new:
 
 -   As well, Emily Reiderer discussed her approach in a [blog post](https://emilyriederer.netlify.app/post/rmarkdown-driven-development/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/).
 
--   Steph Locke and Maëlle Salmon offer the [starters](https://itsalocke.com/starters/) package, to help you set up R projects for a variety of use cases.
+-   Steph Locke and Maëlle Salmon offer the [**starters**](https://itsalocke.com/starters/) package, to help you set up R projects for a variety of use cases.
 
 ## Code of Conduct
 

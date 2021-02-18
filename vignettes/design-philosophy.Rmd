@@ -182,7 +182,7 @@ There's a few other ideas this package provokes that do not fit neatly into the 
 
 The project structure suggested by this framework leaves open the possibility that a given workflow project could grow into a package.
 You could motivate a package by solving a particular problem, then generalize the code from the workflow into that package.
-This approach is suggested by Sharla Gelfand, first in a [blog post](https://sharla.party/post/usethis-for-reporting/), then in an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/).
+This approach is suggested by Sharla Gelfand, first in a [blog post](https://sharla.party/post/usethis-for-reporting/), then in an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/), and by Emily Reiderer, also in a [blog post](https://emilyriederer.netlify.app/post/rmarkdown-driven-development/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/).
 
 You would already have a set of "right" answers that you could use to verify that your package code is working; this could become the basis of your package-testing.
 Your workflow could be used as the basis of vignettes and other package documentation.

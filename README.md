@@ -78,8 +78,8 @@ The idea to put some structure on analysis development in R is not new:
     presentation](https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/).
 
 -   Steph Locke and Maëlle Salmon offer the
-    [starters](https://itsalocke.com/starters/) package, to help you set
-    up R projects for a variety of use cases.
+    [**starters**](https://itsalocke.com/starters/) package, to help you
+    set up R projects for a variety of use cases.
 
 ## Code of Conduct
 
