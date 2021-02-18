@@ -57,8 +57,9 @@ their [**renv**](https://rstudio.github.io/renv/),
 [**actions**](https://github.com/r-lib/actions)packages. Of course, the
 gold-standard for managing dependencies within a workflow is William
 Landau’s [**drake**](https://docs.ropensci.org/drake/), now superseded
-by [**targets**](https://docs.ropensci.org/targets/). The idea to put
-some structure on analysis development in R is not new:
+by [**targets**](https://docs.ropensci.org/targets/).
+
+The idea to put some structure on analysis development in R is not new:
 
 -   I learned the term “analysis development” from Hilary Parker, who
     has published a [pre-print](https://peerj.com/preprints/3210/), and
