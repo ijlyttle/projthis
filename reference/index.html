@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9016</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -88,6 +88,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/design-philosophy.html">Design Philosophy</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -127,8 +139,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-project-management-functions" class="hasAnchor"><a href="#section-project-management-functions" class="anchor"></a>Project-management functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-package-dependency-management" class="hasAnchor"><a href="#section-package-dependency-management" class="anchor"></a>Package-dependency management</h2>
+          <p class="section-desc"><p>Use these functions to manage a project’s package dependencies using the <code>DESCRIPTION</code> file.</p></p>
         </th>
       </tr>
       
@@ -160,6 +172,87 @@
           <p><code><a href="proj_install_deps.html">proj_install_deps()</a></code> </p>
         </td>
         <td><p>Install dependencies</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-workflow-management" class="hasAnchor"><a href="#section-workflow-management" class="anchor"></a>Workflow management</h2>
+          <p class="section-desc"><p>Use these functions to manage a project workflow.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="proj_use_workflow.html">proj_use_workflow()</a></code> </p>
+        </td>
+        <td><p>Create directories for workflow</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proj_workflow_use_rmd.html">proj_workflow_use_rmd()</a></code> </p>
+        </td>
+        <td><p>Use opinionated Rmd template</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proj_workflow_render.html">proj_workflow_render()</a></code> </p>
+        </td>
+        <td><p>Render workflow</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-directory-management" class="hasAnchor"><a href="#section-directory-management" class="anchor"></a>Directory management</h2>
+          <p class="section-desc"><p>Use these functions to manage directories from within a project-workflow’s RMarkdown file.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="proj_create_dir_target.html">proj_create_dir_target()</a></code> </p>
+        </td>
+        <td><p>Create target directory</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proj_path_target.html">proj_path_target()</a></code> <code><a href="proj_path_target.html">proj_path_source()</a></code> </p>
+        </td>
+        <td><p>Create path-generating functions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="proj_dir_info.html">proj_dir_info()</a></code> </p>
+        </td>
+        <td><p>Local directory information</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-workflow-automation" class="hasAnchor"><a href="#section-workflow-automation" class="anchor"></a>Workflow automation</h2>
+          <p class="section-desc"><p>Use this function to install a GitHub Action that automates the rendering of your project’s workflows.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="proj_workflow_use_action.html">proj_workflow_use_action()</a></code> </p>
+        </td>
+        <td><p>Use GitHub Action</p></td>
       </tr>
     </tbody><tbody>
       <tr>

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9016</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -55,6 +55,18 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/design-philosophy.html">Design Philosophy</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
@@ -84,66 +96,16 @@
 <a href="#projthis" class="anchor"></a>projthis</h1></div>
 <!-- badges: start -->
 
-<p>The goal of projthis to provide a lightweight package-dependency management framework for R projects, by using the <code>DESCRIPTION</code> file.</p>
-<p>This mechanism is also used to manage dependencies among packages; it is subject to the same limitation: it is assumed the project will run correctly using the <strong>latest version of all its dependencies</strong>. This assumption permits a lightweight solution; the cost is to ensure the project remains current with its dependencies.</p>
-<p>This effort sprang from a discussion of a <a href="https://github.com/r-lib/usethis/issues/1194">usethis issue</a>. This package lies somewhere between <a href="https://usethis.r-lib.org/">usethis</a> and <a href="https://rstudio.github.io/renv">renv</a>, hence the thought to create yet another package, at least for now.</p>
-<div id="demo" class="section level2">
-<h2 class="hasAnchor">
-<a href="#demo" class="anchor"></a>Demo</h2>
-<p>You can see this package in action at this <a href="https://github.com/ijlyttle/projthis-demo#projthis-demonstration">projthis-demo</a> repository, which aims to be a minimum reproducible example of this package’s functionality. It includes:</p>
+<!-- badges: end -->
+<p>The goal of the projthis package is to offer a framework to establish analysis-based project workflows. This is distinct from package development. This involves:</p>
 <ul>
-<li>a <code>README.Rmd</code> file, in which is calculated the top-downloaded packages, over the last day, that contain a randomly-chosen letter.</li>
-<li>a <code>DESCRIPTION</code> file, which contains a declaration of all the package dependencies.</li>
-<li>a <a href="https://github.com/ijlyttle/projthis-demo/blob/master/.github/workflows/project-run.yaml">GitHub Actions file</a>, which instructs Actions to render <code>README.Rmd</code>:
-<ul>
-<li>upon change, and</li>
-<li>every day at 02:30 UTC</li>
+<li><p>Managing your project’s package-dependencies; this framework uses the <code>DESCRIPTION</code> file.</p></li>
+<li><p>Managing the dependencies among files in your workflow; this framework supports a directory structure and a naming convention.</p></li>
+<li><p>Automating the rendering of your workflow using GitHub Actions. This framework provides a template for an Action.</p></li>
 </ul>
-</li>
-</ul>
-<p>The README also details the steps taken to build the project.</p>
-</div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<p>There are not a lot of functions in this package.</p>
-<p><code><a href="reference/proj_create.html">proj_create()</a></code>, to create a project from scratch:</p>
-<ul>
-<li>wraps <code><a href="https://usethis.r-lib.org/reference/create_package.html">usethis::create_project()</a></code>
-</li>
-<li>also installs a <code>DESCRIPTION</code> file to store your dependency declarations</li>
-</ul>
-<p><code><a href="reference/proj_use_description.html">proj_use_description()</a></code>, to add a <code>DESCRIPTION</code> file to an existing project:</p>
-<ul>
-<li>wraps <code><a href="https://usethis.r-lib.org/reference/use_description.html">usethis::use_description()</a></code>
-</li>
-<li>default behavior is to detect existing package-dependencies in your project, then add them to <code>Imports</code>
-</li>
-</ul>
-<p><code><a href="reference/proj_check_deps.html">proj_update_deps()</a></code>, to update the package-dependency declaration in the <code>DESCRIPTION</code> file:</p>
-<ul>
-<li>uses <code><a href="https://rstudio.github.io/renv//reference/dependencies.html">renv::dependencies()</a></code> to compile the declared and detected package-dependencies</li>
-<li>to check, but not update the <code>DESCRIPTION</code> file, use <code><a href="reference/proj_check_deps.html">proj_check_deps()</a></code>
-</li>
-</ul>
-<p><code><a href="reference/proj_install_deps.html">proj_install_deps()</a></code>, to reproduce the behavior of your project on another computer:</p>
-<ul>
-<li>wraps <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code> to install the project’s package dependencies</li>
-</ul>
-<p><code>proj_use_github_action()</code>, to run your project using GitHub Actions:</p>
-<ul>
-<li>wraps <code><a href="https://usethis.r-lib.org/reference/use_github_action.html">usethis::use_github_action()</a></code> to install an Actions template in your project</li>
-<li>template draws upon <a href="https://github.com/r-lib/actions/tree/master/examples">r-lib/actions examples</a> to install R, then to install and cache the dependencies</li>
-<li>
-<strong>you will need to modify</strong> your project’s copy of this template to tell Actions:
-<ul>
-<li>what triggers a run</li>
-<li>how to build your project</li>
-<li>how to deploy your project</li>
-</ul>
-</li>
-</ul>
-</div>
+<p>For a bottom-up treatment of what this package does, there is a <a href="https://ijlyttle.github.io/projthis/articles/projthis.html">getting-started article</a>.</p>
+<p>For a top-down overview, see the <a href="https://ijlyttle.github.io/projthis/articles/design-phlosophy.html">design-philosophy article</a>.</p>
+<p>To see this in action, here’s a <a href="https://github.com/ijlyttle/covidStates">repository that uses this framework</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -155,7 +117,14 @@
 <div id="acknowledgments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgments" class="anchor"></a>Acknowledgments</h2>
-<p>There is precious little original to this package, which is a good thing. This package rests heavily on the foundation laid by the <a href="https://usethis.r-lib.org/"><strong>usethis</strong></a> package, and also relies on <a href="https://rstudio.github.io/renv/"><strong>renv</strong></a>, <a href="https://github.com/r-lib/desc"><strong>desc</strong></a>, <a href="https://remotes.r-lib.org/"><strong>remotes</strong></a>, and <a href="https://github.com/r-lib/actions"><strong>actions</strong></a>.</p>
+<p>There is precious little original to this package, which is a good thing. This package rests heavily on the foundation laid by RStudio’s <a href="https://usethis.r-lib.org/"><strong>usethis</strong></a> package, and also relies on their <a href="https://rstudio.github.io/renv/"><strong>renv</strong></a>, <a href="https://github.com/r-lib/desc"><strong>desc</strong></a>, <a href="https://remotes.r-lib.org/"><strong>remotes</strong></a>, and <a href="https://github.com/r-lib/actions"><strong>actions</strong></a>packages. Of course, the gold-standard for managing dependencies within a workflow is William Landau’s <a href="https://docs.ropensci.org/drake/"><strong>drake</strong></a>, now superseded by <a href="https://docs.ropensci.org/targets/"><strong>targets</strong></a>.</p>
+<p>The idea to put some structure on analysis development in R is not new:</p>
+<ul>
+<li><p>I learned the term “analysis development” from Hilary Parker, who has published a <a href="https://peerj.com/preprints/3210/">pre-print</a>, and given an <a href="https://rstudio.com/resources/rstudioconf-2017/opinionated-analysis-development/">rstudio::conf() presentation</a> on the topic.</p></li>
+<li><p>Sharla Gelfand has discussed her implementation in a <a href="https://sharla.party/post/usethis-for-reporting/">blog post</a> and an <a href="https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/">rstudio::conf() presentation</a>.</p></li>
+<li><p>As well, Emily Reiderer discussed her approach in a <a href="https://emilyriederer.netlify.app/post/rmarkdown-driven-development/">blog post</a> and an <a href="https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/">rstudio::conf() presentation</a>.</p></li>
+<li><p>Steph Locke and Maëlle Salmon offer the <a href="https://itsalocke.com/starters/"><strong>starters</strong></a> package, to help you set up R projects for a variety of use cases.</p></li>
+</ul>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
@@ -199,9 +168,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=projthis"><img src="https://www.r-pkg.org/badges/version/projthis" alt="CRAN status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/ijlyttle/projthis/actions"><img src="https://github.com/ijlyttle/projthis/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/ijlyttle/projthis?branch=master"><img src="https://codecov.io/gh/ijlyttle/projthis/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>

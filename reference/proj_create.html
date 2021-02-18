@@ -41,7 +41,9 @@
 
 <meta property="og:title" content="Create project — proj_create" />
 <meta property="og:description" content="To create a new project, this function calls usethis::create_project(),
-then proj_use_description() to create a DESCRIPTION file." />
+then proj_use_description() to create a DESCRIPTION file.
+The function acts in the same way as usethis::create_project(); provide
+an absolute path, or a relative path from your current working-directory." />
 
 
 
@@ -73,7 +75,7 @@ then proj_use_description() to create a DESCRIPTION file." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9016</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -90,6 +92,18 @@ then proj_use_description() to create a DESCRIPTION file." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/design-philosophy.html">Design Philosophy</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -123,6 +137,8 @@ then proj_use_description() to create a DESCRIPTION file." />
     <div class="ref-description">
     <p>To create a new project, this function calls <code><a href='https://usethis.r-lib.org/reference/create_package.html'>usethis::create_project()</a></code>,
 then <code><a href='proj_use_description.html'>proj_use_description()</a></code> to create a <code>DESCRIPTION</code> file.</p>
+<p>The function acts in the same way as <code><a href='https://usethis.r-lib.org/reference/create_package.html'>usethis::create_project()</a></code>; provide
+an absolute <code>path</code>, or a relative <code>path</code> from your current working-directory.</p>
     </div>
 
     <pre class="usage"><span class='fu'>proj_create</span><span class='op'>(</span>

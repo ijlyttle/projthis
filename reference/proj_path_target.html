@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create function to access directory — proj_path_target • projthis</title>
+<title>Create path-generating functions — proj_path_target • projthis</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,18 @@
 
 
 
-<meta property="og:title" content="Create function to access directory — proj_path_target" />
-<meta property="og:description" content="Create function to access directory" />
+<meta property="og:title" content="Create path-generating functions — proj_path_target" />
+<meta property="og:description" content="This workflow philosophy relies on RMarkdown files being run in a defined
+sequence. It follows that an RMarkdown file should not read from the data
+written by another RMarkdown file written later in the sequence. These
+functions help you implement this idea.
+These functions are
+function factories;
+they themselves return functions. You can use those returned functions
+to access paths.
+To make things a little easier, the template used by
+proj_workflow_use_rmd() includes a calls to proj_path_source()
+and proj_path_target(), with the name argument populated." />
 
 
 
@@ -72,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9016</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -89,6 +99,18 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/design-philosophy.html">Design Philosophy</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -114,13 +136,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create function to access directory</h1>
+    <h1>Create path-generating functions</h1>
     <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/directories.R'><code>R/directories.R</code></a></small>
     <div class="hidden name"><code>proj_path_target.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create function to access directory</p>
+    <p>This workflow philosophy relies on RMarkdown files being run in a defined
+sequence. It follows that an RMarkdown file should not read from the data
+written by another RMarkdown file written <em>later</em> in the sequence. These
+functions help you implement this idea.</p>
+<p>These functions are
+<a href='https://adv-r.hadley.nz/function-factories.html'>function factories</a>;
+they themselves return functions. You can use those returned functions
+to access paths.</p>
+<p>To make things a little easier, the template used by
+<code><a href='proj_workflow_use_rmd.html'>proj_workflow_use_rmd()</a></code> includes a calls to <code>proj_path_source()</code>
+and <code>proj_path_target()</code>, with the <code>name</code> argument populated.</p>
     </div>
 
     <pre class="usage"><span class='fu'>proj_path_target</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span>
@@ -140,31 +172,37 @@
 
     <p><code>function</code> that acts like <code><a href='https://here.r-lib.org//reference/here.html'>here::here()</a></code>,
 returning a <code>character</code> path.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Each RMarkdown file in the sequence has its own target directory, created
+using <code><a href='proj_create_dir_target.html'>proj_create_dir_target()</a></code>. Once a target directory is created, use
+these functions to <strong>create functions</strong> to access your target directory,
+or previous RMarkdown files' target directories (as sources).</p>
+<p>For example, use <code>proj_path_target()</code> to create a path-generating function
+that uses your target directory. Whenever you need to provide a path to a
+file in your target directory, e.g. the <code>file</code> argument to
+<code><a href='https://rdrr.io/r/utils/write.table.html'>write.csv()</a></code>, use this path-generating function.</p>
+<p>Similarly, you can use <code>proj_path_source()</code> to create a path-generating
+function for your source directories, which <strong>must</strong> be earlier in the
+workflow than your current RMarkdown file. The path-generating function
+ckecks that the source directory is, in fact, earlier in the workflow.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='fu'>proj_path_target</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; function (...) 
-#&gt; {
-#&gt;     args &lt;- as.list(c("data", name, ...))
-#&gt;     do.call(here::here, args)
-#&gt; }
-#&gt; &lt;bytecode: 0x7fab15cf4e80&gt;
-#&gt; &lt;environment: 0x7fab15cf4748&gt;</div><div class='input'>  <span class='fu'>proj_path_source</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; function (...) 
-#&gt; {
-#&gt;     path &lt;- list(...)
-#&gt;     source &lt;- as.character(path[[1]])
-#&gt;     current &lt;- as.character(name)
-#&gt;     sorted &lt;- sort_files(c(source, current))
-#&gt;     source_not_before_current &lt;- identical(source, sorted[[2]])
-#&gt;     if (source_not_before_current) {
-#&gt;         warning(glue::glue("{source} is not previous to {current}"))
-#&gt;     }
-#&gt;     args &lt;- as.list(c("data", path))
-#&gt;     do.call(here::here, args)
-#&gt; }
-#&gt; &lt;bytecode: 0x7fab15d50160&gt;
-#&gt; &lt;environment: 0x7fab15d52b70&gt;</div></pre>
+    <pre class="examples"><div class='input'>  <span class='co'># create path-generating functions</span>
+  <span class='va'>path_target</span> <span class='op'>&lt;-</span> <span class='fu'>proj_path_target</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
+  <span class='va'>path_source</span> <span class='op'>&lt;-</span> <span class='fu'>proj_path_source</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
+
+  <span class='co'># not run because they depend on side effects</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='co'># use path-generating functions</span>
+
+  <span class='co'># returns full path to a file in one of your source directories</span>
+  <span class='fu'>path_source</span><span class='op'>(</span><span class='st'>"00-import"</span>, <span class='st'>"old-data.csv"</span><span class='op'>)</span>
+
+  <span class='co'># returns full path to a file in your target directory</span>
+  <span class='fu'>path_target</span><span class='op'>(</span><span class='st'>"new-data.csv"</span><span class='op'>)</span>
+  <span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
