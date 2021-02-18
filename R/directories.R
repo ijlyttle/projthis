@@ -11,8 +11,11 @@
 #' may publish data elsewhere.
 #'
 #' To establish the connection between the two, the target directory
-#' shall be named for the RMarkdown file itself; this is the purpose
-#' of the `name` argument. To make things a little easier, the templgte
+#' shall be named for the RMarkdown file itself. This is the purpose
+#' of the `name` argument; its value should be the name of the
+#' current workflow component, i.e. the name of the current Rmd file.
+#'
+#' To make things a little easier, the template
 #' used by [proj_workflow_use_rmd()] includes a call to
 #' `proj_create_dir_target()`, with the `name` argument populated.
 #'
@@ -55,7 +58,7 @@ proj_create_dir_target <- function(name, clean = TRUE) {
 #' they themselves return functions. You can use those returned functions
 #' to access paths.
 #'
-#' To make things a little easier, the templgte used by
+#' To make things a little easier, the template used by
 #' [proj_workflow_use_rmd()] includes a calls to `proj_path_source()`
 #' and `proj_path_target()`, with the `name` argument populated.
 #'
@@ -85,7 +88,7 @@ proj_create_dir_target <- function(name, clean = TRUE) {
 #'   path_target <- proj_path_target("01-clean")
 #'   path_source <- proj_path_source("01-clean")
 #'
-#'   # not run because they depend on side effcts
+#'   # not run because they depend on side effects
 #'   \dontrun{
 #'   # use path-generating functions
 #'

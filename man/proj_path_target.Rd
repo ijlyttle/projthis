@@ -27,7 +27,7 @@ These functions are
 they themselves return functions. You can use those returned functions
 to access paths.
 
-To make things a little easier, the templgte used by
+To make things a little easier, the template used by
 \code{\link[=proj_workflow_use_rmd]{proj_workflow_use_rmd()}} includes a calls to \code{proj_path_source()}
 and \code{proj_path_target()}, with the \code{name} argument populated.
 }
@@ -52,7 +52,7 @@ ckecks that the source directory is, in fact, earlier in the workflow.
   path_target <- proj_path_target("01-clean")
   path_source <- proj_path_source("01-clean")
 
-  # not run because they depend on side effcts
+  # not run because they depend on side effects
   \dontrun{
   # use path-generating functions
 

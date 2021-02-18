@@ -29,8 +29,8 @@ If you want to skip ahead to see a finished product, this [example analysis-proj
 You can create a new workflow project from the command line:
 
 ``` {.r}
-# use your path rather than "../newproject"
-projthis::proj_create("../newproject")
+# use your path rather than "../covidStates"
+projthis::proj_create("../covidStates")
 ```
 
 This creates a new RStudio project.
@@ -73,26 +73,43 @@ This uses `remotes::install_deps()`, which consults your project's DESCRIPTION f
 
 Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
 
-## Managing a workflow
+## Workflows
 
-The term "workflow" is overloaded; it has different meanings in different contexts.
-In this context, it means a directory containing a sequence of RMarkdown files and a data directory.
+Here's a simplification of the files in an [example project](https://github.com/ijlyttle/covidStates/tree/main/):
 
-This is a simplification of the files in an [example workflow](https://github.com/ijlyttle/covidStates/tree/main/workflow):
-
-    workflow/
-      data/
-        00-import/
-        01-clean/
-        02-analyze/
-        99-publish/
-      00-import.Rmd
-      01-clean.Rmd
-      02-analyze.Rmd
-      99-publish.Rmd
+    covidStates/
+      workflow/
+        data/
+          00-import/
+          01-clean/
+          02-analyze/
+          99-publish/
+        00-import.Rmd
+        01-clean.Rmd
+        02-analyze.Rmd
+        99-publish.Rmd
+        README.Rmd
+      covidStates.Rproj
       README.Rmd
 
-Note the sequence of RMarkdown files where each file (except README) has a corresponding subdirectory in `data/`.
+### Vocabulary
+
+This package offers a specific vocabulary:
+
+-   **project (directory)**: top-level directory of a repository, usually corresponds to an RStudio project (contains `.Rproj` file).
+    In this example, the project is named `covidStates`.
+
+-   **workflow (directory)**: a directory containing a sequence of RMarkdown files and a `data/` subdirectory.
+    A project may contain any number of workflows.
+    A workflow should not be nested in a subdirectory of any other workflow, they should have independent paths.
+    In this example, there is one workflow; it is named (imaginatively) `workflow`.
+
+-   **workflow component**: corresponds to one of the RMarkdown files in a workflow sequence.
+    In this workflow, there are components named `00-import`, `01-clean`, `02-analyze`, and `99-publish`.
+
+For those functions that take a `path` or a `name` as an argument, I try to be clear and consistent in the use of this vocabulary.
+
+### Managing a workflow
 
 To create a workflow directory, call `proj_use_workflow()` from the directory you wish to contain it.
 The big decision is whether or not to git-ignore the `data/` directory, the default is `TRUE`; factors may include the size of the data and privacy concerns.
@@ -147,7 +164,7 @@ here::i_am(paste0(params$name, ".Rmd"), uuid = "f8c9b430-542e-4eaa-b315-bad86866
 
 This does a couple of things:
 
--   it establishes your workflow directory as the the project root used by the [**here**](https://here.r-lib.org/) package.
+-   it establishes your workflow directory as the local project root used by the [**here**](https://here.r-lib.org/) package. In this context, the term "project root" means something different than "project directory".
 -   it asserts that there exists a file named (in this case) `00-import.Rmd` in the project root, and that this file contains the text `uuid = "f8c9b430-542e-4eaa-b315-bad86866aa06"`, throwing an error if this is not the case. Your `uuid` will be different; it is generated when the RMarkdown file is created from the template.
 
 In short, this helps ensure that your RMarkdown files are rendered as you expect.

@@ -15,7 +15,7 @@ proj_workflow_use_rmd(
 \item{name}{\code{character} name of the workflow component.}
 
 \item{path}{\code{character} path to workflow directory,
-relative to project root.}
+relative to the project directory.}
 
 \item{open}{\code{logical} indicates to open the file for interactive editing.}
 

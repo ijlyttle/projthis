@@ -38,7 +38,7 @@
 #' Actions; you can use [proj_workflow_use_action()].
 #'
 #' @param path `character` path to workflow directory,
-#'   relative to project root.
+#'   relative to the project directory.
 #' @param git_ignore_data `logical` indicates to add `data` directory
 #'   to `.gitignore`.
 #' @param open `logical` indicates to open the file for interactive editing.
@@ -54,11 +54,11 @@
 proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
                               open = rlang::is_interactive()) {
 
-  # don't ignore project root
+  # don't ignore project directory
   ignore <- TRUE
   if (identical(usethis::proj_path("."), usethis::proj_path(path))) {
     value <- usethis::ui_value('.Rbuildignore')
-    usethis::ui_info("project root specified - not adding to {value}")
+    usethis::ui_info("project directory specified - not adding to {value}")
     ignore <- FALSE
   }
 
@@ -296,7 +296,7 @@ get_rmd_path <- function() {
 
   path_abs <- fs::path_dir(active_file)
 
-  # return path relative to project root
+  # return path relative to project directory
   fs::path_rel(path_abs, start = usethis::proj_get())
 }
 

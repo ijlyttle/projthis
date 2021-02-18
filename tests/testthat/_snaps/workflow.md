@@ -3,7 +3,7 @@
     Code
       proj_use_workflow(path = ".")
     Message <message>
-      i project root specified - not adding to '.Rbuildignore'
+      i project directory specified - not adding to '.Rbuildignore'
       v Creating 'data/'
       v Adding './data' to '.gitignore'
       v Writing 'README.Rmd'

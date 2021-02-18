@@ -52,7 +52,15 @@ remotes::install_github("ijlyttle/projthis")
 There is precious little original to this package, which is a good thing.
 This package rests heavily on the foundation laid by RStudio's [**usethis**](https://usethis.r-lib.org/) package, and also relies on their [**renv**](https://rstudio.github.io/renv/), [**desc**](https://github.com/r-lib/desc), [**remotes**](https://remotes.r-lib.org/), and [**actions**](https://github.com/r-lib/actions)packages.
 Of course, the gold-standard for managing dependencies within a workflow is William Landau's [**drake**](https://docs.ropensci.org/drake/), now superseded by [**targets**](https://docs.ropensci.org/targets/).
-The idea to incorporate usethis into analysis development is not new; one of my favorite implementations is by Sharla Gelfand, who made a [blog post](https://sharla.party/post/usethis-for-reporting/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/) on it.
+The idea to put some structure on analysis development in R is not new:
+
+-   I learned the term "analysis development" from Hilary Parker, who has published a [pre-print](https://peerj.com/preprints/3210/), and given an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2017/opinionated-analysis-development/) on the topic.
+
+-   Sharla Gelfand has discussed her implementation in a [blog post](https://sharla.party/post/usethis-for-reporting/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/).
+
+-   As well, Emily Reiderer discussed her approach in a [blog post](https://emilyriederer.netlify.app/post/rmarkdown-driven-development/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/).
+
+-   Steph Locke and Maëlle Salmon offer the [starters](https://itsalocke.com/starters/) package, to help you set up R projects for a variety of use cases.
 
 ## Code of Conduct
 

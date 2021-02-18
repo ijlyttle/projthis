@@ -13,7 +13,7 @@ proj_workflow_render(
 }
 \arguments{
 \item{path}{\code{character} path to workflow directory,
-relative to project root.}
+relative to the project directory.}
 
 \item{envir}{\code{environment} in which code chunks are to be evaluated.}
 
