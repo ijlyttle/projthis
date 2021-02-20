@@ -57,6 +57,9 @@ The idea to put some structure on analysis development in R is not new:
 
 -   I learned the term "analysis development" from Hilary Parker, who has published a [pre-print](https://peerj.com/preprints/3210/), and given an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2017/opinionated-analysis-development/) on the topic.
 
+-   Jenny Bryan has long been an advocate for more-humane organization of R workflows.
+    Perhaps her most famous "hot take" is included in this [blog post](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/), which has served as a foundation for this work.
+
 -   Sharla Gelfand has discussed her implementation in a [blog post](https://sharla.party/post/usethis-for-reporting/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/).
 
 -   As well, Emily Reiderer discussed her approach in a [blog post](https://emilyriederer.netlify.app/post/rmarkdown-driven-development/) and an [rstudio::conf() presentation](https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/).

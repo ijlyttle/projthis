@@ -67,6 +67,12 @@ The idea to put some structure on analysis development in R is not new:
     presentation](https://rstudio.com/resources/rstudioconf-2017/opinionated-analysis-development/)
     on the topic.
 
+-   Jenny Bryan has long been an advocate for more-humane organization
+    of R workflows. Perhaps her most famous “hot take” is included in
+    this [blog
+    post](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/),
+    which has served as a foundation for this work.
+
 -   Sharla Gelfand has discussed her implementation in a [blog
     post](https://sharla.party/post/usethis-for-reporting/) and an
     [rstudio::conf()
