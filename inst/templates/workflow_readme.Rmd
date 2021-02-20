@@ -12,3 +12,7 @@ path_source <- projthis::proj_path_source("README")
 ```
 
 In this workflow, ...
+
+```{r packages}
+library("conflicted")
+```
