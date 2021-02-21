@@ -107,12 +107,12 @@ This package uses a specific vocabulary:
 -   **workflow component**: corresponds to one of the RMarkdown files in a workflow sequence.
     In this workflow, there are components named `00-import`, `01-clean`, `02-analyze`, and `99-publish`.
 
-For those functions that take a `path` or a `name` as an argument, I try to be clear and consistent in the use of this vocabulary.
+For those functions that take a `path`, `path_proj`, or a `name` as an argument, I try to be clear and consistent in the use of this vocabulary.
 
 ### Managing a workflow
 
 To create a workflow directory, call `proj_use_workflow()` from somewhere the within the project directory.
-It accepts a `path` argument, which is relative to the project directory.
+It accepts a `path_proj` argument, which is relative to the project directory.
 The big decision is whether or not to git-ignore the `data/` directory, the default is `TRUE`; factors may include the size of the data and privacy concerns.
 
 ``` {.r}

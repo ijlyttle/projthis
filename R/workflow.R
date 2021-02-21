@@ -4,7 +4,7 @@
 #'
 #' This function will create:
 #'
-#' - a directory according to the `path` you provide; it will be added to
+#' - a directory according to the `path_proj` you provide; it will be added to
 #'   `.Rbuildignore`. Within it:
 #'   - a `data` directory, adding it to `.gitignore` if indicated.
 #'   - a `README.Rmd` file.
@@ -37,7 +37,7 @@
 #' Finally, you way wish to run the your workflow on a schedule, using GitHub
 #' Actions; you can use [proj_workflow_use_action()].
 #'
-#' @param path `character` path to workflow directory,
+#' @param path_proj `character` path to workflow directory,
 #'   relative to the project directory.
 #' @param git_ignore_data `logical` indicates to add `data` directory
 #'   to `.gitignore`.
@@ -51,31 +51,31 @@
 #' }
 #' @export
 #'
-proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
+proj_use_workflow <- function(path_proj = "workflow", git_ignore_data = TRUE,
                               open = rlang::is_interactive()) {
 
   # don't ignore project directory
   ignore <- TRUE
-  if (identical(usethis::proj_path("."), usethis::proj_path(path))) {
+  if (identical(usethis::proj_path("."), usethis::proj_path(path_proj))) {
     value <- usethis::ui_value('.Rbuildignore')
     usethis::ui_info("project directory specified - not adding to {value}")
     ignore <- FALSE
   }
 
   # create workflow-root directory
-  usethis::use_directory(path, ignore = ignore)
+  usethis::use_directory(path_proj, ignore = ignore)
 
   # create data directory, add to .gitignore if indicated
-  usethis::use_directory(fs::path(path, "data"))
+  usethis::use_directory(fs::path(path_proj, "data"))
   if (git_ignore_data) {
-    usethis::use_git_ignore(fs::path(path, "data"))
+    usethis::use_git_ignore(fs::path(path_proj, "data"))
   }
 
   # bring in index.Rmd
   usethis::use_template(
     "workflow_readme.Rmd",
-    save_as = fs::path(path, "README.Rmd"),
-    data = list(name = basename(path)),
+    save_as = fs::path(path_proj, "README.Rmd"),
+    data = list(name = basename(path_proj)),
     open = open,
     package = "projthis"
   )
@@ -86,7 +86,7 @@ proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
 #' Use opinionated Rmd template
 #'
 #' Use this function to create a new, templated RMarkdown file in a workflow
-#' directory. It is mandatory to provide a `name`. However, the `path` can be
+#' directory. It is mandatory to provide a `name`. However, the `path_proj` can be
 #' omitted if you have an RMarkdown file from your project open and active
 #' in the RStudio IDE; it will use the directory of that file.
 #'
@@ -136,24 +136,24 @@ proj_use_workflow <- function(path = "workflow", git_ignore_data = TRUE,
 #' }
 #' @export
 #'
-proj_workflow_use_rmd <- function(name, path = NULL,
+proj_workflow_use_rmd <- function(name, path_proj = NULL,
                                   open = rlang::is_interactive(),
                                   ignore = FALSE) {
 
   # ensure that we are not using a subdirectory
   assertthat::assert_that(
     identical(name, basename(name)),
-    msg = "you cannot specify a sub-directory to `path`"
+    msg = "you cannot specify a sub-directory to `path_proj`"
   )
 
   # determine path_workflow
   # - if NULL use the path of an open Rmd file
   # - otherwise error
-  path <- path %||% get_rmd_path()
+  path_proj <- path_proj %||% get_rmd_path()
 
-  # is path still NULL?
-  if (is.null(path)) {
-    usethis::ui_stop("must provide path explicitly")
+  # is path_proj still NULL?
+  if (is.null(path_proj)) {
+    usethis::ui_stop("must provide `path_proj` explicitly")
   }
 
   name <- tools::file_path_sans_ext(name)
@@ -163,7 +163,7 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 
   usethis::use_template(
     "workflow.Rmd",
-    save_as = fs::path(path, filename),
+    save_as = fs::path(path_proj, filename),
     data = list(name = name, uuid = uuid),
     ignore = ignore,
     open = open,
@@ -194,7 +194,7 @@ proj_workflow_use_rmd <- function(name, path = NULL,
 #' }
 #' @export
 #'
-proj_workflow_render <- function(path = "workflow", envir = new.env(),
+proj_workflow_render <- function(path_proj = "workflow", envir = new.env(),
                                  output_options = list(html_preview = FALSE),
                                  ...) {
 
@@ -202,7 +202,7 @@ proj_workflow_render <- function(path = "workflow", envir = new.env(),
   # being created for github_document.
 
   # change the working directory until this function exits
-  withr::local_dir(usethis::proj_path(path))
+  withr::local_dir(usethis::proj_path(path_proj))
 
   # https://github.com/r-lib/crayon/issues/96
   withr::local_options(list(crayon.enabled = NULL))

@@ -5,14 +5,14 @@
 \title{Render workflow}
 \usage{
 proj_workflow_render(
-  path = "workflow",
+  path_proj = "workflow",
   envir = new.env(),
   output_options = list(html_preview = FALSE),
   ...
 )
 }
 \arguments{
-\item{path}{\code{character} path to workflow directory,
+\item{path_proj}{\code{character} path to workflow directory,
 relative to the project directory.}
 
 \item{envir}{\code{environment} in which code chunks are to be evaluated.}
