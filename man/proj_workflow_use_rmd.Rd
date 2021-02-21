@@ -6,7 +6,7 @@
 \usage{
 proj_workflow_use_rmd(
   name,
-  path = NULL,
+  path_proj = NULL,
   open = rlang::is_interactive(),
   ignore = FALSE
 )
@@ -14,7 +14,7 @@ proj_workflow_use_rmd(
 \arguments{
 \item{name}{\code{character} name of the workflow component.}
 
-\item{path}{\code{character} path to workflow directory,
+\item{path_proj}{\code{character} path to workflow directory,
 relative to the project directory.}
 
 \item{open}{\code{logical} indicates to open the file for interactive editing.}
@@ -26,7 +26,7 @@ Invisible \code{NULL}, called for side effects.
 }
 \description{
 Use this function to create a new, templated RMarkdown file in a workflow
-directory. It is mandatory to provide a \code{name}. However, the \code{path} can be
+directory. It is mandatory to provide a \code{name}. However, the \code{path_proj} can be
 omitted if you have an RMarkdown file from your project open and active
 in the RStudio IDE; it will use the directory of that file.
 }

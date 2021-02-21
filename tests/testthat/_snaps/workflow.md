@@ -1,7 +1,7 @@
 # proj_use_workflow() works
 
     Code
-      proj_use_workflow(path = ".")
+      proj_use_workflow(path_proj = ".")
     Message <message>
       i project directory specified - not adding to '.Rbuildignore'
       v Creating 'data/'
@@ -21,7 +21,7 @@
 
 # proj_workflow_use_rmd() works
 
-    you cannot specify a sub-directory to `path`
+    you cannot specify a sub-directory to `path_proj`
 
 ---
 
