@@ -17,7 +17,7 @@ test_that("proj_use_workflow() works", {
 
   # in root
   expect_snapshot(
-    proj_use_workflow(path = ".")
+    proj_use_workflow(path_proj = ".")
   )
 
   expect_true(fs::dir_exists("data"))
@@ -50,7 +50,7 @@ test_that("proj_workflow_use_rmd() works", {
     proj_workflow_use_rmd("foo/bar")
   )
 
-  # path cannot be null (skip if RStudio  IDE is available)
+  # path cannot be null (skip if RStudio IDE is available)
   if (!has_rstudio_ide) {
     expect_snapshot(
       expect_error(

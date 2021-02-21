@@ -5,13 +5,13 @@
 \title{Create directories for workflow}
 \usage{
 proj_use_workflow(
-  path = "workflow",
+  path_proj = "workflow",
   git_ignore_data = TRUE,
   open = rlang::is_interactive()
 )
 }
 \arguments{
-\item{path}{\code{character} path to workflow directory,
+\item{path_proj}{\code{character} path to workflow directory,
 relative to the project directory.}
 
 \item{git_ignore_data}{\code{logical} indicates to add \code{data} directory
@@ -28,7 +28,7 @@ Use this function to set up a workflow-directory structure.
 \details{
 This function will create:
 \itemize{
-\item a directory according to the \code{path} you provide; it will be added to
+\item a directory according to the \code{path_proj} you provide; it will be added to
 \code{.Rbuildignore}. Within it:
 \itemize{
 \item a \code{data} directory, adding it to \code{.gitignore} if indicated.
