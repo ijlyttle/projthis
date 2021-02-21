@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Use opinionated Rmd template — proj_workflow_use_rmd" />
 <meta property="og:description" content="Use this function to create a new, templated RMarkdown file in a workflow
-directory. It is mandatory to provide a name. However, the path can be
+directory. It is mandatory to provide a name. However, the path_proj can be
 omitted if you have an RMarkdown file from your project open and active
 in the RStudio IDE; it will use the directory of that file." />
 
@@ -136,14 +136,14 @@ in the RStudio IDE; it will use the directory of that file." />
 
     <div class="ref-description">
     <p>Use this function to create a new, templated RMarkdown file in a workflow
-directory. It is mandatory to provide a <code>name</code>. However, the <code>path</code> can be
+directory. It is mandatory to provide a <code>name</code>. However, the <code>path_proj</code> can be
 omitted if you have an RMarkdown file from your project open and active
 in the RStudio IDE; it will use the directory of that file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>proj_workflow_use_rmd</span><span class='op'>(</span>
   <span class='va'>name</span>,
-  path <span class='op'>=</span> <span class='cn'>NULL</span>,
+  path_proj <span class='op'>=</span> <span class='cn'>NULL</span>,
   open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>,
   ignore <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
@@ -156,7 +156,7 @@ in the RStudio IDE; it will use the directory of that file.</p>
       <td><p><code>character</code> name of the workflow component.</p></td>
     </tr>
     <tr>
-      <th>path</th>
+      <th>path_proj</th>
       <td><p><code>character</code> path to workflow directory,
 relative to the project directory.</p></td>
     </tr>

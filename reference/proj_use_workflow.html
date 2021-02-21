@@ -136,7 +136,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>proj_use_workflow</span><span class='op'>(</span>
-  path <span class='op'>=</span> <span class='st'>"workflow"</span>,
+  path_proj <span class='op'>=</span> <span class='st'>"workflow"</span>,
   git_ignore_data <span class='op'>=</span> <span class='cn'>TRUE</span>,
   open <span class='op'>=</span> <span class='fu'>rlang</span><span class='fu'>::</span><span class='fu'><a href='https://rlang.r-lib.org/reference/is_interactive.html'>is_interactive</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -145,7 +145,7 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
+      <th>path_proj</th>
       <td><p><code>character</code> path to workflow directory,
 relative to the project directory.</p></td>
     </tr>
@@ -166,7 +166,7 @@ to <code>.gitignore</code>.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function will create:</p><ul>
-<li><p>a directory according to the <code>path</code> you provide; it will be added to
+<li><p>a directory according to the <code>path_proj</code> you provide; it will be added to
 <code>.Rbuildignore</code>. Within it:</p><ul>
 <li><p>a <code>data</code> directory, adding it to <code>.gitignore</code> if indicated.</p></li>
 <li><p>a <code>README.Rmd</code> file.</p></li>

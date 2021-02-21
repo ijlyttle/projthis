@@ -140,7 +140,7 @@ data dependencies.</p>
     </div>
 
     <pre class="usage"><span class='fu'>proj_workflow_render</span><span class='op'>(</span>
-  path <span class='op'>=</span> <span class='st'>"workflow"</span>,
+  path_proj <span class='op'>=</span> <span class='st'>"workflow"</span>,
   envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>new.env</a></span><span class='op'>(</span><span class='op'>)</span>,
   output_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>html_preview <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
   <span class='va'>...</span>
@@ -150,7 +150,7 @@ data dependencies.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
+      <th>path_proj</th>
       <td><p><code>character</code> path to workflow directory,
 relative to the project directory.</p></td>
     </tr>
@@ -166,7 +166,7 @@ HTML files being created for <code>github_document</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='https://rdrr.io/pkg/rmarkdown/man/render.html'>rmarkdown::render()</a></code>.</p></td>
+      <td><p>other arguments passed on to <code><a href='https://rmarkdown.rstudio.com/docs//reference/render.html'>rmarkdown::render()</a></code>.</p></td>
     </tr>
     </table>
 
