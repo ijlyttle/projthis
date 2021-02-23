@@ -75,7 +75,7 @@ proj_use_workflow <- function(path_proj = "workflow", git_ignore_data = TRUE,
   usethis::use_template(
     "workflow_readme.Rmd",
     save_as = fs::path(path_proj, "README.Rmd"),
-    data = list(name = basename(path_proj)),
+    data = list(name = basename(path_proj), uuid = uuid::UUIDgenerate()),
     open = open,
     package = "projthis"
   )
@@ -158,7 +158,6 @@ proj_workflow_use_rmd <- function(name, path_proj = NULL,
 
   name <- tools::file_path_sans_ext(name)
   filename <- glue::glue("{name}.Rmd")
-
   uuid <- uuid::UUIDgenerate()
 
   usethis::use_template(

@@ -14,28 +14,27 @@ coverage](https://codecov.io/gh/ijlyttle/projthis/branch/master/graph/badge.svg)
 
 <!-- badges: end -->
 
-The goal of the projthis package is to offer a framework to establish
-analysis-based project workflows. This is distinct from package
-development. This involves:
+The projthis package offers a framework for analysis-based project
+workflows. You can use it to:
 
--   Managing your project’s package-dependencies; this framework uses
-    the `DESCRIPTION` file.
+-   manage your project’s package-dependencies; projthis helps you use a
+    `DESCRIPTION` file.
 
--   Managing the dependencies among files in your workflow; this
-    framework supports a directory structure and a naming convention.
+-   manage the dependencies among files in your workflows; projthis
+    provides tools to support a directory structure and a naming
+    convention.
 
--   Automating the rendering of your workflow using GitHub Actions. This
-    framework provides a template for an Action.
+-   automate the rendering of your workflow using GitHub Actions;
+    projthis provides a template for an Action.
 
-For a bottom-up treatment of what this package does, there is a
-[getting-started
-article](https://ijlyttle.github.io/projthis/articles/projthis.html).
-
-For a top-down overview, see the [design-philosophy
+The [getting-started
+article](https://ijlyttle.github.io/projthis/articles/projthis.html)
+provides a bottom-up treatment of what this package does; for a top-down
+overview, see the [design-philosophy
 article](https://ijlyttle.github.io/projthis/articles/design-phlosophy.html).
 
-To see this in action, here’s a [repository that uses this
-framework](https://github.com/ijlyttle/covidStates).
+To see the projthis framework in action, here’s a [repository that puts
+it to use](https://github.com/ijlyttle/covidStates).
 
 ## Installation
 
@@ -66,6 +65,12 @@ The idea to put some structure on analysis development in R is not new:
     given an [rstudio::conf()
     presentation](https://rstudio.com/resources/rstudioconf-2017/opinionated-analysis-development/)
     on the topic.
+
+-   Jenny Bryan has long been an advocate for more-humane organization
+    of R workflows. Perhaps her most famous “hot take” is included in
+    this [blog
+    post](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/),
+    which has served as a foundation for this work.
 
 -   Sharla Gelfand has discussed her implementation in a [blog
     post](https://sharla.party/post/usethis-for-reporting/) and an
