@@ -53,7 +53,7 @@ thing. This package rests heavily on the foundation laid by RStudio’s
 their [**renv**](https://rstudio.github.io/renv/),
 [**desc**](https://github.com/r-lib/desc),
 [**remotes**](https://remotes.r-lib.org/), and
-[**actions**](https://github.com/r-lib/actions)packages. Of course, the
+[**actions**](https://github.com/r-lib/actions) packages. Of course, the
 gold-standard for managing dependencies within a workflow is William
 Landau’s [**drake**](https://docs.ropensci.org/drake/), now superseded
 by [**targets**](https://docs.ropensci.org/targets/).
