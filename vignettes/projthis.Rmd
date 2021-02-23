@@ -14,8 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of the projthis package is to help you establish analysis-based project workflows.
-This is distinct from package development.
+The goal of the projthis package is to help you manage analysis-based project workflows.
 This involves:
 
 -   Managing your project's package-dependencies.
@@ -66,7 +65,7 @@ You may wish update your project's package-dependencies, or to install them on a
 From within your project, run:
 
 ``` {.r}
-projthis::proj_install_deps()
+proj_install_deps()
 ```
 
 This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
@@ -135,7 +134,7 @@ At any point, if you want to render the entire workflow:
 proj_workflow_render("workflow")
 ```
 
-This renders all of the RMarkdown files in order, rendering `README.Rmd` last.
+This renders all of the RMarkdown files in alphabetical order, rendering `README.Rmd` last.
 
 The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE Then, for example:
 
