@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 The goal of the projthis package is to help you manage analysis-based project workflows.
 This involves:
 
--   Managing your project's package-dependencies.
-
 -   Managing the dependencies among files in your workflow.
+
+-   Managing your project's package-dependencies.
 
 -   Automating the rendering of your workflow using GitHub Actions.
 
@@ -33,44 +33,13 @@ projthis::proj_create("../covidStates")
 ```
 
 This creates a new RStudio project.
-It creates a DESCRIPTION file for the project, which is used to manage your new project's package-dependencies.
+It creates a `DESCRIPTION` file for the project, which can be used to manage your new project's package-dependencies.
 
 At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:
 
 ``` {.r}
 library("projthis")
 ```
-
-## Managing package-dependencies
-
-One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
-There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
-
-The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file.
-It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.
-
-Compared with renv, this is a lightweight approach: it requires only that the `DESCRIPTION` file be kept current.
-If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
-
-As you develop your project, you can add dependencies to your `DESCRIPTION` file using:
-
-``` {.r}
-proj_update_deps()
-```
-
-This uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
-If you want only to check the status, but not change anything, you can `projthis::proj_check_deps()`.
-
-You may wish update your project's package-dependencies, or to install them on another computer.
-From within your project, run:
-
-``` {.r}
-proj_install_deps()
-```
-
-This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
-
-Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
 
 ## Workflows
 
@@ -235,6 +204,37 @@ proj_dir_info(path_target())
     ## 2 population-states.csv file        98.8K 2021-01-17 08:33:38
 
 By default, the times are expressed using `UTC`.
+
+## Managing package-dependencies
+
+One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
+There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
+
+The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file.
+It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.
+
+Compared with renv, this is a lightweight approach: it requires only that the `DESCRIPTION` file be kept current.
+If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
+
+As you develop your project, you can add dependencies to your `DESCRIPTION` file using:
+
+``` {.r}
+proj_update_deps()
+```
+
+This uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
+If you want only to check the status, but not change anything, you can `projthis::proj_check_deps()`.
+
+You may wish update your project's package-dependencies, or to install them on another computer.
+From within your project, run:
+
+``` {.r}
+proj_install_deps()
+```
+
+This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
+
+Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
 
 ## Automating a workflow
 

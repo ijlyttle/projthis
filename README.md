@@ -17,12 +17,12 @@ coverage](https://codecov.io/gh/ijlyttle/projthis/branch/master/graph/badge.svg)
 The projthis package offers a framework for analysis-based project
 workflows. You can use it to:
 
--   manage your project’s package-dependencies; projthis helps you use a
-    `DESCRIPTION` file.
-
 -   manage the dependencies among files in your workflows; projthis
     provides tools to support a directory structure and a naming
     convention.
+
+-   manage your project’s package-dependencies; projthis helps you use a
+    `DESCRIPTION` file.
 
 -   automate the rendering of your workflow using GitHub Actions;
     projthis provides a template for an Action.

@@ -18,10 +18,10 @@ This package provides a set of tools to manage reproducible workflows that use R
 The goal is to provide the "simplest way that works".
 That said, this package has three main ideas:
 
-1.  Package dependencies are managed using a DESCRIPTION file.
-
-2.  In this context, a "workflow" is a sequence of RMarkdown files.
+1.  In this context, a "workflow" is a sequence of RMarkdown files.
     To render an entire workflow is to render its RMarkdown files sequentially.
+
+2.  Package dependencies are managed using a DESCRIPTION file.
 
 3.  Workflow-rendering can be automated using GitHub Actions.
 
@@ -35,29 +35,6 @@ This article takes a top-down approach to describe the philosophy of this packag
 This article assumes you are already familiar with the problems it is trying to solve, and some of the existing solutions.
 
 ## Main ideas
-
-### DESCRIPTION file
-
-For package development and deployment, the DESCRIPTION file is used to manage dependencies.
-Part of the CRAN "contract" dictates that your "stuff" work as you expect with the current CRAN versions of your dependencies (I realize I am being a little loose with terminology, but you get the idea).
-
-This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file.
-This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to changes in packages.
-If this is intended to be a "living" workflow, perhaps this is not too much of an imposition.
-
-Further, this package uses `remotes::install_deps()` to install dependencies.
-The `Remotes` field can be used to specify GitHub and private repositories; this package does not have the means to populate the `Remotes` field, so the analysis developer will have to do this manually.
-Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.
-
-The purpose here is to provide a simple way to manage a project's package-dependencies.
-As your project advances, you may need a more sophisticated approach; [renv](https://rstudio.github.io/renv/) gives you much more control to specify fixed versions of packages to use.
-
-#### Implementation
-
--   `proj_create()`: creates a new RStudio project with a DESCRIPTION file.
--   `proj_use_description()`: creates a DESCRIPTION file, updates dependencies.
--   `proj_check_deps()`, `proj_update_deps()`: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.
--   `proj_install_deps()`: Installs the package-dependncies listed in the DESCRIPTION file.
 
 ### Sequence of RMarkdown files
 
@@ -152,6 +129,29 @@ path_source("02-do-more-stuff", "tidy-data.csv")
 # returns: "/path/to/this/workflow/01-do-stuff/clean-data.csv"
 path_target("clean-data.csv") 
 ```
+
+### DESCRIPTION file
+
+For package development and deployment, the DESCRIPTION file is used to manage dependencies.
+Part of the CRAN "contract" dictates that your "stuff" work as you expect with the current CRAN versions of your dependencies (I realize I am being a little loose with terminology, but you get the idea).
+
+This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file.
+This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to changes in packages.
+If this is intended to be a "living" workflow, perhaps this is not too much of an imposition.
+
+Further, this package uses `remotes::install_deps()` to install dependencies.
+The `Remotes` field can be used to specify GitHub and private repositories; this package does not have the means to populate the `Remotes` field, so the analysis developer will have to do this manually.
+Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.
+
+The purpose here is to provide a simple way to manage a project's package-dependencies.
+As your project advances, you may need a more sophisticated approach; [renv](https://rstudio.github.io/renv/) gives you much more control to specify fixed versions of packages to use.
+
+#### Implementation
+
+-   `proj_create()`: creates a new RStudio project with a DESCRIPTION file.
+-   `proj_use_description()`: creates a DESCRIPTION file, updates dependencies.
+-   `proj_check_deps()`, `proj_update_deps()`: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.
+-   `proj_install_deps()`: Installs the package-dependncies listed in the DESCRIPTION file.
 
 ### GitHub Actions
 
