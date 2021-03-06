@@ -33,7 +33,17 @@ projthis::proj_create("../covidStates")
 ```
 
 This creates a new RStudio project.
-It creates a `DESCRIPTION` file for the project, which can be used to manage your new project's package-dependencies.
+It creates a `DESCRIPTION` file for the project; this would be a good opportunity to fill out what you can.
+In a later step, we'll use `DESCRIPTION` to manage your new project's package-dependencies.
+
+You may also wish to setup some other "stuff", using usethis:
+
+``` {.r}
+usethis::use_mit_license() # or pick a license you like
+usethis::use_git()  
+usethis::use_github()
+usethis::use_readme_md() # or usethis::use_readme_md() 
+```
 
 At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:
 
@@ -41,7 +51,7 @@ At this point, you would be working in a fresh RStudio session; a perfect opport
 library("projthis")
 ```
 
-## Workflows
+## Managing a workflow
 
 Here's a simplification of the files in an [example project](https://github.com/ijlyttle/covidStates/tree/main/):
 
@@ -77,7 +87,7 @@ This package uses a specific vocabulary:
 
 For those functions that take a `path`, `path_proj`, or a `name` as an argument, I try to be clear and consistent in the use of this vocabulary.
 
-### Managing a workflow
+### Workflow management
 
 To create a workflow directory, call `proj_use_workflow()` from somewhere the within the project directory.
 It accepts a `path_proj` argument, which is relative to the project directory.
@@ -115,7 +125,7 @@ proj_workflow_use_rmd("00-import")
 Note that the default output-format for all the RMarkdown files is `github_document`.
 I find the `github_document` format tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
 
-### Managing directories
+### Directory management
 
 In the templated RMarkdown files, you'll see some boilerplate code.
 For example, in the front-matter:
@@ -261,12 +271,15 @@ on:
     paths:
       - "**.Rmd"
   # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
+  # # **important**
+  # #   uncommented, `schedule:` has to have the same indentation as `push:`
   # schedule:
-  #  - cron:  '00 08 * * *' # 08:00 UTC every day
+  #   - cron:  '00 08 * * *' # 08:00 UTC every day
 ```
 
 You can schedule runs (for the default branch only), but you may wish to wait until you are confident in your workflow.
 Keep in mind that `cron` uses UTC.
+Also, be mindful of the indentation: `push:` and `schedule:` must be the same level, they are both elements of `on:`.
 
 You will need to choose which platform you wish to run your workflow on; the default is `macOS-latest`:
 
