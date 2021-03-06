@@ -80,7 +80,8 @@ There's a set of functions to manage workflows:
 
 -   `proj_use_workflow()`: creates a directory for a new workflow, including a `data` directory and a `README.Rmd` file (from a template).
 -   `proj_workflow_use_rmd()`: creates a new RMarkdown file (from a template) in your workflow.
--   `proj_workflow_render()`: renders all the RMarkdown files in sequence, with `README.Rmd` last.
+-   `proj_workflow_render()`: renders all the RMarkdown files in a workflow in sequence, with `README.Rmd` last.
+-   `proj_rmd_render()`: renders an RMarkdown file in a new R session, used by `proj_workflow_render()`.
 
 The function `proj_use_workflow()` has an argument `git_ignore_data`, which defaults to `FALSE`; this applies to the workflow's `data/` directory.
 You will have to figure out the right answer for a given situation, or you may have to manage `.gitignore` file yourself if you want to manage with finer granularity.

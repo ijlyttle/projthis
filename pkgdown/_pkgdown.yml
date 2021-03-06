@@ -21,6 +21,7 @@ reference:
   - proj_use_workflow
   - proj_workflow_use_rmd
   - proj_workflow_render
+  - proj_rmd_render
 - title: Directory management
   desc: |
     Use these functions to manage directories from within a project-workflow's

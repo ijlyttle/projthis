@@ -1,5 +1,7 @@
 # projthis 0.0.0 (development version)
 
+* Added function to render `.Rmd` file in a new R session: `proj_rmd_render()`; now used by `proj_workflow_render()`. (#42)
+
 * Expansion of ambitions (#20):
 
   * Added functions to manage around workflows: 

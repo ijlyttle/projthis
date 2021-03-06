@@ -46,7 +46,8 @@ Imports:
     assertthat,
     here,
     tibble,
-    utils
+    utils,
+    callr
 Suggests: 
     testthat,
     pkgdown,

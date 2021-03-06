@@ -6,7 +6,6 @@
 \usage{
 proj_workflow_render(
   path_proj = "workflow",
-  envir = new.env(),
   output_options = list(html_preview = FALSE),
   ...
 )
@@ -14,8 +13,6 @@ proj_workflow_render(
 \arguments{
 \item{path_proj}{\code{character} path to workflow directory,
 relative to the project directory.}
-
-\item{envir}{\code{environment} in which code chunks are to be evaluated.}
 
 \item{output_options}{\code{list} of output options that can override the
 RMarkdown file metadata. The default sets \code{html_preview = FALSE} to avoid
@@ -27,9 +24,10 @@ HTML files being created for \code{github_document}.}
 Invisible \code{NULL}, called for side effects.
 }
 \description{
-This renders each of the RMarkdown files in the workflow in alphabetical
-order. This order is important because it preserves the direction of the
-data dependencies.
+This renders each of the \code{.Rmd} files in the workflow in alphabetical
+order, with \code{README.Rmd} last. This order is important because it preserves
+the direction of the data dependencies. Each \code{.Rmd} file is rendered in its
+own R session, using \code{\link[=proj_rmd_render]{proj_rmd_render()}}
 }
 \examples{
 \dontrun{
