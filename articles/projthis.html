@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9019</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
 
     
     
-<p>The goal of the projthis package is to help you establish analysis-based project workflows. This is distinct from package development. This involves:</p>
+<p>The goal of the projthis package is to help you manage analysis-based project workflows. This involves:</p>
 <ul>
 <li><p>Managing your project’s package-dependencies.</p></li>
 <li><p>Managing the dependencies among files in your workflow.</p></li>
@@ -119,10 +119,10 @@
 <p>As you develop your project, you can add dependencies to your <code>DESCRIPTION</code> file using:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/proj_check_deps.html">proj_update_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This uses <code><a href="https://rstudio.github.io/renv//reference/dependencies.html">renv::dependencies()</a></code> to scan your project for references to packages, then edit your <code>DESCRIPTION</code> file accordingly. If you want only to check the status, but not change anything, you can <code><a href="../reference/proj_check_deps.html">projthis::proj_check_deps()</a></code>.</p>
+<p>This uses <code><a href="https://rstudio.github.io/renv/reference/dependencies.html">renv::dependencies()</a></code> to scan your project for references to packages, then edit your <code>DESCRIPTION</code> file accordingly. If you want only to check the status, but not change anything, you can <code><a href="../reference/proj_check_deps.html">projthis::proj_check_deps()</a></code>.</p>
 <p>You may wish update your project’s package-dependencies, or to install them on another computer. From within your project, run:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">projthis</span><span class="fu">::</span><span class="fu"><a href="../reference/proj_install_deps.html">proj_install_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/proj_install_deps.html">proj_install_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code>, which consults your project’s DESCRIPTION file to determine which packages to install.</p>
 <p>Here’s the <a href="https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION"><code>DESCRIPTION</code> file</a> for an example analysis-project; it is essentially the same as for a package-project.</p>
 </div>
@@ -169,7 +169,7 @@
 <p>As well, the workflow <code>README.Rmd</code> file is opened from a template. You’ll see some boilerplate code is included; this is explained in the next section. You may wish to use the <code>README</code> to summarize the results of your workflow. At any point, if you want to render the entire workflow:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/proj_workflow_render.html">proj_workflow_render</a></span><span class="op">(</span><span class="st">"workflow"</span><span class="op">)</span></code></pre></div>
-<p>This renders all of the RMarkdown files in order, rendering <code>README.Rmd</code> last.</p>
+<p>This renders all of the RMarkdown files in alphabetical order, rendering <code>README.Rmd</code> last.</p>
 <p>The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE Then, for example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># creates a new rmd file from a template</span>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9019</span>
       </span>
     </div>
 
@@ -167,7 +167,9 @@
 <li>
 <code><a href="../reference/proj_workflow_use_rmd.html">proj_workflow_use_rmd()</a></code>: creates a new RMarkdown file (from a template) in your workflow.</li>
 <li>
-<code><a href="../reference/proj_workflow_render.html">proj_workflow_render()</a></code>: renders all the RMarkdown files in sequence, with <code>README.Rmd</code> last.</li>
+<code><a href="../reference/proj_workflow_render.html">proj_workflow_render()</a></code>: renders all the RMarkdown files in a workflow in sequence, with <code>README.Rmd</code> last.</li>
+<li>
+<code><a href="../reference/proj_rmd_render.html">proj_rmd_render()</a></code>: renders an RMarkdown file in a new R session, used by <code><a href="../reference/proj_workflow_render.html">proj_workflow_render()</a></code>.</li>
 </ul>
 <p>The function <code><a href="../reference/proj_use_workflow.html">proj_use_workflow()</a></code> has an argument <code>git_ignore_data</code>, which defaults to <code>FALSE</code>; this applies to the workflow’s <code>data/</code> directory. You will have to figure out the right answer for a given situation, or you may have to manage <code>.gitignore</code> file yourself if you want to manage with finer granularity.</p>
 <p>The function <code><a href="../reference/proj_workflow_use_rmd.html">proj_workflow_use_rmd()</a></code> works best if called when the active file in your RStudio IDE is another RMarkdown file from the same workflow; this provides the directory in which to create the new file.</p>

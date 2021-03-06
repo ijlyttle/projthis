@@ -40,9 +40,10 @@
 
 
 <meta property="og:title" content="Render workflow — proj_workflow_render" />
-<meta property="og:description" content="This renders each of the RMarkdown files in the workflow in alphabetical
-order. This order is important because it preserves the direction of the
-data dependencies." />
+<meta property="og:description" content="This renders each of the .Rmd files in the workflow in alphabetical
+order, with README.Rmd last. This order is important because it preserves
+the direction of the data dependencies. Each .Rmd file is rendered in its
+own R session, using proj_rmd_render()" />
 
 
 
@@ -74,7 +75,7 @@ data dependencies." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9017</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9019</span>
       </span>
     </div>
 
@@ -134,14 +135,14 @@ data dependencies." />
     </div>
 
     <div class="ref-description">
-    <p>This renders each of the RMarkdown files in the workflow in alphabetical
-order. This order is important because it preserves the direction of the
-data dependencies.</p>
+    <p>This renders each of the <code>.Rmd</code> files in the workflow in alphabetical
+order, with <code>README.Rmd</code> last. This order is important because it preserves
+the direction of the data dependencies. Each <code>.Rmd</code> file is rendered in its
+own R session, using <code><a href='proj_rmd_render.html'>proj_rmd_render()</a></code></p>
     </div>
 
     <pre class="usage"><span class='fu'>proj_workflow_render</span><span class='op'>(</span>
   path_proj <span class='op'>=</span> <span class='st'>"workflow"</span>,
-  envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>new.env</a></span><span class='op'>(</span><span class='op'>)</span>,
   output_options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>html_preview <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
@@ -155,10 +156,6 @@ data dependencies.</p>
 relative to the project directory.</p></td>
     </tr>
     <tr>
-      <th>envir</th>
-      <td><p><code>environment</code> in which code chunks are to be evaluated.</p></td>
-    </tr>
-    <tr>
       <th>output_options</th>
       <td><p><code>list</code> of output options that can override the
 RMarkdown file metadata. The default sets <code>html_preview = FALSE</code> to avoid
@@ -166,7 +163,7 @@ HTML files being created for <code>github_document</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='https://rmarkdown.rstudio.com/docs//reference/render.html'>rmarkdown::render()</a></code>.</p></td>
+      <td><p>other arguments passed on to <code><a href='https://pkgs.rstudio.com/rmarkdown/reference/render.html'>rmarkdown::render()</a></code>.</p></td>
     </tr>
     </table>
 
