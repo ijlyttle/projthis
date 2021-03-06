@@ -174,12 +174,12 @@ proj_workflow_use_rmd <- function(name, path_proj = NULL,
 
 #' Render workflow
 #'
-#' This renders each of the RMarkdown files in the workflow in alphabetical
-#' order. This order is important because it preserves the direction of the
-#' data dependencies.
+#' This renders each of the `.Rmd` files in the workflow in alphabetical
+#' order, with `README.Rmd` last. This order is important because it preserves
+#' the direction of the data dependencies. Each `.Rmd` file is rendered in its
+#' own R session, using [proj_rmd_render()]
 #'
 #' @inheritParams proj_use_workflow
-#' @param envir `environment` in which code chunks are to be evaluated.
 #' @param output_options `list` of output options that can override the
 #'   RMarkdown file metadata. The default sets `html_preview = FALSE` to avoid
 #'   HTML files being created for `github_document`.
@@ -193,7 +193,7 @@ proj_workflow_use_rmd <- function(name, path_proj = NULL,
 #' }
 #' @export
 #'
-proj_workflow_render <- function(path_proj = "workflow", envir = new.env(),
+proj_workflow_render <- function(path_proj = "workflow",
                                  output_options = list(html_preview = FALSE),
                                  ...) {
 
@@ -215,11 +215,51 @@ proj_workflow_render <- function(path_proj = "workflow", envir = new.env(),
   # render Rmd files
   purrr::walk(
     files_rmd,
-    rmarkdown::render,
-    envir = envir,
+    proj_rmd_render,
     output_options = output_options,
     ...
   )
+}
+
+#' Render in new R session
+#'
+#' The goal of this function is to mimic the behavior of the "knit" button in
+#' the RStudio IDE - it will start a new R session in which the `.Rmd` file
+#' is rendered, using [rmarkdown::render()]. By starting a new session,
+#' we avoid package namespaces from being attached from previous renderings.
+#'
+#' @param input `character`, path to the file to be rendered.
+#' @param ... other args passed to [rmarkdown::render()].
+#'
+#' @return Invisible `NULL`, called for side effects.
+#' @examples
+#' \dontrun{
+#'   # not run because it depends on and creates side effects
+#'   proj_rmd_render("00-input.Rmd")
+#' }
+#' @export
+#'
+proj_rmd_render <- function(input, ...) {
+
+  # define temp file for the duration of the function
+  # - will collect stdout and stderr
+  std_file <- withr::local_tempfile()
+
+  # call R in a new session
+  # - ref: https://reprex.tidyverse.org/reference/reprex_render.html
+  callr::r(
+    function(input, ...) {
+      rmarkdown::render(input, ...)
+    },
+    args = list(input = input, ...),
+    stdout = std_file,
+    stderr = std_file
+  )
+
+  # write the contents to stdout
+  writeLines(readLines(std_file))
+
+  invisible(NULL)
 }
 
 #' Use GitHub Action
