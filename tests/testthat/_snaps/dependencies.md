@@ -10,6 +10,12 @@
 
     v Added missing dependencies to DESCRIPTION:
         rmarkdown, renv
+    i Extra dependencies in DESCRIPTION (not removed):
+       desc
+
+---
+
+    v No dependencies missing from DESCRIPTION.
     v Removed extra dependencies from DESCRIPTION:
         desc
 
