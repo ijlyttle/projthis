@@ -56,7 +56,9 @@ their [**renv**](https://rstudio.github.io/renv/),
 [**actions**](https://github.com/r-lib/actions) packages. Of course, the
 gold-standard for managing dependencies within a workflow is William
 Landau’s [**drake**](https://docs.ropensci.org/drake/), now superseded
-by [**targets**](https://docs.ropensci.org/targets/).
+by [**targets**](https://docs.ropensci.org/targets/). For managing
+package-dependencies, you may also be interested in ThinkR’s
+[**attachment**](https://thinkr-open.github.io/attachment/) package.
 
 The idea to put some structure on analysis development in R is not new:
 
