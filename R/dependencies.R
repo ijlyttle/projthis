@@ -1,10 +1,13 @@
-#' Check or update dependency declaration
+#' Check or update dependency declarations
 #'
 #' @description
 #' This uses [renv::dependencies()], which scans your project directory for
-#' package dependencies. It compares those detected in the code with those
-#' declared in the `DESCRIPTION` to determine
-#' missing and extra packages.
+#' package-dependency declarations. It compares packages detected in the code
+#' with those declared in the `DESCRIPTION` to determine
+#' missing and extra package-dependency declarations.
+#'
+#' By default, `proj_upate_deps()` will not remove extra package-dependency
+#' declarations; you can change this by using `remove_extra = TRUE`.
 #'
 #' \describe{
 #'   \item{proj_check_deps()}{Prints missing and extra dependencies.}
@@ -14,6 +17,8 @@
 #'
 #' @param path `character`, path to the project directory. If your current
 #' working-directory in is in the project, the default will do the right thing.
+#' @param remove_extra `logical`, indicates to remove dependency-declarations
+#'  that [renv::dependencies()] can't find being used.
 #'
 #' @return Invisible `NULL`, called for side effects.
 #'
@@ -24,7 +29,7 @@
 #'   # check DESCRIPTION for missing and extra dependencies
 #'   proj_check_deps()
 #'
-#'   # update DESCRIPTION with missing and extra dependencies
+#'   # update DESCRIPTION with missing dependencies
 #'   proj_update_deps()
 #' }
 #' @export
@@ -65,7 +70,7 @@ proj_check_deps <- function(path = usethis::proj_get()) {
 #' @rdname proj_check_deps
 #' @export
 #'
-proj_update_deps <- function(path = usethis::proj_get()) {
+proj_update_deps <- function(path = usethis::proj_get(), remove_extra = FALSE) {
 
   diff <- check_deps(path)
 
@@ -87,10 +92,16 @@ proj_update_deps <- function(path = usethis::proj_get()) {
   }
 
   if (has_extra) {
-    purrr::walk(diff[["extra"]], desc::desc_del_dep)
-    pui_done(
-      c("Removed extra dependencies from DESCRIPTION:", "    {str_extra}")
-    )
+    if (remove_extra) {
+      purrr::walk(diff[["extra"]], desc::desc_del_dep)
+      pui_done(
+        c("Removed extra dependencies from DESCRIPTION:", "    {str_extra}")
+      )
+    } else {
+      pui_info(
+        c("Extra dependencies in DESCRIPTION (not removed):", "   {str_extra}")
+      )
+    }
   } else {
     pui_done("No extra dependencies in DESCRIPTION.")
   }
@@ -103,7 +114,7 @@ proj_update_deps <- function(path = usethis::proj_get()) {
 #' This is a thin wrapper to [remotes::install_deps()]; by default, it installs
 #' all "Depends", "Imports", "Suggests", and "LinkingTo".
 #'
-#' @param path `character` path to project directory. The default
+#' @inheritParams proj_check_deps
 #' @inheritParams remotes::install_deps
 #' @param ... other arguments passed to [remotes::install_deps()].
 #'
@@ -119,6 +130,32 @@ proj_install_deps <- function(path = usethis::proj_get(), dependencies = TRUE,
                               ...) {
 
   remotes::install_deps(pkgdir = path, dependencies = dependencies, ...)
+
+  invisible(NULL)
+}
+
+#' Refresh dependencies
+#'
+#' This calls `proj_update_deps()`, then `proj_install_deps()`; use to refresh
+#' your package dependencies.
+#'
+#' @inheritParams proj_check_deps
+#' @inheritParams proj_install_deps
+#'
+#' @return Invisible `NULL`, called for side effects.
+#' @examples
+#' # not run because it produces side effects
+#' if (FALSE) {
+#'   proj_refresh_deps()
+#' }
+#' @export
+#'
+proj_refresh_deps <- function(path = usethis::proj_get(), remove_extra = FALSE,
+                              dependencies = TRUE, ...) {
+
+  proj_update_deps(path = path, remove_extra = remove_extra)
+
+  proj_install_deps(path = path, dependencies = dependencies, ...)
 
   invisible(NULL)
 }

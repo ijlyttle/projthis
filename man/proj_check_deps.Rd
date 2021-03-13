@@ -3,24 +3,30 @@
 \name{proj_check_deps}
 \alias{proj_check_deps}
 \alias{proj_update_deps}
-\title{Check or update dependency declaration}
+\title{Check or update dependency declarations}
 \usage{
 proj_check_deps(path = usethis::proj_get())
 
-proj_update_deps(path = usethis::proj_get())
+proj_update_deps(path = usethis::proj_get(), remove_extra = FALSE)
 }
 \arguments{
 \item{path}{\code{character}, path to the project directory. If your current
 working-directory in is in the project, the default will do the right thing.}
+
+\item{remove_extra}{\code{logical}, indicates to remove dependency-declarations
+that \code{\link[renv:dependencies]{renv::dependencies()}} can't find being used.}
 }
 \value{
 Invisible \code{NULL}, called for side effects.
 }
 \description{
 This uses \code{\link[renv:dependencies]{renv::dependencies()}}, which scans your project directory for
-package dependencies. It compares those detected in the code with those
-declared in the \code{DESCRIPTION} to determine
-missing and extra packages.
+package-dependency declarations. It compares packages detected in the code
+with those declared in the \code{DESCRIPTION} to determine
+missing and extra package-dependency declarations.
+
+By default, \code{proj_upate_deps()} will not remove extra package-dependency
+declarations; you can change this by using \code{remove_extra = TRUE}.
 
 \describe{
 \item{proj_check_deps()}{Prints missing and extra dependencies.}
@@ -35,7 +41,7 @@ if (FALSE) {
   # check DESCRIPTION for missing and extra dependencies
   proj_check_deps()
 
-  # update DESCRIPTION with missing and extra dependencies
+  # update DESCRIPTION with missing dependencies
   proj_update_deps()
 }
 }

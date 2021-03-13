@@ -46,8 +46,11 @@ test_that("proj_check_deps works", {
 
 test_that("update_check_deps works", {
 
-  # update dependencies
+  # update dependencies, don't remove extra dependencies
   expect_snapshot_output(proj_update_deps())
+
+  # update dependencies, do remove extra dependencies
+  expect_snapshot_output(proj_update_deps(remove_extra = TRUE))
 
   # ensure nothing missing or extra
   expect_identical(
@@ -75,6 +78,13 @@ test_that("proj_install_deps() works", {
   expect_true(
     all(deps$Package %in% rownames(installed.packages()))
   )
+
+})
+
+test_that("proj_refresh_deps() works", {
+
+  # TODO: create situation where refresh is tested
+  expect_snapshot_output(proj_refresh_deps())
 
 })
 

@@ -14,6 +14,16 @@ navbar:
         href: articles/design-philosophy.html
 
 reference:
+- title: Package-dependency management
+  desc: |
+    Use these functions to manage a project's package dependencies using the
+    `DESCRIPTION` file.
+  contents:
+  - proj_create
+  - proj_use_description
+  - proj_update_deps
+  - proj_install_deps
+  - proj_refresh_deps
 - title: Workflow management
   desc: |
     Use these functions to manage a project workflow.
