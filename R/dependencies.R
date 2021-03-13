@@ -1,4 +1,4 @@
-#' Check or update dependency declaration
+#' Check or update dependency declarations
 #'
 #' @description
 #' This uses [renv::dependencies()], which scans your project directory for
@@ -114,7 +114,7 @@ proj_update_deps <- function(path = usethis::proj_get(), remove_extra = FALSE) {
 #' This is a thin wrapper to [remotes::install_deps()]; by default, it installs
 #' all "Depends", "Imports", "Suggests", and "LinkingTo".
 #'
-#' @param path `character` path to project directory. The default
+#' @inheritParams proj_check_deps
 #' @inheritParams remotes::install_deps
 #' @param ... other arguments passed to [remotes::install_deps()].
 #'
@@ -130,6 +130,32 @@ proj_install_deps <- function(path = usethis::proj_get(), dependencies = TRUE,
                               ...) {
 
   remotes::install_deps(pkgdir = path, dependencies = dependencies, ...)
+
+  invisible(NULL)
+}
+
+#' Refresh dependencies
+#'
+#' This calls `proj_update_deps()`, then `proj_install_deps()`; use to refresh
+#' your package dependencies.
+#'
+#' @inheritParams proj_check_deps
+#' @inheritParams proj_install_deps
+#'
+#' @return Invisible `NULL`, called for side effects.
+#' @examples
+#' # not run because it produces side effects
+#' if (FALSE) {
+#'   proj_refresh_deps()
+#' }
+#' @export
+#'
+proj_refresh_deps <- function(path = usethis::proj_get(), remove_extra = FALSE,
+                              dependencies = TRUE, ...) {
+
+  proj_update_deps(path = path, remove_extra = remove_extra)
+
+  proj_install_deps(path = path, dependencies = dependencies, ...)
 
   invisible(NULL)
 }

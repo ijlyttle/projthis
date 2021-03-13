@@ -23,6 +23,7 @@ reference:
   - proj_use_description
   - proj_update_deps
   - proj_install_deps
+  - proj_refresh_deps
 - title: Workflow management
   desc: |
     Use these functions to manage a project workflow.

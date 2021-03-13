@@ -3,7 +3,7 @@
 \name{proj_check_deps}
 \alias{proj_check_deps}
 \alias{proj_update_deps}
-\title{Check or update dependency declaration}
+\title{Check or update dependency declarations}
 \usage{
 proj_check_deps(path = usethis::proj_get())
 
