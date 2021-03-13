@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9020</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9021</span>
       </span>
     </div>
 
@@ -133,6 +133,7 @@
 <h1 class="page-header" data-toc-text="0.0.0">
 <a href="#projthis-000-development-version" class="anchor"></a>projthis 0.0.0 (development version)</h1>
 <ul>
+<li><p>Added function <code><a href="../reference/proj_refresh_deps.html">proj_refresh_deps()</a></code>, which calls <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code> then <code><a href="../reference/proj_install_deps.html">proj_install_deps()</a></code>. (<a href='https://github.com/ijlyttle/projthis/issues/46'>#46</a>)</p></li>
 <li><p>By default, <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code> will not remove extra package-dependency declarations from <code>DESCRIPTION</code>; this can be changed by using <code>remove_extra = TRUE</code>. (<a href='https://github.com/ijlyttle/projthis/issues/45'>#45</a>)</p></li>
 <li><p>Added function to render <code>.Rmd</code> file in a new R session: <code><a href="../reference/proj_rmd_render.html">proj_rmd_render()</a></code>; now used by <code><a href="../reference/proj_workflow_render.html">proj_workflow_render()</a></code>. (<a href='https://github.com/ijlyttle/projthis/issues/42'>#42</a>)</p></li>
 <li>
