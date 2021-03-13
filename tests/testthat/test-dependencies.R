@@ -81,6 +81,13 @@ test_that("proj_install_deps() works", {
 
 })
 
+test_that("proj_refresh_deps() works", {
+
+  # TODO: create situation where refresh is tested
+  expect_snapshot_output(proj_refresh_deps())
+
+})
+
 # delete project directory
 unlink(tempdir)
 

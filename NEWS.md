@@ -1,5 +1,7 @@
 # projthis 0.0.0 (development version)
 
+* Added function `proj_refresh_deps()`, which calls `proj_update_deps()` then `proj_install_deps()`. (#46)
+
 * By default, `proj_update_deps()` will not remove extra package-dependency declarations from `DESCRIPTION`; this can be changed by using `remove_extra = TRUE`. (#45)
 
 * Added function to render `.Rmd` file in a new R session: `proj_rmd_render()`; now used by `proj_workflow_render()`. (#42)
