@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Project-Management
-Version: 0.0.0.9021
+Version: 0.0.0.9022
 Authors@R: 
   c(
     person(given = "Ian J",
