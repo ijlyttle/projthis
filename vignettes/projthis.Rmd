@@ -42,7 +42,7 @@ You may also wish to setup some other "stuff", using usethis:
 usethis::use_mit_license() # or pick a license you like
 usethis::use_git()  
 usethis::use_github()
-usethis::use_readme_md() # or usethis::use_readme_md() 
+usethis::use_readme_rmd() # or usethis::use_readme_md() 
 ```
 
 At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:
@@ -79,7 +79,7 @@ This package uses a specific vocabulary:
 
 -   **workflow (directory)**: a directory containing a sequence of RMarkdown files and a `data/` subdirectory.
     A project may contain any number of workflows.
-    A workflow should not be nested in a subdirectory of any other workflow, they should have independent paths.
+    A workflow should not be nested in a subdirectory of any other workflow.
     In this example, there is one workflow; it is named (imaginatively) `workflow`.
 
 -   **workflow component**: corresponds to one of the RMarkdown files in a workflow sequence.
@@ -115,7 +115,7 @@ proj_workflow_render("workflow")
 
 This renders all of the RMarkdown files in alphabetical order, rendering `README.Rmd` last.
 
-The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE Then, for example:
+The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE. Then, for example:
 
 ``` {.r}
 # creates a new rmd file from a template
@@ -232,7 +232,10 @@ As you develop your project, you can add dependencies to your `DESCRIPTION` file
 proj_update_deps()
 ```
 
-This uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
+By default, `proj_update_deps()` will not remove any package-dependency declarations it cannot find.
+If you want to remove extra dependencies, call with `remove_extra = TRUE`.
+
+Under the hood, `proj_updte_deps()` uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
 If you want only to check the status, but not change anything, you can `projthis::proj_check_deps()`.
 
 You may wish update your project's package-dependencies, or to install them on another computer.
@@ -244,7 +247,13 @@ proj_install_deps()
 
 This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
 
-Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
+If you want to update your package-dependency declarations, then update the dependencies themselves:
+
+``` {.r}
+proj_refresh_deps()
+```
+
+Finally, here's an example of the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an analysis-project; it is essentially the same as for a package-project.
 
 ## Automating a workflow
 

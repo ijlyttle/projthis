@@ -71,7 +71,7 @@ To run your workflow on other computers, you would have to ensure access (creden
 
 Similarly, you may wish to use the `99-publish.Rmd` file to post your "finished" data to an external site.
 
-As with the package-dependencies, the purpose here is to provide a simple way to manage the dependencies within a workflow.
+The purpose here is to provide a simple way to manage the dependencies within a workflow.
 As your project advances, you may need a more sophisticated approach; [targets](https://docs.ropensci.org/targets/) (successor to [drake](https://docs.ropensci.org/drake/)) gives you much more control to specify the dependencies within your project.
 
 #### Implementation
@@ -152,7 +152,8 @@ As your project advances, you may need a more sophisticated approach; [renv](htt
 -   `proj_create()`: creates a new RStudio project with a DESCRIPTION file.
 -   `proj_use_description()`: creates a DESCRIPTION file, updates dependencies.
 -   `proj_check_deps()`, `proj_update_deps()`: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.
--   `proj_install_deps()`: Installs the package-dependncies listed in the DESCRIPTION file.
+-   `proj_install_deps()`: Installs the package-dependencies listed in the DESCRIPTION file.
+-   `proj_refresh_deps()`: Calls `proj_update_deps()`, then `proj_install_deps()`.
 
 ### GitHub Actions
 
