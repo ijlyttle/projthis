@@ -1,5 +1,7 @@
 # projthis 0.0.0 (development version)
 
+* For Actions template, set `option()` for package installation such that source packages are never compiled if there is an earlier binary version available. This seems avoid installation-related Actions failures, at the price of waiting a few days for the most-recent version. (#50)
+
 * Added function `proj_refresh_deps()`, which calls `proj_update_deps()` then `proj_install_deps()`. (#46)
 
 * By default, `proj_update_deps()` will not remove extra package-dependency declarations from `DESCRIPTION`; this can be changed by using `remove_extra = TRUE`. (#45)

@@ -75,8 +75,11 @@ jobs:
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
       - name: Install dependencies
+        # option set because compiling from source can fail
+        #  - perhaps better to use older version for a couple days until binaries are updated
         # uncomment call to `remotes::install_local(".")` to install project as a package
         run: |
+          options(install.packages.compile.from.source = "never")
           remotes::install_deps(dependencies = TRUE)
           # remotes::install_local(".")
         shell: Rscript {0}
