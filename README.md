@@ -17,12 +17,12 @@ coverage](https://codecov.io/gh/ijlyttle/projthis/branch/master/graph/badge.svg)
 The projthis package offers a framework for analysis-based project
 workflows. You can use it to:
 
--   manage your project’s package-dependencies; projthis helps you use a
-    `DESCRIPTION` file.
-
 -   manage the dependencies among files in your workflows; projthis
     provides tools to support a directory structure and a naming
     convention.
+
+-   manage your project’s package-dependencies; projthis helps you use a
+    `DESCRIPTION` file.
 
 -   automate the rendering of your workflow using GitHub Actions;
     projthis provides a template for an Action.
@@ -56,7 +56,9 @@ their [**renv**](https://rstudio.github.io/renv/),
 [**actions**](https://github.com/r-lib/actions) packages. Of course, the
 gold-standard for managing dependencies within a workflow is William
 Landau’s [**drake**](https://docs.ropensci.org/drake/), now superseded
-by [**targets**](https://docs.ropensci.org/targets/).
+by [**targets**](https://docs.ropensci.org/targets/). For managing
+package-dependencies, you may also be interested in ThinkR’s
+[**attachment**](https://thinkr-open.github.io/attachment/) package.
 
 The idea to put some structure on analysis development in R is not new:
 

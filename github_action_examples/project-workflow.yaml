@@ -24,8 +24,10 @@ on:
     paths:
       - "**.Rmd"
   # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
+  # # **important**
+  # #   uncommented, `schedule:` has to have the same indentation as `push:`
   # schedule:
-  #  - cron:  '00 08 * * *' # 08:00 UTC every day
+  #   - cron:  '00 08 * * *' # 08:00 UTC every day
 
 name: run-workflows
 

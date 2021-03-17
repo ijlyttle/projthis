@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 The goal of the projthis package is to help you manage analysis-based project workflows.
 This involves:
 
--   Managing your project's package-dependencies.
-
 -   Managing the dependencies among files in your workflow.
+
+-   Managing your project's package-dependencies.
 
 -   Automating the rendering of your workflow using GitHub Actions.
 
@@ -33,7 +33,17 @@ projthis::proj_create("../covidStates")
 ```
 
 This creates a new RStudio project.
-It creates a DESCRIPTION file for the project, which is used to manage your new project's package-dependencies.
+It creates a `DESCRIPTION` file for the project; this would be a good opportunity to fill out what you can.
+In a later step, we'll use `DESCRIPTION` to manage your new project's package-dependencies.
+
+You may also wish to setup some other "stuff", using usethis:
+
+``` {.r}
+usethis::use_mit_license() # or pick a license you like
+usethis::use_git()  
+usethis::use_github()
+usethis::use_readme_rmd() # or usethis::use_readme_md() 
+```
 
 At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:
 
@@ -41,38 +51,7 @@ At this point, you would be working in a fresh RStudio session; a perfect opport
 library("projthis")
 ```
 
-## Managing package-dependencies
-
-One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
-There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
-
-The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file.
-It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.
-
-Compared with renv, this is a lightweight approach: it requires only that the `DESCRIPTION` file be kept current.
-If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
-
-As you develop your project, you can add dependencies to your `DESCRIPTION` file using:
-
-``` {.r}
-proj_update_deps()
-```
-
-This uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
-If you want only to check the status, but not change anything, you can `projthis::proj_check_deps()`.
-
-You may wish update your project's package-dependencies, or to install them on another computer.
-From within your project, run:
-
-``` {.r}
-proj_install_deps()
-```
-
-This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
-
-Here's the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an example analysis-project; it is essentially the same as for a package-project.
-
-## Workflows
+## Managing a workflow
 
 Here's a simplification of the files in an [example project](https://github.com/ijlyttle/covidStates/tree/main/):
 
@@ -100,7 +79,7 @@ This package uses a specific vocabulary:
 
 -   **workflow (directory)**: a directory containing a sequence of RMarkdown files and a `data/` subdirectory.
     A project may contain any number of workflows.
-    A workflow should not be nested in a subdirectory of any other workflow, they should have independent paths.
+    A workflow should not be nested in a subdirectory of any other workflow.
     In this example, there is one workflow; it is named (imaginatively) `workflow`.
 
 -   **workflow component**: corresponds to one of the RMarkdown files in a workflow sequence.
@@ -108,7 +87,7 @@ This package uses a specific vocabulary:
 
 For those functions that take a `path`, `path_proj`, or a `name` as an argument, I try to be clear and consistent in the use of this vocabulary.
 
-### Managing a workflow
+### Workflow management
 
 To create a workflow directory, call `proj_use_workflow()` from somewhere the within the project directory.
 It accepts a `path_proj` argument, which is relative to the project directory.
@@ -136,7 +115,7 @@ proj_workflow_render("workflow")
 
 This renders all of the RMarkdown files in alphabetical order, rendering `README.Rmd` last.
 
-The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE Then, for example:
+The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE. Then, for example:
 
 ``` {.r}
 # creates a new rmd file from a template
@@ -146,7 +125,7 @@ proj_workflow_use_rmd("00-import")
 Note that the default output-format for all the RMarkdown files is `github_document`.
 I find the `github_document` format tremendously useful; Jenny Bryan discusses this in her [Happy Git with R](https://happygitwithr.com/workflows-browsability.html) book:
 
-### Managing directories
+### Directory management
 
 In the templated RMarkdown files, you'll see some boilerplate code.
 For example, in the front-matter:
@@ -236,6 +215,46 @@ proj_dir_info(path_target())
 
 By default, the times are expressed using `UTC`.
 
+## Managing package-dependencies
+
+One of the challenges of making a project portable *and* reproducible is keeping the dependencies current.
+There are some comprehensive approaches to this problem; the best known are the [packrat](https://rstudio.github.io/packrat/) package, and its successor, [renv](https://rstudio.github.io/renv/).
+
+The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the `DESCRIPTION` file.
+It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.
+
+Compared with renv, this is a lightweight approach: it requires only that the `DESCRIPTION` file be kept current.
+If you have dependencies that are not on CRAN, you can use the `Remotes:` field, just as you would for a package repository.
+
+As you develop your project, you can add dependencies to your `DESCRIPTION` file using:
+
+``` {.r}
+proj_update_deps()
+```
+
+By default, `proj_update_deps()` will not remove any package-dependency declarations it cannot find.
+If you want to remove extra dependencies, call with `remove_extra = TRUE`.
+
+Under the hood, `proj_updte_deps()` uses `renv::dependencies()` to scan your project for references to packages, then edit your `DESCRIPTION` file accordingly.
+If you want only to check the status, but not change anything, you can `projthis::proj_check_deps()`.
+
+You may wish update your project's package-dependencies, or to install them on another computer.
+From within your project, run:
+
+``` {.r}
+proj_install_deps()
+```
+
+This uses `remotes::install_deps()`, which consults your project's DESCRIPTION file to determine which packages to install.
+
+If you want to update your package-dependency declarations, then update the dependencies themselves:
+
+``` {.r}
+proj_refresh_deps()
+```
+
+Finally, here's an example of the [`DESCRIPTION` file](https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION) for an analysis-project; it is essentially the same as for a package-project.
+
 ## Automating a workflow
 
 Once you are happy with how a workflow renders on your computer, you may be interested in automating it using GitHub Actions.
@@ -261,12 +280,15 @@ on:
     paths:
       - "**.Rmd"
   # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron
+  # # **important**
+  # #   uncommented, `schedule:` has to have the same indentation as `push:`
   # schedule:
-  #  - cron:  '00 08 * * *' # 08:00 UTC every day
+  #   - cron:  '00 08 * * *' # 08:00 UTC every day
 ```
 
 You can schedule runs (for the default branch only), but you may wish to wait until you are confident in your workflow.
 Keep in mind that `cron` uses UTC.
+Also, be mindful of the indentation: `push:` and `schedule:` must be the same level, they are both elements of `on:`.
 
 You will need to choose which platform you wish to run your workflow on; the default is `macOS-latest`:
 

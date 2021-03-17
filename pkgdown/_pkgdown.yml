@@ -40,6 +40,15 @@ reference:
   - proj_create_dir_target
   - proj_path_target
   - proj_dir_info
+- title: Package-dependency management
+  desc: |
+    Use these functions to manage a project's package dependencies using the
+    `DESCRIPTION` file.
+  contents:
+  - proj_create
+  - proj_use_description
+  - proj_update_deps
+  - proj_install_deps
 - title: Workflow automation
   desc: |
     Use this function to install a GitHub Action that automates the rendering
