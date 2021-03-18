@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9021</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9023</span>
       </span>
     </div>
 
@@ -97,8 +97,8 @@
     
 <p>This package provides a set of tools to manage reproducible workflows that use RMarkdown. The goal is to provide the “simplest way that works”. That said, this package has three main ideas:</p>
 <ol style="list-style-type: decimal">
-<li><p>Package dependencies are managed using a DESCRIPTION file.</p></li>
 <li><p>In this context, a “workflow” is a sequence of RMarkdown files. To render an entire workflow is to render its RMarkdown files sequentially.</p></li>
+<li><p>Package dependencies are managed using a DESCRIPTION file.</p></li>
 <li><p>Workflow-rendering can be automated using GitHub Actions.</p></li>
 </ol>
 <p>The first two ideas are independent of each other; the third idea builds on the first two.</p>
@@ -107,28 +107,6 @@
 <div id="main-ideas" class="section level2">
 <h2 class="hasAnchor">
 <a href="#main-ideas" class="anchor"></a>Main ideas</h2>
-<div id="description-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#description-file" class="anchor"></a>DESCRIPTION file</h3>
-<p>For package development and deployment, the DESCRIPTION file is used to manage dependencies. Part of the CRAN “contract” dictates that your “stuff” work as you expect with the current CRAN versions of your dependencies (I realize I am being a little loose with terminology, but you get the idea).</p>
-<p>This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file. This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to changes in packages. If this is intended to be a “living” workflow, perhaps this is not too much of an imposition.</p>
-<p>Further, this package uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code> to install dependencies. The <code>Remotes</code> field can be used to specify GitHub and private repositories; this package does not have the means to populate the <code>Remotes</code> field, so the analysis developer will have to do this manually. Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.</p>
-<p>The purpose here is to provide a simple way to manage a project’s package-dependencies. As your project advances, you may need a more sophisticated approach; <a href="https://rstudio.github.io/renv/">renv</a> gives you much more control to specify fixed versions of packages to use.</p>
-<div id="implementation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#implementation" class="anchor"></a>Implementation</h4>
-<ul>
-<li>
-<code><a href="../reference/proj_create.html">proj_create()</a></code>: creates a new RStudio project with a DESCRIPTION file.</li>
-<li>
-<code><a href="../reference/proj_use_description.html">proj_use_description()</a></code>: creates a DESCRIPTION file, updates dependencies.</li>
-<li>
-<code><a href="../reference/proj_check_deps.html">proj_check_deps()</a></code>, <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code>: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.</li>
-<li>
-<code><a href="../reference/proj_install_deps.html">proj_install_deps()</a></code>: Installs the package-dependncies listed in the DESCRIPTION file.</li>
-</ul>
-</div>
-</div>
 <div id="sequence-of-rmarkdown-files" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sequence-of-rmarkdown-files" class="anchor"></a>Sequence of RMarkdown files</h3>
@@ -156,10 +134,10 @@
 </ul>
 <p>Using externally-accessible sites (e.g. Google Drive) from which to import data would make your workflow portable. To run your workflow on other computers, you would have to ensure access (credentials, etc.) to the external sites.</p>
 <p>Similarly, you may wish to use the <code>99-publish.Rmd</code> file to post your “finished” data to an external site.</p>
-<p>As with the package-dependencies, the purpose here is to provide a simple way to manage the dependencies within a workflow. As your project advances, you may need a more sophisticated approach; <a href="https://docs.ropensci.org/targets/">targets</a> (successor to <a href="https://docs.ropensci.org/drake/">drake</a>) gives you much more control to specify the dependencies within your project.</p>
-<div id="implementation-1" class="section level4">
+<p>The purpose here is to provide a simple way to manage the dependencies within a workflow. As your project advances, you may need a more sophisticated approach; <a href="https://docs.ropensci.org/targets/">targets</a> (successor to <a href="https://docs.ropensci.org/drake/">drake</a>) gives you much more control to specify the dependencies within your project.</p>
+<div id="implementation" class="section level4">
 <h4 class="hasAnchor">
-<a href="#implementation-1" class="anchor"></a>Implementation</h4>
+<a href="#implementation" class="anchor"></a>Implementation</h4>
 <p>There’s a set of functions to manage workflows:</p>
 <ul>
 <li>
@@ -204,6 +182,30 @@
 
 <span class="co"># returns: "/path/to/this/workflow/01-do-stuff/clean-data.csv"</span>
 <span class="fu">path_target</span><span class="op">(</span><span class="st">"clean-data.csv"</span><span class="op">)</span> </code></pre></div>
+</div>
+</div>
+<div id="description-file" class="section level3">
+<h3 class="hasAnchor">
+<a href="#description-file" class="anchor"></a>DESCRIPTION file</h3>
+<p>For package development and deployment, the DESCRIPTION file is used to manage dependencies. Part of the CRAN “contract” dictates that your “stuff” work as you expect with the current CRAN versions of your dependencies (I realize I am being a little loose with terminology, but you get the idea).</p>
+<p>This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file. This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to changes in packages. If this is intended to be a “living” workflow, perhaps this is not too much of an imposition.</p>
+<p>Further, this package uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code> to install dependencies. The <code>Remotes</code> field can be used to specify GitHub and private repositories; this package does not have the means to populate the <code>Remotes</code> field, so the analysis developer will have to do this manually. Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.</p>
+<p>The purpose here is to provide a simple way to manage a project’s package-dependencies. As your project advances, you may need a more sophisticated approach; <a href="https://rstudio.github.io/renv/">renv</a> gives you much more control to specify fixed versions of packages to use.</p>
+<div id="implementation-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#implementation-1" class="anchor"></a>Implementation</h4>
+<ul>
+<li>
+<code><a href="../reference/proj_create.html">proj_create()</a></code>: creates a new RStudio project with a DESCRIPTION file.</li>
+<li>
+<code><a href="../reference/proj_use_description.html">proj_use_description()</a></code>: creates a DESCRIPTION file, updates dependencies.</li>
+<li>
+<code><a href="../reference/proj_check_deps.html">proj_check_deps()</a></code>, <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code>: checks (updates) dependencies listed in the DESCRIPTION file against those used in the project.</li>
+<li>
+<code><a href="../reference/proj_install_deps.html">proj_install_deps()</a></code>: Installs the package-dependencies listed in the DESCRIPTION file.</li>
+<li>
+<code><a href="../reference/proj_refresh_deps.html">proj_refresh_deps()</a></code>: Calls <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code>, then <code><a href="../reference/proj_install_deps.html">proj_install_deps()</a></code>.</li>
+</ul>
 </div>
 </div>
 <div id="github-actions" class="section level3">

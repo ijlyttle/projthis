@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9021</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9023</span>
       </span>
     </div>
 
@@ -97,8 +97,8 @@
     
 <p>The goal of the projthis package is to help you manage analysis-based project workflows. This involves:</p>
 <ul>
-<li><p>Managing your project’s package-dependencies.</p></li>
 <li><p>Managing the dependencies among files in your workflow.</p></li>
+<li><p>Managing your project’s package-dependencies.</p></li>
 <li><p>Automating the rendering of your workflow using GitHub Actions.</p></li>
 </ul>
 <p>If you want to skip ahead to see a finished product, this <a href="https://github.com/ijlyttle/covidStates/">example analysis-project</a> was built using projthis.</p>
@@ -106,29 +106,19 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># use your path rather than "../covidStates"</span>
 <span class="fu">projthis</span><span class="fu">::</span><span class="fu"><a href="../reference/proj_create.html">proj_create</a></span><span class="op">(</span><span class="st">"../covidStates"</span><span class="op">)</span></code></pre></div>
-<p>This creates a new RStudio project. It creates a DESCRIPTION file for the project, which is used to manage your new project’s package-dependencies.</p>
-<p>At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:</p>
+<p>This creates a new RStudio project. It creates a <code>DESCRIPTION</code> file for the project; this would be a good opportunity to fill out what you can. In a later step, we’ll use <code>DESCRIPTION</code> to manage your new project’s package-dependencies.</p>
+<p>You may also wish to setup some other “stuff”, using usethis:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ijlyttle/projthis">"projthis"</a></span><span class="op">)</span></code></pre></div>
-<div id="managing-package-dependencies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#managing-package-dependencies" class="anchor"></a>Managing package-dependencies</h2>
-<p>One of the challenges of making a project portable <em>and</em> reproducible is keeping the dependencies current. There are some comprehensive approaches to this problem; the best known are the <a href="https://rstudio.github.io/packrat/">packrat</a> package, and its successor, <a href="https://rstudio.github.io/renv/">renv</a>.</p>
-<p>The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the <code>DESCRIPTION</code> file. It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.</p>
-<p>Compared with renv, this is a lightweight approach: it requires only that the <code>DESCRIPTION</code> file be kept current. If you have dependencies that are not on CRAN, you can use the <code>Remotes:</code> field, just as you would for a package repository.</p>
-<p>As you develop your project, you can add dependencies to your <code>DESCRIPTION</code> file using:</p>
+<code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># or pick a license you like</span>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git.html">use_git</a></span><span class="op">(</span><span class="op">)</span>  
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_github.html">use_github</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># or usethis::use_readme_md() </span></code></pre></div>
+<p>At this point, you would be working in a fresh RStudio session; a perfect opportunity to load the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/proj_check_deps.html">proj_update_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This uses <code><a href="https://rstudio.github.io/renv/reference/dependencies.html">renv::dependencies()</a></code> to scan your project for references to packages, then edit your <code>DESCRIPTION</code> file accordingly. If you want only to check the status, but not change anything, you can <code><a href="../reference/proj_check_deps.html">projthis::proj_check_deps()</a></code>.</p>
-<p>You may wish update your project’s package-dependencies, or to install them on another computer. From within your project, run:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/proj_install_deps.html">proj_install_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>This uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code>, which consults your project’s DESCRIPTION file to determine which packages to install.</p>
-<p>Here’s the <a href="https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION"><code>DESCRIPTION</code> file</a> for an example analysis-project; it is essentially the same as for a package-project.</p>
-</div>
-<div id="workflows" class="section level2">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/ijlyttle/projthis">"projthis"</a></span><span class="op">)</span></code></pre></div>
+<div id="managing-a-workflow" class="section level2">
 <h2 class="hasAnchor">
-<a href="#workflows" class="anchor"></a>Workflows</h2>
+<a href="#managing-a-workflow" class="anchor"></a>Managing a workflow</h2>
 <p>Here’s a simplification of the files in an <a href="https://github.com/ijlyttle/covidStates/tree/main/">example project</a>:</p>
 <pre><code>covidStates/
   workflow/
@@ -150,16 +140,16 @@
 <p>This package uses a specific vocabulary:</p>
 <ul>
 <li><p><strong>project (directory)</strong>: top-level directory of a repository, usually corresponds to an RStudio project (contains <code>.Rproj</code> file). In this example, the project is named <code>covidStates</code>.</p></li>
-<li><p><strong>workflow (directory)</strong>: a directory containing a sequence of RMarkdown files and a <code>data/</code> subdirectory. A project may contain any number of workflows. A workflow should not be nested in a subdirectory of any other workflow, they should have independent paths. In this example, there is one workflow; it is named (imaginatively) <code>workflow</code>.</p></li>
+<li><p><strong>workflow (directory)</strong>: a directory containing a sequence of RMarkdown files and a <code>data/</code> subdirectory. A project may contain any number of workflows. A workflow should not be nested in a subdirectory of any other workflow. In this example, there is one workflow; it is named (imaginatively) <code>workflow</code>.</p></li>
 <li><p><strong>workflow component</strong>: corresponds to one of the RMarkdown files in a workflow sequence. In this workflow, there are components named <code>00-import</code>, <code>01-clean</code>, <code>02-analyze</code>, and <code>99-publish</code>.</p></li>
 </ul>
 <p>For those functions that take a <code>path</code>, <code>path_proj</code>, or a <code>name</code> as an argument, I try to be clear and consistent in the use of this vocabulary.</p>
 </div>
-<div id="managing-a-workflow" class="section level3">
+<div id="workflow-management" class="section level3">
 <h3 class="hasAnchor">
-<a href="#managing-a-workflow" class="anchor"></a>Managing a workflow</h3>
+<a href="#workflow-management" class="anchor"></a>Workflow management</h3>
 <p>To create a workflow directory, call <code><a href="../reference/proj_use_workflow.html">proj_use_workflow()</a></code> from somewhere the within the project directory. It accepts a <code>path_proj</code> argument, which is relative to the project directory. The big decision is whether or not to git-ignore the <code>data/</code> directory, the default is <code>TRUE</code>; factors may include the size of the data and privacy concerns.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/proj_use_workflow.html">proj_use_workflow</a></span><span class="op">(</span><span class="st">"workflow"</span>, git_ignore_data <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p>At this point, your project directory would look like:</p>
 <pre><code>covidStates/
@@ -167,23 +157,23 @@
     data/
     README.Rmd</code></pre>
 <p>As well, the workflow <code>README.Rmd</code> file is opened from a template. You’ll see some boilerplate code is included; this is explained in the next section. You may wish to use the <code>README</code> to summarize the results of your workflow. At any point, if you want to render the entire workflow:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/proj_workflow_render.html">proj_workflow_render</a></span><span class="op">(</span><span class="st">"workflow"</span><span class="op">)</span></code></pre></div>
 <p>This renders all of the RMarkdown files in alphabetical order, rendering <code>README.Rmd</code> last.</p>
-<p>The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE Then, for example:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE. Then, for example:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># creates a new rmd file from a template</span>
 <span class="fu"><a href="../reference/proj_workflow_use_rmd.html">proj_workflow_use_rmd</a></span><span class="op">(</span><span class="st">"00-import"</span><span class="op">)</span></code></pre></div>
 <p>Note that the default output-format for all the RMarkdown files is <code>github_document</code>. I find the <code>github_document</code> format tremendously useful; Jenny Bryan discusses this in her <a href="https://happygitwithr.com/workflows-browsability.html">Happy Git with R</a> book:</p>
 </div>
-<div id="managing-directories" class="section level3">
+<div id="directory-management" class="section level3">
 <h3 class="hasAnchor">
-<a href="#managing-directories" class="anchor"></a>Managing directories</h3>
+<a href="#directory-management" class="anchor"></a>Directory management</h3>
 <p>In the templated RMarkdown files, you’ll see some boilerplate code. For example, in the front-matter:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"00-import"</span><span class="co"> # change if you rename file</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="at">  </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"00-import"</span><span class="co"> # change if you rename file</span></span></code></pre></div>
 <p>If you rename an RMarkdown file, be sure to change its <code>params$name</code> in the header; this is what associates an RMarkdown file to its <code>data/</code> directory. Also, it is used in a validation that you’ll see near the start of the file:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/i_am.html">i_am</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">name</span>, <span class="st">".Rmd"</span><span class="op">)</span>, uuid <span class="op">=</span> <span class="st">"f8c9b430-542e-4eaa-b315-bad86866aa06"</span><span class="op">)</span></code></pre></div>
 <p>This does a couple of things:</p>
 <ul>
@@ -197,19 +187,19 @@
 <li><p>A sequenced RMarkdown file can read data <em>only</em> from <code>data/</code> subdirectories associated with earlier RMarkdown files. These are called <strong>source</strong> directories.</p></li>
 </ul>
 <p>Within an RMarkdown file, use <code><a href="../reference/proj_create_dir_target.html">proj_create_dir_target()</a></code> to create the target directory. You can specify if you want to delete the contents directory if it already exists.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create or *empty* the target directory, used to write this file's data: </span>
 <span class="fu">projthis</span><span class="fu">::</span><span class="fu"><a href="../reference/proj_create_dir_target.html">proj_create_dir_target</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">name</span>, clean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Next are calls to the <a href="https://adv-r.hadley.nz/function-factories.html">function-factories</a> <code><a href="../reference/proj_path_target.html">proj_path_target()</a></code> and <code><a href="../reference/proj_path_target.html">proj_path_source()</a></code>. These are functions that return functions; in this case, they return functions that determine the paths to target and source directories.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">path_target</span> <span class="op">&lt;-</span> <span class="fu">projthis</span><span class="fu">::</span><span class="fu"><a href="../reference/proj_path_target.html">proj_path_target</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">name</span><span class="op">)</span>
 <span class="va">path_source</span> <span class="op">&lt;-</span> <span class="fu">projthis</span><span class="fu">::</span><span class="fu"><a href="../reference/proj_path_target.html">proj_path_source</a></span><span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></code></pre></div>
 <p>Recall that in this example, <code>params$name = "00-import"</code>. Let’s say we wanted to write a CSV file to the target directory; within the RMarkdown file you could use:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">important_data</span>, <span class="fu">path_target</span><span class="op">(</span><span class="st">"important_data.csv"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Behind the scenes, <code>path_target()</code> uses <code><a href="https://here.r-lib.org//reference/here.html">here::here()</a></code> and the location of the project root (established using <code>here::here_iam()</code>) to compose the path to the target directory on the computer where the file is rendered. In other words, it figures out how to do the right thing.</p>
 <p><code>path_source()</code> works similarly, but you have to provide the name of the source subdirectory. This allows <code>path_source()</code> to validate that source directory is associated with an earlier RMarkdown file. In this case, because <code>00-import.Rmd</code> is the first file in the sequence, we cannot access <em>any</em> sources using this function. This throws an error:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># throws an error</span>
 <span class="fu">path_source</span><span class="op">(</span><span class="st">"00-import"</span>, <span class="st">"important_data.csv"</span><span class="op">)</span></code></pre></div>
 <p>Hence, in <code>00-import.Rmd</code>, any data we import <em>has</em> to be from outside the workflow. This leads to the two exceptions to the target and source rules:</p>
@@ -218,7 +208,7 @@
 <li>The file <code>99-publish.Rmd</code> can write data to external (to the workflow) targets.</li>
 </ul>
 <p>Finally, the function <code><a href="../reference/proj_dir_info.html">proj_dir_info()</a></code> uses <code><a href="http://fs.r-lib.org/reference/dir_ls.html">fs::dir_info()</a></code> to provide a concise directory listing. It can be useful to list the contents of the target directory at the end of an RMarkdown file:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/proj_dir_info.html">proj_dir_info</a></span><span class="op">(</span><span class="fu">path_target</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   path                  type         size modification_time  
@@ -228,48 +218,70 @@
 <p>By default, the times are expressed using <code>UTC</code>.</p>
 </div>
 </div>
+<div id="managing-package-dependencies" class="section level2">
+<h2 class="hasAnchor">
+<a href="#managing-package-dependencies" class="anchor"></a>Managing package-dependencies</h2>
+<p>One of the challenges of making a project portable <em>and</em> reproducible is keeping the dependencies current. There are some comprehensive approaches to this problem; the best known are the <a href="https://rstudio.github.io/packrat/">packrat</a> package, and its successor, <a href="https://rstudio.github.io/renv/">renv</a>.</p>
+<p>The central idea here is to follow the convention used submitting a package to CRAN: the code shall run using the latest versions of the packages listed in the <code>DESCRIPTION</code> file. It becomes the responsibility of everyone who contributes to the project to make sure that it runs as expected, and to make updates to the project should some of its dependencies behave differently.</p>
+<p>Compared with renv, this is a lightweight approach: it requires only that the <code>DESCRIPTION</code> file be kept current. If you have dependencies that are not on CRAN, you can use the <code>Remotes:</code> field, just as you would for a package repository.</p>
+<p>As you develop your project, you can add dependencies to your <code>DESCRIPTION</code> file using:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/proj_check_deps.html">proj_update_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>By default, <code><a href="../reference/proj_check_deps.html">proj_update_deps()</a></code> will not remove any package-dependency declarations it cannot find. If you want to remove extra dependencies, call with <code>remove_extra = TRUE</code>.</p>
+<p>Under the hood, <code>proj_updte_deps()</code> uses <code><a href="https://rstudio.github.io/renv/reference/dependencies.html">renv::dependencies()</a></code> to scan your project for references to packages, then edit your <code>DESCRIPTION</code> file accordingly. If you want only to check the status, but not change anything, you can <code><a href="../reference/proj_check_deps.html">projthis::proj_check_deps()</a></code>.</p>
+<p>You may wish update your project’s package-dependencies, or to install them on another computer. From within your project, run:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/proj_install_deps.html">proj_install_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>This uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code>, which consults your project’s DESCRIPTION file to determine which packages to install.</p>
+<p>If you want to update your package-dependency declarations, then update the dependencies themselves:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/proj_refresh_deps.html">proj_refresh_deps</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Finally, here’s an example of the <a href="https://github.com/ijlyttle/covidStates/blob/main/DESCRIPTION"><code>DESCRIPTION</code> file</a> for an analysis-project; it is essentially the same as for a package-project.</p>
+</div>
 <div id="automating-a-workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#automating-a-workflow" class="anchor"></a>Automating a workflow</h2>
 <p>Once you are happy with how a workflow renders on your computer, you may be interested in automating it using GitHub Actions. For example, this <a href="https://github.com/ijlyttle/covidStates/">repository</a> uses a GitHub Action to render a workflow daily, as well as whenever an RMarkdown file is pushed.</p>
 <p>You can create a GitHub Action for your repository using <code><a href="../reference/proj_workflow_use_action.html">proj_workflow_use_action()</a></code>. As of now there is only one Action available; it is based heavily on Jim Hester’s work on <a href="https://github.com/r-lib/actions/">GitHub Actions for R</a>:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/proj_workflow_use_action.html">proj_workflow_use_action</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>This will open the YAML file used to specify the action. Although it it is designed to be ready-to-go, there are a few things you will have to customize.</p>
 <p>You may need to customize the triggers for the workflow; the set of conditions GitHub uses to determine when to run the Action. The default is to run when any Rmarkdown file is pushed to any branch.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">on</span><span class="kw">:</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="co">  # runs whenever you push any Rmarkdown file</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"**.Rmd"</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="co">  # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="co">  # schedule:</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a><span class="co">  #  - cron:  '00 08 * * *' # 08:00 UTC every day</span></span></code></pre></div>
-<p>You can schedule runs (for the default branch only), but you may wish to wait until you are confident in your workflow. Keep in mind that <code>cron</code> uses UTC.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="co">  # runs whenever you push any Rmarkdown file</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"**.Rmd"</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="co">  # # runs on a schedule using UTC - see https://en.wikipedia.org/wiki/Cron</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a><span class="co">  # # **important**</span></span>
+<span id="cb21-8"><a href="#cb21-8"></a><span class="co">  # #   uncommented, `schedule:` has to have the same indentation as `push:`</span></span>
+<span id="cb21-9"><a href="#cb21-9"></a><span class="co">  # schedule:</span></span>
+<span id="cb21-10"><a href="#cb21-10"></a><span class="co">  #   - cron:  '00 08 * * *' # 08:00 UTC every day</span></span></code></pre></div>
+<p>You can schedule runs (for the default branch only), but you may wish to wait until you are confident in your workflow. Keep in mind that <code>cron</code> uses UTC. Also, be mindful of the indentation: <code>push:</code> and <code>schedule:</code> must be the same level, they are both elements of <code>on:</code>.</p>
 <p>You will need to choose which platform you wish to run your workflow on; the default is <code>macOS-latest</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">    # supported: ubuntu-20.04, macOS-latest, windows-latest</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">    # supported: ubuntu-20.04, macOS-latest, windows-latest</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> macOS-latest</span></span></code></pre></div>
 <p>If you use <code>ubuntu-20.04</code>, you may need to specify the system libraries your repository (including the package-dependencies) requires, which might be a bit tricky.</p>
 <p>You may have to customize the rendering step, calling <code><a href="../reference/proj_workflow_render.html">projthis::proj_workflow_render()</a></code>, and providing a <code>path</code> (relative to the repository root) for each workflow. Note that the call is commented out on the template.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">      # adapt this step to build your project</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Render workflow</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="co">        # - uncomment and adapt the call to `projthis::proj_workflow_render()`</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="co">        # - to run another workflow, add another call</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb21-6"><a href="#cb21-6"></a>          # projthis::proj_workflow_render("workflow")</span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">      # adapt this step to build your project</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Render workflow</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co">        # - uncomment and adapt the call to `projthis::proj_workflow_render()`</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co">        # - to run another workflow, add another call</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a>          # projthis::proj_workflow_render("workflow")</span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="at">        </span><span class="fu">shell</span><span class="kw">:</span><span class="at"> Rscript {0}</span></span></code></pre></div>
 <p>Once your workflow renders, you will want to deploy the results. The default is to commit the results back into the repository.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">      # adapt this step to deploy your project</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="co">        # - `git add -u` adds files that are *already* part of the repository</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="co">        # - you may have to be creative with your `git add` call(s)</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="co">        # - be wary of `git add -A`, as you might commit files you wish you hadn't</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a>          git config --local user.email "actions@github.com"</span>
-<span id="cb22-8"><a href="#cb22-8"></a>          git config --local user.name "GitHub Actions"</span>
-<span id="cb22-9"><a href="#cb22-9"></a>          git add -u</span>
-<span id="cb22-10"><a href="#cb22-10"></a>          git commit -m "updated by Actions" || echo "No changes to commit"</span>
-<span id="cb22-11"><a href="#cb22-11"></a>          git push || echo "No changes to commit"</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">      # adapt this step to deploy your project</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Deploy</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co">        # - `git add -u` adds files that are *already* part of the repository</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">        # - you may have to be creative with your `git add` call(s)</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">        # - be wary of `git add -A`, as you might commit files you wish you hadn't</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a>          git config --local user.email "actions@github.com"</span>
+<span id="cb24-8"><a href="#cb24-8"></a>          git config --local user.name "GitHub Actions"</span>
+<span id="cb24-9"><a href="#cb24-9"></a>          git add -u</span>
+<span id="cb24-10"><a href="#cb24-10"></a>          git commit -m "updated by Actions" || echo "No changes to commit"</span>
+<span id="cb24-11"><a href="#cb24-11"></a>          git push || echo "No changes to commit"</span></code></pre></div>
 <p>A few things to keep in mind about this deployment pattern:</p>
 <ul>
 <li><p>What files do you intend to commit back into the repository? The default behavior is <code>git add -u</code>, staging only those files already in the repository.</p></li>
