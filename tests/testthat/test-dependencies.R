@@ -10,10 +10,14 @@ suppressMessages(
 
 # change directory only while the script is running
 withr::local_dir(tempdir)
-withr::local_options(list(usethis.quiet = TRUE))
+# withr::local_options(list(usethis.quiet = TRUE))
+
+cat(fs::dir_ls(tempdir))
 
 # create a description file
 usethis::use_description(check_name = FALSE)
+
+cat(fs::dir_ls(tempdir))
 
 # add a dependency
 usethis::use_package("desc")
