@@ -123,7 +123,7 @@ proj_path_source <- function(name) {
     source <- as.character(path[[1]])
     current <- as.character(name)
 
-    sorted <- sort_files(c(source, current))
+    sorted <- sort_files(c(source, current), first = NULL, last = NULL)
 
     source_not_before_current <- identical(source, sorted[[2]])
 

@@ -1,19 +1,19 @@
 test_that("sort_files works", {
 
-  files_sorted <- c("00-import", "01-clean", "zoom", "README")
+  files_sorted <- c("00-import.Rmd", "01-clean.Rmd", "zoom.Rmd", "README.Rmd")
 
    expect_identical(
-     sort_files(files_sorted),
+     sort_files(files_sorted, first = NULL, last = NULL),
      files_sorted
    )
 
    expect_identical(
-     sort_files(rev(files_sorted)),
+     sort_files(rev(files_sorted), first = NULL, last = NULL),
      files_sorted
    )
 
    expect_identical(
-     sort_files(tolower(files_sorted)),
+     sort_files(tolower(files_sorted), first = NULL, last = NULL),
      tolower(files_sorted)
    )
 })

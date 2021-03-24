@@ -1,17 +1,29 @@
 #' @importFrom rlang `%||%`
 NULL
 
-# sort files
-sort_files <- function(files) {
+# sort files:
+#  - remove anything starting with an underscore
+#  - reserve README until end
+#  - get first and last files
+#  - sort remainder
+#  - assemble unique set
+#
+sort_files <- function(files, first = NULL, last = NULL) {
 
   # return sorted, put README at the end
 
-  is_readme <- grepl("^readme", files, ignore.case = TRUE)
+  # logical, length of files
+  is_readme <- grepl("^readme\\.rmd$", files, ignore.case = TRUE)
+  starts_with_underscore <- grepl("^_.*\\.rmd$", files, ignore.case = TRUE)
+  is_first <- files %in% first
+  is_last <- files %in% last
 
-  files_not_readme <- files[!is_readme]
+  files_first <- files[is_first]
+  files_last <- files[is_last]
   files_readme <- files[is_readme]
+  files_remainder <- sort(files[!(is_first | is_last | is_readme)])
 
-  c(sort(files_not_readme), sort(files_readme))
+  unique(c(files_first, files_remainder, files_last, files_readme))
 }
 
 # a collection of usethis-style internal functions

@@ -210,7 +210,9 @@ proj_workflow_render <- function(path_proj = "workflow",
   files_rmd <- fs::dir_ls(path = ".", regexp = "\\.Rmd$", ignore.case = TRUE)
 
   # sort the files, README last
-  fles_rmd <- sort_files(files_rmd)
+  fles_rmd <- sort_files(files_rmd, first = NULL, last = NULL)
+
+  # message out the rendering order
 
   # render Rmd files
   purrr::walk(
