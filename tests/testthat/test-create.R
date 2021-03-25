@@ -1,12 +1,8 @@
-testthat_dir <- getwd()
-
-# create dummy directory
-tempdir <- fs::path(tempdir(), "projthis-create")
-fs::dir_create(tempdir)
-
 withr::local_options(list(usethis.quiet = TRUE))
 
 test_that("proj_create() works", {
+
+  tempdir <- withr::local_tempdir(tmpdir = fs::path(tempdir(), "projthis-create"))
 
   localdir <- fs::path(tempdir, "proj-01")
 
@@ -15,7 +11,8 @@ test_that("proj_create() works", {
     proj_create(path = localdir)
   )
 
-  withr::local_dir(localdir)
+  usethis::local_project(localdir)
+  setwd(localdir)
 
   # DESCRIPTION exists
   expect_true(
@@ -24,5 +21,4 @@ test_that("proj_create() works", {
 
 })
 
-# delete project directory
-unlink(tempdir)
+

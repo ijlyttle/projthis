@@ -30,6 +30,13 @@
     Output
       x RStudio IDE not available
 
+---
+
+    Code
+      proj_workflow_use_rmd("00-import", path = "new-workflow")
+    Message <message>
+      v Writing 'new-workflow/00-import.Rmd'
+
 # get_rmd_path() works
 
     Code
