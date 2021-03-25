@@ -1,24 +1,30 @@
-withr::local_options(list(usethis.quiet = TRUE))
+{ # create a scope for the test file
 
-test_that("proj_create() works", {
-
+  # be quiet and leave no footprints
+  withr::local_options(list(usethis.quiet = TRUE))
+  if (interactive()) usethis::local_project()
   tempdir <- withr::local_tempdir(tmpdir = fs::path(tempdir(), "projthis-create"))
 
-  localdir <- fs::path(tempdir, "proj-01")
+  test_that("proj_create() works", {
 
-  # capture output
-  expect_snapshot_output(
-    proj_create(path = localdir)
-  )
+    localdir <- fs::path(tempdir, "proj-01")
 
-  usethis::local_project(localdir)
-  setwd(localdir)
+    # capture output
+    expect_snapshot_output(
+      proj_create(path = localdir)
+    )
 
-  # DESCRIPTION exists
-  expect_true(
-    fs::file_exists("DESCRIPTION")
-  )
+    usethis::local_project(localdir)
 
-})
+    # DESCRIPTION exists
+    expect_true(
+      fs::file_exists("DESCRIPTION")
+    )
+
+  })
+
+}
+
+
 
 

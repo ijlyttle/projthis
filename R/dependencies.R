@@ -129,6 +129,7 @@ proj_update_deps <- function(path = usethis::proj_get(), remove_extra = FALSE) {
 proj_install_deps <- function(path = usethis::proj_get(), dependencies = TRUE,
                               ...) {
 
+  # not tested because it could change the R installation
   remotes::install_deps(pkgdir = path, dependencies = dependencies, ...)
 
   invisible(NULL)
@@ -153,6 +154,7 @@ proj_install_deps <- function(path = usethis::proj_get(), dependencies = TRUE,
 proj_refresh_deps <- function(path = usethis::proj_get(), remove_extra = FALSE,
                               dependencies = TRUE, ...) {
 
+  # not tested because it could change the R installation
   proj_update_deps(path = path, remove_extra = remove_extra)
 
   proj_install_deps(path = path, dependencies = dependencies, ...)
