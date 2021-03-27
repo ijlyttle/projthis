@@ -203,7 +203,7 @@ proj_workflow_render <- function(path_proj = "workflow",
   # change the working directory until this function exits
   withr::local_dir(usethis::proj_path(path_proj))
 
-  message(glue::glue("Rendering workflow at usethis::ui_value(path_proj)."))
+  message(glue::glue("Rendering workflow at {usethis::ui_value(path_proj)}."))
 
   # sort the files, README last
   files_rmd <- proj_workflow_order(path_proj)
