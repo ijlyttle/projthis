@@ -360,6 +360,8 @@ proj_workflow_config <- function(path_proj) {
   }
 
   config <- yaml::read_yaml(path_yml)
+
+  config
 }
 
 proj_workflow_order <- function(path_proj) {
