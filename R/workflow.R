@@ -28,7 +28,7 @@
 #' You'll wish to customize `README.Rmd`, perhaps to make a roadmap of the other
 #' files you'll create, as well as a summary.
 #'
-#' This workflow is designed to providea  minimally (in a good way) functional
+#' This workflow is designed to provides  minimally (in a good way) functional
 #' markdown-based website that you can share via GitHub pages. You can
 #' make the site more functional, for example, using `html_document`.
 #'
@@ -174,10 +174,32 @@ proj_workflow_use_rmd <- function(name, path_proj = NULL,
 
 #' Render workflow
 #'
-#' This renders each of the `.Rmd` files in the workflow in alphabetical
-#' order, with `README.Rmd` last. This order is important because it preserves
-#' the direction of the data dependencies. Each `.Rmd` file is rendered in its
-#' own R session, using [proj_rmd_render()]
+#' In the absence of a `_projthis.yml` file, this renders each of the `.Rmd`
+#' files in the workflow in alphabetical order, with `README.Rmd` last. This
+#' order is important because it preserves the direction of the data
+#' dependencies.
+#'
+#' A `_projthis.yml` file might look something like this:
+#'
+#' ```
+#' render:
+#'   first:
+#'     00-import.Rmd
+#'   last:
+#'     99-publish.Rmd
+#' ```
+#'
+#' If the workflow directory has a `_projthis.yml` file:
+#'
+#'  - Entries in `render$first` are rendered first.
+#'  - Entries in `render$last` are rendered last, **but**
+#'    `README.Rmd` is rendered very last.
+#'  - If `README.Rmd` is specified in `render$first` or `render$last`,
+#'    it is rendered there rather than very last.
+#'  - All unspecified files are rendered in alphabetical order after `first`,
+#'    and before `last`.
+#'
+#' Each `.Rmd` file is rendered in its own R session,  using [proj_rmd_render()].
 #'
 #' @inheritParams proj_use_workflow
 #' @param output_options `list` of output options that can override the
@@ -345,6 +367,16 @@ get_rmd_path <- function() {
 #'
 #' Looks for a file named `_projthis.yml` in `path_proj`. If present, reads
 #' using [yaml::read_yaml()]; if not present, returns `NULL`.
+#'
+#' The configuration supports a single element, `render`.
+#'
+#' ```
+#' render:
+#'   first:
+#'     00-import.Rmd
+#'   last:
+#'     99-publish.Rmd
+#' ```
 #'
 #' @inheritParams proj_use_workflow
 #'

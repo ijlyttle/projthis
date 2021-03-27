@@ -17,4 +17,12 @@ relative to the project directory.}
 Looks for a file named \verb{_projthis.yml} in \code{path_proj}. If present, reads
 using \code{\link[yaml:read_yaml]{yaml::read_yaml()}}; if not present, returns \code{NULL}.
 }
+\details{
+The configuration supports a single element, \code{render}.\preformatted{render:
+  first:
+    00-import.Rmd
+  last:
+    99-publish.Rmd
+}
+}
 \keyword{internal}

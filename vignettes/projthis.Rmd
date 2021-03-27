@@ -114,6 +114,7 @@ proj_workflow_render("workflow")
 ```
 
 This renders all of the RMarkdown files in alphabetical order, rendering `README.Rmd` last.
+To specify a custom order, you can put a `_projthis.yml` file in the root of the workflow directory; see `proj_workflow_render()` for details.
 
 The easiest way to add a step to your workflow is to have an RMarkdown file from the same workflow active in the RStudio IDE. Then, for example:
 
