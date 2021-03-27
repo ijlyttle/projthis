@@ -40,10 +40,10 @@
 
 
 <meta property="og:title" content="Render workflow — proj_workflow_render" />
-<meta property="og:description" content="This renders each of the .Rmd files in the workflow in alphabetical
-order, with README.Rmd last. This order is important because it preserves
-the direction of the data dependencies. Each .Rmd file is rendered in its
-own R session, using proj_rmd_render()" />
+<meta property="og:description" content="In the absence of a _projthis.yml file, this renders each of the .Rmd
+files in the workflow in alphabetical order, with README.Rmd last. This
+order is important because it preserves the direction of the data
+dependencies." />
 
 
 
@@ -75,7 +75,7 @@ own R session, using proj_rmd_render()" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9023</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9024</span>
       </span>
     </div>
 
@@ -135,10 +135,10 @@ own R session, using proj_rmd_render()" />
     </div>
 
     <div class="ref-description">
-    <p>This renders each of the <code>.Rmd</code> files in the workflow in alphabetical
-order, with <code>README.Rmd</code> last. This order is important because it preserves
-the direction of the data dependencies. Each <code>.Rmd</code> file is rendered in its
-own R session, using <code><a href='proj_rmd_render.html'>proj_rmd_render()</a></code></p>
+    <p>In the absence of a <code>_projthis.yml</code> file, this renders each of the <code>.Rmd</code>
+files in the workflow in alphabetical order, with <code>README.Rmd</code> last. This
+order is important because it preserves the direction of the data
+dependencies.</p>
     </div>
 
     <pre class="usage"><span class='fu'>proj_workflow_render</span><span class='op'>(</span>
@@ -170,6 +170,26 @@ HTML files being created for <code>github_document</code>.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Invisible <code>NULL</code>, called for side effects.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>A <code>_projthis.yml</code> file might look something like this:</p><pre><span class='va'>render</span><span class='op'>:</span>
+  <span class='va'>first</span><span class='op'>:</span>
+    <span class='fl'>00</span><span class='op'>-</span><span class='va'>import.Rmd</span>
+  <span class='va'>last</span><span class='op'>:</span>
+    <span class='fl'>99</span><span class='op'>-</span><span class='va'>publish.Rmd</span>
+</pre>
+
+<p>If the workflow directory has a <code>_projthis.yml</code> file:</p><ul>
+<li><p>Entries in <code>render$first</code> are rendered first.</p></li>
+<li><p>Entries in <code>render$last</code> are rendered last, <strong>but</strong>
+<code>README.Rmd</code> is rendered very last.</p></li>
+<li><p>If <code>README.Rmd</code> is specified in <code>render$first</code> or <code>render$last</code>,
+it is rendered there rather than very last.</p></li>
+<li><p>All unspecified files are rendered in alphabetical order after <code>first</code>,
+and before <code>last</code>.</p></li>
+</ul>
+
+<p>Each <code>.Rmd</code> file is rendered in its own R session,  using <code><a href='proj_rmd_render.html'>proj_rmd_render()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create target directory — proj_create_dir_target • projthis</title>
+<title>Get workflow configuration — proj_workflow_config • projthis</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,9 @@
 
 
 
-<meta property="og:title" content="Create target directory — proj_create_dir_target" />
-<meta property="og:description" content="A target directory is dedicated to each RMarkdown file in a workflow.
-Call this function from within an RMarkdown file to create its target
-directory. If the directory already exists and clean is TRUE,
-it will be deleted then re-created." />
+<meta property="og:title" content="Get workflow configuration — proj_workflow_config" />
+<meta property="og:description" content="Looks for a file named _projthis.yml in path_proj. If present, reads
+using yaml::read_yaml(); if not present, returns NULL." />
 
 
 
@@ -129,56 +127,41 @@ it will be deleted then re-created." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create target directory</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/directories.R'><code>R/directories.R</code></a></small>
-    <div class="hidden name"><code>proj_create_dir_target.Rd</code></div>
+    <h1>Get workflow configuration</h1>
+    <small class="dont-index">Source: <a href='https://github.com/ijlyttle/projthis/blob/master/R/workflow.R'><code>R/workflow.R</code></a></small>
+    <div class="hidden name"><code>proj_workflow_config.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A target directory is dedicated to each RMarkdown file in a workflow.
-Call this function from within an RMarkdown file to create its target
-directory. If the directory already exists and <code>clean</code> is <code>TRUE</code>,
-it will be deleted then re-created.</p>
+    <p>Looks for a file named <code>_projthis.yml</code> in <code>path_proj</code>. If present, reads
+using <code><a href='https://rdrr.io/pkg/yaml/man/read_yaml.html'>yaml::read_yaml()</a></code>; if not present, returns <code>NULL</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proj_create_dir_target</span><span class='op'>(</span><span class='va'>name</span>, clean <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>proj_workflow_config</span><span class='op'>(</span><span class='va'>path_proj</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p><code>character</code> name of the workflow component.</p></td>
-    </tr>
-    <tr>
-      <th>clean</th>
-      <td><p><code>logical</code> indicates to start with a clean (empty) directory.</p></td>
+      <th>path_proj</th>
+      <td><p><code>character</code> path to workflow directory,
+relative to the project directory.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Invisible NULL, called for side effects.</p>
+    <p><code>NULL</code>, or <code>list</code> describing workflow configuration</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Following this workflow philosophy, the target directory is the only
-directory to which a RMarkdown directory should write. The exception
-to this is the <em>last</em> RMarkdown file in a workflow sequence, which
-may publish data elsewhere.</p>
-<p>To establish the connection between the two, the target directory
-shall be named for the RMarkdown file itself. This is the purpose
-of the <code>name</code> argument; its value should be the name of the
-current workflow component, i.e. the name of the current Rmd file.</p>
-<p>To make things a little easier, the template
-used by <code><a href='proj_workflow_use_rmd.html'>proj_workflow_use_rmd()</a></code> includes a call to
-<code>proj_create_dir_target()</code>, with the <code>name</code> argument populated.</p>
+    <p>The configuration supports a single element, <code>render</code>.</p><pre><span class='va'>render</span><span class='op'>:</span>
+  <span class='va'>first</span><span class='op'>:</span>
+    <span class='fl'>00</span><span class='op'>-</span><span class='va'>import.Rmd</span>
+  <span class='va'>last</span><span class='op'>:</span>
+    <span class='fl'>99</span><span class='op'>-</span><span class='va'>publish.Rmd</span>
+</pre>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># not run because it creates side effects</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>proj_create_dir_target</span><span class='op'>(</span><span class='st'>"01-clean"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
