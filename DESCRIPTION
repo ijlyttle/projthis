@@ -1,6 +1,6 @@
 Package: projthis
-Title: Lightweight Project-Management
-Version: 0.0.0.9023
+Title: Lightweight Framework for Analysis Development
+Version: 0.0.0.9024
 Authors@R: 
   c(
     person(given = "Ian J",
@@ -47,7 +47,8 @@ Imports:
     here,
     tibble,
     utils,
-    callr
+    callr,
+    yaml
 Suggests: 
     testthat,
     pkgdown,

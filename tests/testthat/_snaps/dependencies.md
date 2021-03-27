@@ -29,9 +29,3 @@
     v No dependencies missing from DESCRIPTION.
     v No extra dependencies in DESCRIPTION.
 
-# proj_refresh_deps() works
-
-    v No dependencies missing from DESCRIPTION.
-    v No extra dependencies in DESCRIPTION.
-    
-

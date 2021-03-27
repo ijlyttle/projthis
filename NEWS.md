@@ -1,5 +1,7 @@
 # projthis 0.0.0 (development version)
 
+* Feature: you can specify the rendering order of `.Rmd` files in a workflow by using `_projthis.yml` file in the workflow directory; see `proj_workflow_render()` for details. Added internal function `proj_workflow_config()` to support. (#52) 
+
 * For Actions template, set `option()` for package installation such that source packages are never compiled if there is an earlier binary version available. This seems avoid installation-related Actions failures, at the price of waiting a few days for the most-recent version. (#50)
 
 * Added function `proj_refresh_deps()`, which calls `proj_update_deps()` then `proj_install_deps()`. (#46)

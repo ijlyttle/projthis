@@ -56,7 +56,7 @@ from that workflow open and active in the RStudio IDE.
 You'll wish to customize \code{README.Rmd}, perhaps to make a roadmap of the other
 files you'll create, as well as a summary.
 
-This workflow is designed to providea  minimally (in a good way) functional
+This workflow is designed to provides  minimally (in a good way) functional
 markdown-based website that you can share via GitHub pages. You can
 make the site more functional, for example, using \code{html_document}.
 

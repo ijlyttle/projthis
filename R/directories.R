@@ -114,6 +114,10 @@ proj_path_target <- function(name) {
 #'
 proj_path_source <- function(name) {
 
+  # determine first, last (https://www.youtube.com/watch?v=2zfxZRBm3EY)
+  config <- proj_workflow_config(here::here())
+  render <- config$render
+
   # accessor-function for data-directory, use to read previous data
   function(...) {
 
@@ -123,7 +127,8 @@ proj_path_source <- function(name) {
     source <- as.character(path[[1]])
     current <- as.character(name)
 
-    sorted <- sort_files(c(source, current))
+    sorted <-
+      sort_files(c(source, current), first = render$first, last = render$last)
 
     source_not_before_current <- identical(source, sorted[[2]])
 
@@ -186,4 +191,3 @@ proj_dir_info <- function(path = ".", tz = "UTC",
 
   info
 }
-

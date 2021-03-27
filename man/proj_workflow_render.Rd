@@ -24,10 +24,31 @@ HTML files being created for \code{github_document}.}
 Invisible \code{NULL}, called for side effects.
 }
 \description{
-This renders each of the \code{.Rmd} files in the workflow in alphabetical
-order, with \code{README.Rmd} last. This order is important because it preserves
-the direction of the data dependencies. Each \code{.Rmd} file is rendered in its
-own R session, using \code{\link[=proj_rmd_render]{proj_rmd_render()}}
+In the absence of a \verb{_projthis.yml} file, this renders each of the \code{.Rmd}
+files in the workflow in alphabetical order, with \code{README.Rmd} last. This
+order is important because it preserves the direction of the data
+dependencies.
+}
+\details{
+A \verb{_projthis.yml} file might look something like this:\preformatted{render:
+  first:
+    00-import.Rmd
+  last:
+    99-publish.Rmd
+}
+
+If the workflow directory has a \verb{_projthis.yml} file:
+\itemize{
+\item Entries in \code{render$first} are rendered first.
+\item Entries in \code{render$last} are rendered last, \strong{but}
+\code{README.Rmd} is rendered very last.
+\item If \code{README.Rmd} is specified in \code{render$first} or \code{render$last},
+it is rendered there rather than very last.
+\item All unspecified files are rendered in alphabetical order after \code{first},
+and before \code{last}.
+}
+
+Each \code{.Rmd} file is rendered in its own R session,  using \code{\link[=proj_rmd_render]{proj_rmd_render()}}.
 }
 \examples{
 \dontrun{

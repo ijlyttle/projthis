@@ -54,6 +54,10 @@ An example:
       99-publish.Rmd
       README.Rmd
 
+The naming here is arbitrary, projthis does not compel you to follow it.
+By default, projthis renders RMarkdown files in alphabetical order, with `README.Rmd` last.
+To specify a custom order, you can put a `_projthis.yml` file in the root of the workflow directory; see `proj_workflow_render()` for details.
+
 There are some rules governing the use of subdirectories of `data/`:
 
 -   Each RMarkdown file can write data to only one subdirectory: its *target* directory.
