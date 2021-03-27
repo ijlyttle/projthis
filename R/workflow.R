@@ -203,6 +203,8 @@ proj_workflow_render <- function(path_proj = "workflow",
   # change the working directory until this function exits
   withr::local_dir(usethis::proj_path(path_proj))
 
+  message(glue::glue("Rendering workflow at usethis::ui_value(path_proj)."))
+
   # sort the files, README last
   files_rmd <- proj_workflow_order(path_proj)
 
@@ -359,6 +361,7 @@ proj_workflow_config <- function(path_proj) {
     return(NULL)
   }
 
+  pui_info("Reading workflow configuration from {usethis::ui_value(path_yml)}.")
   config <- yaml::read_yaml(path_yml)
 
   config
