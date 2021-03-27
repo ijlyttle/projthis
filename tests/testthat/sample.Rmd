@@ -1,8 +1,0 @@
----
-title: sample code
-output: github_document
----
-
-```{r}
-renv::dependencies()
-```

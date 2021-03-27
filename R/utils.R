@@ -8,7 +8,7 @@ NULL
 #  - sort remainder
 #  - assemble unique set
 #
-sort_files <- function(files, first = NULL, last = NULL) {
+sort_files <- function(files, first, last) {
 
   # return sorted, put README at the end
 

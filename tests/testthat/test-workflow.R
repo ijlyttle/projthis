@@ -1,5 +1,7 @@
 { # create a scope for the test file
 
+  testthat_dir <- getwd()
+
   # leave no footprints
   withr::local_options(list(usethis.quiet = TRUE))
   if (interactive()) usethis::local_project(quiet = TRUE)
@@ -75,6 +77,27 @@
         fs::file_exists(
           fs::path(localdir, "new-workflow", "00-import.Rmd")
         )
+      )
+
+    })
+
+    test_that("proj_workflow_config() works", {
+
+      fs::file_copy(
+        fs::path(testthat_dir, "..", "sample_code", "_projthis.yml"),
+        fs::path(localdir, "new-workflow", "_projthis.yml")
+      )
+
+      expect_true(
+        fs::file_exists(fs::path(localdir, "new-workflow", "_projthis.yml"))
+      )
+
+      # config file has a different order
+      config <- proj_workflow_config(".")
+
+      expect_identical(
+        config,
+        list(render = list(first = "00-import.Rmd", last = "README.Rmd"))
       )
 
     })

@@ -203,16 +203,14 @@ proj_workflow_render <- function(path_proj = "workflow",
   # change the working directory until this function exits
   withr::local_dir(usethis::proj_path(path_proj))
 
-  # https://github.com/r-lib/crayon/issues/96
-  withr::local_options(list(crayon.enabled = NULL))
-
-  # determine all the Rmd files
-  files_rmd <- fs::dir_ls(path = ".", regexp = "\\.Rmd$", ignore.case = TRUE)
-
   # sort the files, README last
-  fles_rmd <- sort_files(files_rmd, first = NULL, last = NULL)
+  files_rmd <- proj_workflow_order(path_proj)
 
-  # message out the rendering order
+  message("Rendering order:")
+  purrr::walk(
+    files_rmd,
+    ~message(glue::glue("  {.x}"))
+  )
 
   # render Rmd files
   purrr::walk(
@@ -339,5 +337,50 @@ get_rmd_path <- function() {
 
   # return path relative to project directory
   fs::path_rel(path_abs, start = usethis::proj_get())
+}
+
+#' Get workflow configuration
+#'
+#' Looks for a file named `_projthis.yml` in `path_proj`. If present, reads
+#' using [yaml::read_yaml()]; if not present, returns `NULL`.
+#'
+#' @inheritParams proj_use_workflow
+#'
+#' @return `NULL`, or `list` describing workflow configuration
+#'
+#' @keywords internal
+#' @export
+#'
+proj_workflow_config <- function(path_proj) {
+
+  path_yml <- fs::path(path_proj, "_projthis.yml")
+
+  if (!fs::file_exists(path_yml)) {
+    return(NULL)
+  }
+
+  config <- yaml::read_yaml(path_yml)
+}
+
+proj_workflow_order <- function(path_proj) {
+
+  # change the working directory until this function exits
+  withr::local_dir(usethis::proj_path(path_proj))
+
+  # https://github.com/r-lib/crayon/issues/96
+  withr::local_options(list(crayon.enabled = NULL))
+
+  # determine all the Rmd files
+  files_rmd <- fs::dir_ls(path = ".", regexp = "\\.Rmd$", ignore.case = TRUE)
+
+  # determine first, last (https://www.youtube.com/watch?v=2zfxZRBm3EY)
+  config <- proj_workflow_config(".")
+  render <- config$render
+
+  # sort the files, README last
+  files_rmd <-
+    sort_files(files_rmd, first = render$first, last = render$last)
+
+  files_rmd
 }
 
