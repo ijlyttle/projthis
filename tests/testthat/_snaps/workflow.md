@@ -2,7 +2,7 @@
 
     Code
       proj_use_workflow(path_proj = ".")
-    Message <message>
+    Message <rlang_message>
       i project directory specified - not adding to '.Rbuildignore'
       v Creating 'data/'
       v Adding './data' to '.gitignore'
@@ -12,7 +12,7 @@
 
     Code
       proj_use_workflow(path = "new-workflow")
-    Message <message>
+    Message <rlang_message>
       v Creating 'new-workflow/'
       v Adding '^new-workflow$' to '.Rbuildignore'
       v Creating 'new-workflow/data/'
@@ -27,6 +27,6 @@
 
     Code
       proj_workflow_use_rmd("00-import", path = "new-workflow")
-    Message <message>
+    Message <rlang_message>
       v Writing 'new-workflow/00-import.Rmd'
 
