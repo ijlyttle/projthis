@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">projthis</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9024</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9025</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/projthis.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ijlyttle/projthis/">
+  <a href="https://github.com/ijlyttle/projthis/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -82,13 +78,13 @@
 
       
 
-      </header><script src="design-philosophy_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Design Philosophy</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ijlyttle/projthis/blob/master/vignettes/design-philosophy.Rmd"><code>vignettes/design-philosophy.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ijlyttle/projthis/blob/HEAD/vignettes/design-philosophy.Rmd" class="external-link"><code>vignettes/design-philosophy.Rmd</code></a></small>
       <div class="hidden name"><code>design-philosophy.Rmd</code></div>
 
     </div>
@@ -102,26 +98,26 @@
 <li><p>Workflow-rendering can be automated using GitHub Actions.</p></li>
 </ol>
 <p>The first two ideas are independent of each other; the third idea builds on the first two.</p>
-<p>There are more-comprehensive tools that address each of the first two ideas, for example: <a href="https://rstudio.github.io/renv/index.html">renv</a> for package dependencies, and <a href="https://docs.ropensci.org/targets/">targets</a> for workflow dependencies. This package does <em>not</em> aspire to compete with these approaches. Rather, it aspires to be a first step folks can take towards these more-comprehensive approaches, as their needs may dictate.</p>
+<p>There are more-comprehensive tools that address each of the first two ideas, for example: <a href="https://rstudio.github.io/renv/index.html" class="external-link">renv</a> for package dependencies, and <a href="https://docs.ropensci.org/targets/" class="external-link">targets</a> for workflow dependencies. This package does <em>not</em> aspire to compete with these approaches. Rather, it aspires to be a first step folks can take towards these more-comprehensive approaches, as their needs may dictate.</p>
 <p>This article takes a top-down approach to describe the philosophy of this package; other articles in this documentation aim to take a bottom-up approach. This article assumes you are already familiar with the problems it is trying to solve, and some of the existing solutions.</p>
-<div id="main-ideas" class="section level2">
-<h2 class="hasAnchor">
-<a href="#main-ideas" class="anchor"></a>Main ideas</h2>
-<div id="sequence-of-rmarkdown-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sequence-of-rmarkdown-files" class="anchor"></a>Sequence of RMarkdown files</h3>
+<div class="section level2">
+<h2 id="main-ideas">Main ideas<a class="anchor" aria-label="anchor" href="#main-ideas"></a>
+</h2>
+<div class="section level3">
+<h3 id="sequence-of-rmarkdown-files">Sequence of RMarkdown files<a class="anchor" aria-label="anchor" href="#sequence-of-rmarkdown-files"></a>
+</h3>
 <p>This package proposes a concept of a <em>workflow</em>: an overloaded word, to be sure. Here, a workflow consists of a directory containing a sequence of RMarkdown files and a data directory. An example:</p>
-<pre><code>important-workflow/
-  data/
-    00-import/
-    01-do-stuff/
-    02-do-more-stuff/
-    99-publish/
-  00-import.Rmd
-  01-do-stuff.Rmd
-  02-do-more-stuff.Rmd
-  99-publish.Rmd
-  README.Rmd</code></pre>
+<pre><code><span><span class="va">important</span><span class="op">-</span><span class="va">workflow</span><span class="op">/</span></span>
+<span>  <span class="va">data</span><span class="op">/</span></span>
+<span>    <span class="fl">00</span><span class="op">-</span><span class="va">import</span><span class="op">/</span></span>
+<span>    <span class="fl">01</span><span class="op">-</span><span class="va">do</span><span class="op">-</span><span class="va">stuff</span><span class="op">/</span></span>
+<span>    <span class="fl">02</span><span class="op">-</span><span class="va">do</span><span class="op">-</span><span class="va">more</span><span class="op">-</span><span class="va">stuff</span><span class="op">/</span></span>
+<span>    <span class="fl">99</span><span class="op">-</span><span class="va">publish</span><span class="op">/</span></span>
+<span>  <span class="fl">00</span><span class="op">-</span><span class="va">import.Rmd</span></span>
+<span>  <span class="fl">01</span><span class="op">-</span><span class="va">do</span><span class="op">-</span><span class="va">stuff.Rmd</span></span>
+<span>  <span class="fl">02</span><span class="op">-</span><span class="va">do</span><span class="op">-</span><span class="va">more</span><span class="op">-</span><span class="va">stuff.Rmd</span></span>
+<span>  <span class="fl">99</span><span class="op">-</span><span class="va">publish.Rmd</span></span>
+<span>  <span class="va">README.Rmd</span></span></code></pre>
 <p>The naming here is arbitrary, projthis does not compel you to follow it. By default, projthis renders RMarkdown files in alphabetical order, with <code>README.Rmd</code> last. To specify a custom order, you can put a <code>_projthis.yml</code> file in the root of the workflow directory; see <code><a href="../reference/proj_workflow_render.html">proj_workflow_render()</a></code> for details.</p>
 <p>There are some rules governing the use of subdirectories of <code>data/</code>:</p>
 <ul>
@@ -135,10 +131,10 @@
 </ul>
 <p>Using externally-accessible sites (e.g. Google Drive) from which to import data would make your workflow portable. To run your workflow on other computers, you would have to ensure access (credentials, etc.) to the external sites.</p>
 <p>Similarly, you may wish to use the <code>99-publish.Rmd</code> file to post your “finished” data to an external site.</p>
-<p>The purpose here is to provide a simple way to manage the dependencies within a workflow. As your project advances, you may need a more sophisticated approach; <a href="https://docs.ropensci.org/targets/">targets</a> (successor to <a href="https://docs.ropensci.org/drake/">drake</a>) gives you much more control to specify the dependencies within your project.</p>
-<div id="implementation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#implementation" class="anchor"></a>Implementation</h4>
+<p>The purpose here is to provide a simple way to manage the dependencies within a workflow. As your project advances, you may need a more sophisticated approach; <a href="https://docs.ropensci.org/targets/" class="external-link">targets</a> (successor to <a href="https://docs.ropensci.org/drake/" class="external-link">drake</a>) gives you much more control to specify the dependencies within your project.</p>
+<div class="section level4">
+<h4 id="implementation">Implementation<a class="anchor" aria-label="anchor" href="#implementation"></a>
+</h4>
 <p>There’s a set of functions to manage workflows:</p>
 <ul>
 <li>
@@ -161,40 +157,40 @@
 <li>
 <code><a href="../reference/proj_path_target.html">proj_path_target()</a></code>: function factory, creates function to access target paths.</li>
 <li>
-<code><a href="../reference/proj_dir_info.html">proj_dir_info()</a></code>: get concise version of data returned from <code><a href="http://fs.r-lib.org/reference/dir_ls.html">fs::dir_info()</a></code>.</li>
+<code><a href="../reference/proj_dir_info.html">proj_dir_info()</a></code>: get concise version of data returned from <code><a href="https://fs.r-lib.org/reference/dir_ls.html" class="external-link">fs::dir_info()</a></code>.</li>
 </ul>
 <p>The function <code><a href="../reference/proj_create_dir_target.html">proj_create_dir_target()</a></code> has an argument <code>clean</code> which defaults to <code>TRUE</code>. Its purpose is to indicate if an existing target directory is to be deleted before it is created.</p>
 <p>There is one situation where I think it useful to specify <code>clean</code> as <code>FALSE</code>. Let’s say that the external source used by your <code>00-import.Rmd</code> file is a collection of daily files, with a new file added every day. You may not wish to download <em>all</em> the files, every time the workflow is rendered.</p>
 <p>The functions <code><a href="../reference/proj_path_target.html">proj_path_source()</a></code> and <code><a href="../reference/proj_path_target.html">proj_path_target()</a></code> are function factories; they return functions. Within an RMarkdown file, you would use these returned functions to access paths in your source directories and your target directory.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># path_source and path_target will be functions</span>
-<span class="va">path_source</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/proj_path_target.html">proj_path_source</a></span><span class="op">(</span><span class="st">"01-do-stuff"</span><span class="op">)</span>
-<span class="va">path_target</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/proj_path_target.html">proj_path_target</a></span><span class="op">(</span><span class="st">"01-do-stuff"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># path_source and path_target will be functions</span></span>
+<span><span class="va">path_source</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/proj_path_target.html">proj_path_source</a></span><span class="op">(</span><span class="st">"01-do-stuff"</span><span class="op">)</span></span>
+<span><span class="va">path_target</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/proj_path_target.html">proj_path_target</a></span><span class="op">(</span><span class="st">"01-do-stuff"</span><span class="op">)</span></span></code></pre></div>
 <p>These function factories each take a single argument, <code>name</code>, which shall correspond to the basename of the RMarkdown file that uses it. The boilerplate code to support this is included in the template used with <code><a href="../reference/proj_workflow_use_rmd.html">proj_workflow_use_rmd()</a></code>.</p>
-<p>In the rest of your RMarkdown file, you can use <code>path_source()</code> and <code>path_target()</code> in a similar way as you use <code><a href="https://here.r-lib.org//reference/here.html">here::here()</a></code>: they provide you with locally-valid fully-qualified paths to the workflow’s <code>data/</code> directory.</p>
+<p>In the rest of your RMarkdown file, you can use <code>path_source()</code> and <code>path_target()</code> in a similar way as you use <code><a href="https://here.r-lib.org//reference/here.html" class="external-link">here::here()</a></code>: they provide you with locally-valid fully-qualified paths to the workflow’s <code>data/</code> directory.</p>
 <p><code>path_source()</code> validates that the path requested is <strong>earlier</strong> in the workflow than the <code>name</code> used in the function factory; <code>path_target()</code> uses the <code>name</code> to help form the path:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># returns: "/path/to/this/workflow/00-import/raw-data.csv"</span>
-<span class="fu">path_source</span><span class="op">(</span><span class="st">"00-import"</span>, <span class="st">"raw-data.csv"</span><span class="op">)</span> 
-
-<span class="co"># throws error because this path is not earlier than "01-do-stuff"</span>
-<span class="fu">path_source</span><span class="op">(</span><span class="st">"02-do-more-stuff"</span>, <span class="st">"tidy-data.csv"</span><span class="op">)</span> 
-
-<span class="co"># returns: "/path/to/this/workflow/01-do-stuff/clean-data.csv"</span>
-<span class="fu">path_target</span><span class="op">(</span><span class="st">"clean-data.csv"</span><span class="op">)</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="co"># returns: "/path/to/this/workflow/00-import/raw-data.csv"</span></span>
+<span><span class="fu">path_source</span><span class="op">(</span><span class="st">"00-import"</span>, <span class="st">"raw-data.csv"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># throws error because this path is not earlier than "01-do-stuff"</span></span>
+<span><span class="fu">path_source</span><span class="op">(</span><span class="st">"02-do-more-stuff"</span>, <span class="st">"tidy-data.csv"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># returns: "/path/to/this/workflow/01-do-stuff/clean-data.csv"</span></span>
+<span><span class="fu">path_target</span><span class="op">(</span><span class="st">"clean-data.csv"</span><span class="op">)</span> </span></code></pre></div>
 </div>
 </div>
-<div id="description-file" class="section level3">
-<h3 class="hasAnchor">
-<a href="#description-file" class="anchor"></a>DESCRIPTION file</h3>
+<div class="section level3">
+<h3 id="description-file">DESCRIPTION file<a class="anchor" aria-label="anchor" href="#description-file"></a>
+</h3>
 <p>For package development and deployment, the DESCRIPTION file is used to manage dependencies. Part of the CRAN “contract” dictates that your “stuff” work as you expect with the current CRAN versions of your dependencies (I realize I am being a little loose with terminology, but you get the idea).</p>
 <p>This idea is extended to workflows: to declare all the dependencies in a DESCRIPTION file. This requires you to be open to the possibility (probability?) that you may have to amend your workflow in response to changes in packages. If this is intended to be a “living” workflow, perhaps this is not too much of an imposition.</p>
-<p>Further, this package uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html">remotes::install_deps()</a></code> to install dependencies. The <code>Remotes</code> field can be used to specify GitHub and private repositories; this package does not have the means to populate the <code>Remotes</code> field, so the analysis developer will have to do this manually. Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.</p>
-<p>The purpose here is to provide a simple way to manage a project’s package-dependencies. As your project advances, you may need a more sophisticated approach; <a href="https://rstudio.github.io/renv/">renv</a> gives you much more control to specify fixed versions of packages to use.</p>
-<div id="implementation-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#implementation-1" class="anchor"></a>Implementation</h4>
+<p>Further, this package uses <code><a href="https://remotes.r-lib.org/reference/install_deps.html" class="external-link">remotes::install_deps()</a></code> to install dependencies. The <code>Remotes</code> field can be used to specify GitHub and private repositories; this package does not have the means to populate the <code>Remotes</code> field, so the analysis developer will have to do this manually. Of course, it also remains the responsibility of the analysis developer to ensure that the analysis stays current with these package dependencies.</p>
+<p>The purpose here is to provide a simple way to manage a project’s package-dependencies. As your project advances, you may need a more sophisticated approach; <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> gives you much more control to specify fixed versions of packages to use.</p>
+<div class="section level4">
+<h4 id="implementation-1">Implementation<a class="anchor" aria-label="anchor" href="#implementation-1"></a>
+</h4>
 <ul>
 <li>
 <code><a href="../reference/proj_create.html">proj_create()</a></code>: creates a new RStudio project with a DESCRIPTION file.</li>
@@ -209,24 +205,24 @@
 </ul>
 </div>
 </div>
-<div id="github-actions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#github-actions" class="anchor"></a>GitHub Actions</h3>
+<div class="section level3">
+<h3 id="github-actions">GitHub Actions<a class="anchor" aria-label="anchor" href="#github-actions"></a>
+</h3>
 <p>The idea with Github Actions is to automate your workflow. To render a workflow on a new computer (which is what Actions does), you need to do two things:</p>
 <ol style="list-style-type: decimal">
 <li>Install your package dependencies, as listed in your DESCRIPTION file.</li>
 <li>Render your workflow, using <code><a href="../reference/proj_workflow_render.html">proj_workflow_render()</a></code>.</li>
 </ol>
-<p>These steps are included in an template GitHub action; you can add it to your project using <code><a href="../reference/proj_workflow_use_action.html">proj_workflow_use_action()</a></code>. This action is put together using actions compiled in r-lib’s <a href="https://github.com/r-lib/actions/">actions</a> repository, developed by Jim Hester.</p>
+<p>These steps are included in an template GitHub action; you can add it to your project using <code><a href="../reference/proj_workflow_use_action.html">proj_workflow_use_action()</a></code>. This action is put together using actions compiled in r-lib’s <a href="https://github.com/r-lib/actions/" class="external-link">actions</a> repository, developed by Jim Hester.</p>
 <p>There are a few things you may have to customize for your particular workflow:</p>
 <ul>
 <li>specify the trigger(s) that launch the action: this could be an RMarkdown file being pushed, and/or a schedule, and/or something else.</li>
 <li>specify the workflow(s) to be rendered: there is no reason there can’t be more than one workflow in a project.</li>
 <li>specify what, if any, files should be committed back into the git repository.</li>
 </ul>
-<div id="implementation-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#implementation-2" class="anchor"></a>Implementation</h4>
+<div class="section level4">
+<h4 id="implementation-2">Implementation<a class="anchor" aria-label="anchor" href="#implementation-2"></a>
+</h4>
 <ul>
 <li>
 <code><a href="../reference/proj_workflow_use_action.html">proj_workflow_use_action()</a></code>: install a GitHub Action from a template.</li>
@@ -234,16 +230,16 @@
 </div>
 </div>
 </div>
-<div id="supporting-ideas" class="section level2">
-<h2 class="hasAnchor">
-<a href="#supporting-ideas" class="anchor"></a>Supporting ideas</h2>
+<div class="section level2">
+<h2 id="supporting-ideas">Supporting ideas<a class="anchor" aria-label="anchor" href="#supporting-ideas"></a>
+</h2>
 <p>There’s a few other ideas this package provokes that do not fit neatly into the earlier sections.</p>
-<div id="grow-into-a-package" class="section level3">
-<h3 class="hasAnchor">
-<a href="#grow-into-a-package" class="anchor"></a>Grow into a package?</h3>
-<p>The project structure suggested by this framework leaves open the possibility that a given workflow project could grow into a package. You could motivate a package by solving a particular problem, then generalize the code from the workflow into that package. This approach is suggested by Sharla Gelfand, first in a <a href="https://sharla.party/post/usethis-for-reporting/">blog post</a>, then in an <a href="https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/">rstudio::conf() presentation</a>, and by Emily Reiderer, also in a <a href="https://emilyriederer.netlify.app/post/rmarkdown-driven-development/">blog post</a> and an <a href="https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/">rstudio::conf() presentation</a>.</p>
+<div class="section level3">
+<h3 id="grow-into-a-package">Grow into a package?<a class="anchor" aria-label="anchor" href="#grow-into-a-package"></a>
+</h3>
+<p>The project structure suggested by this framework leaves open the possibility that a given workflow project could grow into a package. You could motivate a package by solving a particular problem, then generalize the code from the workflow into that package. This approach is suggested by Sharla Gelfand, first in a <a href="https://sharla.party/post/usethis-for-reporting/" class="external-link">blog post</a>, then in an <a href="https://rstudio.com/resources/rstudioconf-2020/don-t-repeat-yourself-talk-to-yourself-repeated-reporting-in-the-r-universe/" class="external-link">rstudio::conf() presentation</a>, and by Emily Reiderer, also in a <a href="https://emilyriederer.netlify.app/post/rmarkdown-driven-development/" class="external-link">blog post</a> and an <a href="https://rstudio.com/resources/rstudioconf-2020/rmarkdown-driven-development/" class="external-link">rstudio::conf() presentation</a>.</p>
 <p>You would already have a set of “right” answers that you could use to verify that your package code is working; this could become the basis of your package-testing. Your workflow could be used as the basis of vignettes and other package documentation.</p>
-<p>To keep this as a possibility, you have to give the project a legal package-name, i.e. no dashes or underscores. You can put R code into the <code>R</code> folder, just as you would with regular package-code. Following Hadley Wickham’s and Jenny Bryan’s advice (conveniently compiled in their <a href="https://r-pkgs.org/">R Packages</a> book):</p>
+<p>To keep this as a possibility, you have to give the project a legal package-name, i.e. no dashes or underscores. You can put R code into the <code>R</code> folder, just as you would with regular package-code. Following Hadley Wickham’s and Jenny Bryan’s advice (conveniently compiled in their <a href="https://r-pkgs.org/" class="external-link">R Packages</a> book):</p>
 <ul>
 <li>hit the “Install and Restart” button before rendering a workflow</li>
 <li>hit the “Check” button early and often</li>
@@ -251,25 +247,25 @@
 <p>The template GitHub Action includes a step to install the local project as a package, it just needs to be uncommented.</p>
 <p>As you develop a package alongside a workflow, it may lead to parting-of-the-ways between the workflow and its attached package. This represents success.</p>
 </div>
-<div id="github_document-the-little-format-that-could" class="section level3">
-<h3 class="hasAnchor">
-<a href="#github_document-the-little-format-that-could" class="anchor"></a>github_document: the little format that could</h3>
-<p>The template provided with <code><a href="../reference/proj_workflow_use_rmd.html">proj_workflow_use_rmd()</a></code> uses <code>github_document</code> as its output format. I think that the <code>github_document</code> format is tremendously useful; Jenny Bryan discusses this in her <a href="https://happygitwithr.com/workflows-browsability.html">Happy Git with R</a> book:</p>
+<div class="section level3">
+<h3 id="github_document-the-little-format-that-could">github_document: the little format that could<a class="anchor" aria-label="anchor" href="#github_document-the-little-format-that-could"></a>
+</h3>
+<p>The template provided with <code><a href="../reference/proj_workflow_use_rmd.html">proj_workflow_use_rmd()</a></code> uses <code>github_document</code> as its output format. I think that the <code>github_document</code> format is tremendously useful; Jenny Bryan discusses this in her <a href="https://happygitwithr.com/workflows-browsability.html" class="external-link">Happy Git with R</a> book:</p>
 <ul>
-<li><p>You can browse the workflow on the GitHub website itself; here’s an <a href="https://github.com/ijlyttle/covidStates/tree/master/workflow">example</a>. For private repositories, the workflow remains equally browsable for those with permission.</p></li>
-<li><p>You can publish (and theme) a website site using GitHub Pages, here’s the <a href="https://ijlyttle.github.io/covidStates/workflow/">same example</a>. Keep in mind that if you publish using GitHub Pages, the site is public even if your repository is private.</p></li>
-<li><p>Plays well with ggplot2 graphics; it <a href="https://ijlyttle.github.io/covidStates/">looks good</a>.</p></li>
+<li><p>You can browse the workflow on the GitHub website itself; here’s an <a href="https://github.com/ijlyttle/covidStates/tree/master/workflow" class="external-link">example</a>. For private repositories, the workflow remains equally browsable for those with permission.</p></li>
+<li><p>You can publish (and theme) a website site using GitHub Pages, here’s the <a href="https://ijlyttle.github.io/covidStates/workflow/" class="external-link">same example</a>. Keep in mind that if you publish using GitHub Pages, the site is public even if your repository is private.</p></li>
+<li><p>Plays well with ggplot2 graphics; it <a href="https://ijlyttle.github.io/covidStates/" class="external-link">looks good</a>.</p></li>
 </ul>
 </div>
 </div>
-<div id="summary" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summary" class="anchor"></a>Summary</h2>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
 <p>This package is meant to help you make a first start with project workflows. That said, there are wonderful comprehensive tools out there that support:</p>
 <ul>
-<li>package dependencies, e.g. <a href="https://rstudio.github.io/renv/index.html">renv</a>.</li>
-<li>workflow dependencies, e.g. <a href="https://docs.ropensci.org/targets/">targets</a>.</li>
-<li>RMarkdown formats, e.g. the whole <a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown universe</a>.</li>
+<li>package dependencies, e.g. <a href="https://rstudio.github.io/renv/index.html" class="external-link">renv</a>.</li>
+<li>workflow dependencies, e.g. <a href="https://docs.ropensci.org/targets/" class="external-link">targets</a>.</li>
+<li>RMarkdown formats, e.g. the whole <a href="https://bookdown.org/yihui/rmarkdown/" class="external-link">RMarkdown universe</a>.</li>
 </ul>
 <p>As you get a handle on a particular workflow, it may make sense to implement one of these more-comprehensive tools; this represents success. In the end, the goal of this package is to help you get your workflow off the ground, to give it a chance to grow robustly so that it can figure out what, ultimately, it really is.</p>
 </div>
@@ -286,11 +282,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Ian J Lyttle.</p>
+  <p></p>
+<p>Developed by Ian J Lyttle.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -298,6 +296,8 @@
 
   
 
+
+  
 
   </body>
 </html>
