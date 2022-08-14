@@ -85,11 +85,11 @@ jobs:
         shell: Rscript {0}
 
       # adapt this step to build your project
-      - name: Render workflow
+      - name: Render
         # - uncomment and adapt the call to `projthis::proj_workflow_render()`
         # - to run another workflow, add another call
         run: |
-          # projthis::proj_workflow_render("workflow")
+          rmarkdown::render("README.Rmd")
         shell: Rscript {0}
 
       # adapt this step to deploy your project
@@ -100,6 +100,6 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add -u
+          git add 'README.md'
           git commit -m "updated by Actions" || echo "No changes to commit"
           git push || echo "No changes to commit"

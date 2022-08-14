@@ -1,6 +1,6 @@
 Package: projthis
 Title: Lightweight Framework for Analysis Development
-Version: 0.0.0.9024
+Version: 0.0.0.9025
 Authors@R: 
   c(
     person(given = "Ian J",

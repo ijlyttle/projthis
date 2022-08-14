@@ -320,7 +320,7 @@ proj_workflow_use_action <- function(name = "project-workflow", save_as = NULL,
                                      ignore = TRUE, open = TRUE) {
 
   url_base <-
-    "https://raw.githubusercontent.com/ijlyttle/projthis/master/github_action_examples"
+    "https://raw.githubusercontent.com/ijlyttle/projthis/main/github_action_examples"
 
   url <- glue::glue("{url_base}/{name}.yaml")
 
